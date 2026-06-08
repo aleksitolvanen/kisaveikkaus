@@ -1,0 +1,178 @@
+VEIKKAUSEHDOTUS — JALKAPALLON MM-KISAT 2026
+============================================
+Pohjautuu lohkokohtaiseen analyysiin (FIFA-rankingit, muoto, avainpelaajat,
+korttitaipumukset). Pudotuspelipolku rakennettu oikeaan FIFA-kaavioon, joten
+koko ketju on toteutuskelpoinen yhtä aikaa (= kaikki voi mennä oikein).
+
+HUOM:
+- Tarkista koti/vieras-suunta omasta Tulokset-taulukosta ennen kopiointia
+  (tarkka tulos 3p riippuu kummin päin ottelu on listattu).
+- Nämä ovat "todennäköisin yksittäinen veikkaus" -arvauksia; tasapeleihin ja
+  altavastaajavoittoihin liittyy iso varianssi.
+
+
+1) LOHKO-OTTELUIDEN TULOKSET (72 ottelua)
+==========================================
+
+LOHKO A
+  Meksiko–Etelä-Afrikka      2–0
+  Meksiko–Tšekki             2–1
+  Meksiko–Etelä-Korea        1–1
+  Etelä-Afrikka–Tšekki       1–2
+  Etelä-Afrikka–Etelä-Korea  0–2
+  Tšekki–Etelä-Korea         1–1
+  Taulukko: 1. Meksiko 7p  2. Etelä-Korea 5p  3. Tšekki 4p  4. Etelä-Afrikka 0p
+
+LOHKO B
+  Kanada–Sveitsi             1–2
+  Kanada–Qatar               2–0
+  Kanada–Bosnia              1–1
+  Sveitsi–Qatar              2–0
+  Sveitsi–Bosnia             1–0
+  Qatar–Bosnia               1–2
+  Taulukko: 1. Sveitsi 9p  2. Kanada 4p  3. Bosnia 4p  4. Qatar 0p
+
+LOHKO C
+  Brasilia–Marokko           1–1
+  Brasilia–Skotlanti         2–0
+  Brasilia–Haiti             3–0
+  Marokko–Skotlanti          2–1
+  Marokko–Haiti              2–0
+  Skotlanti–Haiti            2–1
+  Taulukko: 1. Brasilia 7p  2. Marokko 7p  3. Skotlanti 3p  4. Haiti 0p
+
+LOHKO D
+  Yhdysvallat–Turkki         1–1
+  Yhdysvallat–Paraguay       2–1
+  Yhdysvallat–Australia      2–0
+  Turkki–Paraguay            2–1
+  Turkki–Australia           2–1
+  Paraguay–Australia         1–1
+  Taulukko: 1. Yhdysvallat 7p  2. Turkki 7p  3. Paraguay 1p  4. Australia 1p
+
+LOHKO E
+  Saksa–Ecuador              2–0
+  Saksa–Norsunluurannikko    2–1
+  Saksa–Curaçao              3–0
+  Ecuador–Norsunluurannikko  1–0
+  Ecuador–Curaçao            2–0
+  Norsunluurannikko–Curaçao  2–0
+  Taulukko: 1. Saksa 9p  2. Ecuador 6p  3. Norsunluurannikko 3p  4. Curaçao 0p
+
+LOHKO F
+  Alankomaat–Japani          2–1
+  Alankomaat–Ruotsi          2–1
+  Alankomaat–Tunisia         2–0
+  Japani–Ruotsi              2–1
+  Japani–Tunisia             1–0
+  Ruotsi–Tunisia             2–1
+  Taulukko: 1. Alankomaat 9p  2. Japani 6p  3. Ruotsi 3p  4. Tunisia 0p
+
+LOHKO G
+  Belgia–Egypti              2–0
+  Belgia–Iran                2–0
+  Belgia–Uusi-Seelanti       3–0
+  Egypti–Iran                1–0
+  Egypti–Uusi-Seelanti       2–0
+  Iran–Uusi-Seelanti         1–1
+  Taulukko: 1. Belgia 9p  2. Egypti 6p  3. Iran 1p  4. Uusi-Seelanti 1p
+
+LOHKO H
+  Espanja–Uruguay            1–1
+  Espanja–Saudi-Arabia       3–0
+  Espanja–Kap Verde          3–0
+  Uruguay–Saudi-Arabia       2–0
+  Uruguay–Kap Verde          2–0
+  Saudi-Arabia–Kap Verde     1–2
+  Taulukko: 1. Espanja 7p  2. Uruguay 7p  3. Kap Verde 3p  4. Saudi-Arabia 0p
+
+LOHKO I
+  Ranska–Senegal             2–1
+  Ranska–Norja               2–1
+  Ranska–Irak                2–0
+  Senegal–Norja              1–2
+  Senegal–Irak               2–0
+  Norja–Irak                 3–0
+  Taulukko: 1. Ranska 9p  2. Norja 6p  3. Senegal 3p  4. Irak 0p
+
+LOHKO J
+  Argentiina–Itävalta        2–1
+  Argentiina–Algeria         2–0
+  Argentiina–Jordania        3–0
+  Itävalta–Algeria           1–0
+  Itävalta–Jordania          2–0
+  Algeria–Jordania           2–0
+  Taulukko: 1. Argentiina 9p  2. Itävalta 6p  3. Algeria 3p  4. Jordania 0p
+
+LOHKO K
+  Portugali–Kolumbia         1–0
+  Portugali–Kongon DT        3–0
+  Portugali–Uzbekistan       2–0
+  Kolumbia–Kongon DT         2–0
+  Kolumbia–Uzbekistan        2–1
+  Kongon DT–Uzbekistan       1–1
+  Taulukko: 1. Portugali 9p  2. Kolumbia 6p  3. Uzbekistan 1p  4. Kongon DT 1p
+
+LOHKO L
+  Englanti–Kroatia           2–0
+  Englanti–Ghana             2–0
+  Englanti–Panama            3–0
+  Kroatia–Ghana              1–1
+  Kroatia–Panama             2–0
+  Ghana–Panama               1–0
+  Taulukko: 1. Englanti 9p  2. Kroatia 4p  3. Ghana 4p  4. Panama 0p
+
+
+2) JATKOONPÄÄSIJÄT (johdonmukainen polku — kaikki voi mennä oikein)
+====================================================================
+
+Parhaat kolmossijat (8/12 jatkoon), järjestys pisteet > maaliero > tehdyt maalit:
+  JATKOON:  Tšekki (A), Bosnia (B), Ghana (L), Ruotsi (F), Senegal (I),
+            Norsunluurannikko (E), Skotlanti (C), Algeria (J)
+  PUTOAA:   Kap Verde (H, 9.), Paraguay (D), Uzbekistan (K), Iran (G)
+
+NELJÄNNESVÄLIERÄT (8 joukkuetta, 4p/kpl):
+  Ranska · Alankomaat · Brasilia · Englanti · Espanja · Belgia · Argentiina · Portugali
+
+VÄLIERÄT (4 joukkuetta, 8p/kpl):
+  Espanja · Argentiina · Ranska · Brasilia
+
+FINALISTIT (2 joukkuetta, 15p/kpl):
+  Espanja ja Argentiina
+
+MESTARI (30p):
+  ESPANJA (turnauksen ennakkosuosikki)
+
+R16:n 16 joukkuetta (2p/kpl):
+  Etelä-Korea, Saksa, Alankomaat, Brasilia, Ranska, Norja, Meksiko, Englanti,
+  Yhdysvallat, Belgia, Kolumbia, Espanja, Sveitsi, Argentiina, Portugali, Turkki
+
+Koko kaaviopolku (R32-voittaja → R16 → QF → SF → finaali):
+  M89 Saksa–Ranska              -> Ranska   -> QF Ranska–Alankomaat -> Ranska   -> SF Ranska–Espanja    -> Espanja
+  M90 Etelä-Korea–Alankomaat    -> Alankomaat
+  M91 Brasilia–Norja            -> Brasilia -> QF Brasilia–Englanti -> Brasilia -> SF Brasilia–Argentiina-> Argentiina
+  M92 Meksiko–Englanti          -> Englanti
+  M93 Kolumbia–Espanja          -> Espanja  -> QF Espanja–Belgia    -> Espanja
+  M94 Yhdysvallat–Belgia        -> Belgia
+  M95 Argentiina–Turkki         -> Argentiina-> QF Argentiina–Portugali -> Argentiina
+  M96 Sveitsi–Portugali         -> Portugali
+  FINAALI: Espanja–Argentiina   -> ESPANJA (mestari)
+
+
+3) PARAS MAALINTEKIJÄ
+=====================
+  VALINTA: Kylian Mbappé (Ranska) — Golden Bootin suosikki. Huippumaalivauhti
+           + Ranska pelaa todennäköisesti 6–7 ottelua + ykkösrankkari.
+  Vaihtoehdot: Harry Kane (Englanti) varma tykittäjä; Mikel Oyarzabal (Espanja)
+               arvopeli mestarisuosikin rankkarina.
+  ÄLÄ valitse Haalandia tähän pooliin: Norja putoaa todennäköisesti aikaisin
+  (vain ~3–4 ottelua).
+
+
+4) SIKAJENGI (eniten kortteja, vain lohkovaihe)
+================================================
+  VALINTA: Saudi-Arabia — ennätys eniten keltaisia MM-lohkovaiheessa (14 korttia,
+           2022). Altavastaaja Espanjaa ja Uruguayta vastaan -> puolustaa ja
+           taklaa koko lohkon. Putoaminen ei haittaa (lasketaan vain lohkovaihe).
+  Vaihtoehto: Uruguay (Bielsan prässi + garra charrúa, historiallisesti
+              korttirikkaimpia maita).
