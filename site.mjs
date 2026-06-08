@@ -218,17 +218,21 @@ function dayKey(d){ function p(n){ return (n<10?'0':'')+n; } return d.getFullYea
 function renderSchedule(){
   var box=$('#schedule'); box.innerHTML='';
   var seg=el('div','seg');
-  [['today','Tänään'],['tomorrow','Huomenna'],['all','Kaikki']].forEach(function(o){
+  [['today','Tänään'],['tomorrow','Huomenna'],['upcoming','Tulevat'],['all','Kaikki']].forEach(function(o){
     var b=el('button', state.dayFilter===o[0]?'on':null, o[1]);
     b.onclick=function(){ state.dayFilter=o[0]; renderSchedule(); };
     seg.appendChild(b);
   });
   box.appendChild(seg);
   var list=el('div'); box.appendChild(list);
-  var df=state.dayFilter;
-  var want = df==='today'? dayKey(new Date()) : df==='tomorrow'? dayKey(new Date(Date.now()+86400000)) : null;
-  var ms = T.matches.filter(function(m){ return want==null || (m.kickoff && m.kickoff.slice(0,10)===want); });
-  if(!ms.length){ list.appendChild(el('div','hint', df==='today'?'Ei otteluita tänään.':'Ei otteluita huomenna.')); return; }
+  var df=state.dayFilter, now=new Date();
+  var ms;
+  if(df==='today') ms=T.matches.filter(function(m){ return m.kickoff && m.kickoff.slice(0,10)===dayKey(now); });
+  else if(df==='tomorrow') ms=T.matches.filter(function(m){ return m.kickoff && m.kickoff.slice(0,10)===dayKey(new Date(Date.now()+86400000)); });
+  else if(df==='upcoming') ms=T.matches.filter(function(m){ return m.kickoff && new Date(m.kickoff) > now; });
+  else ms=T.matches;
+  if(!ms.length){ list.appendChild(el('div','hint',
+    df==='today'?'Ei otteluita tänään.':df==='tomorrow'?'Ei otteluita huomenna.':df==='upcoming'?'Ei tulevia otteluita.':'Ei otteluita.')); return; }
   if(df==='all'){
     var by={}; ms.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
     Object.keys(by).forEach(function(g){
