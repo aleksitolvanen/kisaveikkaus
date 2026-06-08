@@ -137,11 +137,14 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 
 const CLIENT = String.raw`
 const KV = JSON.parse(document.getElementById('kv').textContent);
-const T = KV.tournament, P = KV.predictions, R = KV.results;
+let T = KV.tournament, R = KV.results; const P = KV.predictions;  // T,R päivittyvät pollauksessa
 const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
-const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
+let ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (päivittyy pollauksessa)
+// Mistä tuore data haetaan ilman sivun reloadia. Oletus: sama origin ('data.json').
+// Voi osoittaa erilliseen lähteeseen (R2/data-repo) → sivua ei tarvitse deployata datan muuttuessa.
+var DATA_URL = 'data.json';
 const savedUI = loadUI();
 const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
@@ -625,6 +628,21 @@ function show(v){
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
 renderSchedule();
 show(state.view);
+
+// Live-päivitys ilman reloadia: hae data jaetusta lähteestä ~60 s välein,
+// päivitä näkymä jos tulokset/otteluohjelma muuttuivat (UI-tila + skrolli säilyy).
+function refreshFromServer(){
+  if(typeof document!=='undefined' && document.hidden) return;
+  fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+    if(!d||!d.results||!d.tournament) return;
+    if(JSON.stringify(d.results)===JSON.stringify(R)
+       && JSON.stringify(d.tournament.matches)===JSON.stringify(T.matches)
+       && JSON.stringify(d.tournament.knockout||[])===JSON.stringify(T.knockout||[])) return;
+    T=d.tournament; R=d.results; ALLROWS=scoreAll(P,R,T); state.odds=null;
+    renderSchedule(); rerender();
+  }).catch(function(){});
+}
+if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:') setInterval(refreshFromServer, 60000);
 `;
 
 const html = `<!doctype html>
@@ -670,3 +688,8 @@ if (prev === html) {
   await writeFile(out, html, "utf-8");
   console.log(`Kirjoitettu ${out} (${(html.length / 1024).toFixed(1)} kt) · ${tid}`);
 }
+
+// Tuore data erilliseen tiedostoon live-pollausta varten (selain hakee tämän ~60 s
+// välein ja päivittää näkymän ilman reloadia). Header estää välimuistituksen.
+await writeFile(path.join("site", "data.json"), JSON.stringify({ tournament, predictions, results }), "utf-8");
+await writeFile(path.join("site", "_headers"), "/data.json\n  Cache-Control: no-store\n", "utf-8");
