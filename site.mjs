@@ -70,6 +70,8 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
   font-size:12px;font-weight:600;cursor:pointer;line-height:1.2}
 .seg button.on{background:var(--accent);color:#04121f}
 .grp{margin:14px 0 6px;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.5px}
+.kohdr{margin:20px 0 6px;font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;border-top:1px solid var(--line);padding-top:14px}
+.match.noexp{cursor:default}
 .mcell{margin-bottom:6px}
 .match{display:grid;grid-template-columns:auto auto 1fr auto;gap:8px 12px;align-items:center;cursor:pointer;
   padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
@@ -248,9 +250,9 @@ function matchDetail(m){
   });
   return d;
 }
-function matchCell(m){
-  var cell=el('div','mcell'), row=el('div','match');
-  row.appendChild(el('span','chev','▶'));
+function matchCell(m, ko){
+  var cell=el('div','mcell'), row=el('div','match'+(ko?' noexp':''));
+  row.appendChild(el('span','chev', ko?'':'▶'));
   var left=el('div');
   var tdiv=el('div','teams',m.home+' – '+m.away); tdiv.title=pairTitle(m.home,m.away); left.appendChild(tdiv);
   left.appendChild(el('div','time', fiTime(m.kickoff) || m.timeLabel || ''));
@@ -259,8 +261,9 @@ function matchCell(m){
   if(m.url){ var a=document.createElement('a'); a.className='fifalink'; a.textContent='FIFA ↗';
     a.href=m.url; a.target='_blank'; a.rel='noopener noreferrer'; a.onclick=function(e){ e.stopPropagation(); }; row.appendChild(a); }
   else row.appendChild(el('span'));
-  var res=(R.matches||{})[m.id];
+  var res = ko ? m.score : (R.matches||{})[m.id];
   row.appendChild(el('div','res'+(res?'':' none'), res||'–'));
+  if(ko){ cell.appendChild(row); return cell; }          // pudotuspelit eivät laajene (ei per-matsi-veikkauksia)
   var det=matchDetail(m); det.style.display='none';
   row.onclick=function(){ var open=det.style.display==='none'; det.style.display=open?'':'none'; row.classList.toggle('open',open); };
   cell.appendChild(row); cell.appendChild(det); return cell;
@@ -287,19 +290,30 @@ function renderSchedule(){
   var list=el('div'); box.appendChild(list);
   var df=state.dayFilter, now=new Date();
   var todayK=fiDayKey(now.toISOString()), tmrK=fiDayKey(new Date(Date.now()+86400000).toISOString());
-  var ms;
-  if(df==='today') ms=T.matches.filter(function(m){ return m.kickoff && fiDayKey(m.kickoff)===todayK; });
-  else if(df==='tomorrow') ms=T.matches.filter(function(m){ return m.kickoff && fiDayKey(m.kickoff)===tmrK; });
-  else if(df==='upcoming') ms=T.matches.filter(function(m){ return m.kickoff && new Date(m.kickoff) > now; });
-  else ms=T.matches;
-  if(!ms.length){ list.appendChild(el('div','hint',
-    df==='today'?'Ei otteluita tänään.':df==='tomorrow'?'Ei otteluita huomenna.':df==='upcoming'?'Ei tulevia otteluita.':'Ei otteluita.')); return; }
-  // Aina lohkoittain (A–L), lohkon sisällä aikajärjestyksessä.
+  function keep(m){ if(df==='all') return true; if(!m.kickoff) return false;
+    if(df==='today') return fiDayKey(m.kickoff)===todayK;
+    if(df==='tomorrow') return fiDayKey(m.kickoff)===tmrK;
+    return new Date(m.kickoff)>now; }  // upcoming
+  var ms = T.matches.filter(keep), ko = (T.knockout||[]).filter(keep);
+  if(!ms.length && !ko.length){ list.appendChild(el('div','hint',
+    df==='today'?'Ei otteluita tänään.':df==='tomorrow'?'Ei otteluita huomenna.':df==='upcoming'?'Ei tulevia otteluita.':'Ei otteluita.'));
+    trackScroll($('#view-schedule'),'schedule:'+state.dayFilter); return; }
+  // Lohkot (A–L), lohkon sisällä aikajärjestyksessä.
   var by={}; ms.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
   Object.keys(by).sort().forEach(function(g){
     list.appendChild(el('div','grp','LOHKO '+g));
     by[g].forEach(function(m){ list.appendChild(matchCell(m)); });
   });
+  // Pudotuspelit lohkojen jälkeen, kierroksittain.
+  if(ko.length){
+    list.appendChild(el('div','kohdr','PUDOTUSPELIT'));
+    var byR={}; ko.forEach(function(m){ (byR[m.round]=byR[m.round]||[]).push(m); });
+    ['r32','r16','qf','sf','bronze','final'].forEach(function(rk){
+      if(!byR[rk]) return;
+      list.appendChild(el('div','grp', byR[rk][0].roundLabel));
+      byR[rk].forEach(function(m){ list.appendChild(matchCell(m, true)); });
+    });
+  }
   trackScroll($('#view-schedule'),'schedule:'+state.dayFilter);
 }
 

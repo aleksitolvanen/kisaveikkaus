@@ -20,7 +20,16 @@ const FIFA = {
   idCompetition: "17",
   idSeason: "285023",
   from: "2026-06-11T00:00:00Z",
-  to: "2026-06-30T00:00:00Z", // lohkovaihe (viim. ottelut ~27.6)
+  to: "2026-07-20T00:00:00Z", // koko turnaus (finaali 19.7)
+};
+// Pudotuspelikierrokset (StageName -> avain/label/järjestys)
+const KO_ROUNDS = {
+  "Round of 32": { key: "r32", label: "1/16-finaali", order: 1 },
+  "Round of 16": { key: "r16", label: "1/8-finaali", order: 2 },
+  "Quarter-final": { key: "qf", label: "Puolivälierä", order: 3 },
+  "Semi-final": { key: "sf", label: "Välierä", order: 4 },
+  "Play-off for third place": { key: "bronze", label: "Pronssiottelu", order: 5 },
+  "Final": { key: "final", label: "Finaali", order: 6 },
 };
 // Oikea julkinen matsisivu: match-centre/match/{kilpailu}/{kausi}/{vaihe}/{ottelu}
 const matchUrl = (idStage, idMatch) =>
@@ -89,6 +98,27 @@ async function main() {
       }
     }
     tournament.teamNames = teamNames;
+
+    // Pudotuspeliottelut: template-nimet (PlaceHolder) kunnes parit tiedossa,
+    // päivittyvät oikeiksi + tuloksiksi joka haulla.
+    const knockout = [];
+    for (const fm of fifa) {
+      const rd = KO_ROUNDS[fm.StageName?.[0]?.Description];
+      if (!rd) continue;
+      const home = norm(fm.Home?.Abbreviation) || fm.PlaceHolderA || "?";
+      const away = norm(fm.Away?.Abbreviation) || fm.PlaceHolderB || "?";
+      const played = fm.HomeTeamScore != null && fm.AwayTeamScore != null && String(fm.MatchStatus) !== "1";
+      knockout.push({
+        id: "KO" + fm.MatchNumber, round: rd.key, roundLabel: rd.label, order: rd.order,
+        home, away, real: !!(fm.Home?.Abbreviation && fm.Away?.Abbreviation),
+        score: played ? `${fm.HomeTeamScore}-${fm.AwayTeamScore}` : null,
+        kickoff: fm.Date, stadium: fm.Stadium?.Name?.[0]?.Description || null,
+        city: fm.Stadium?.CityName?.[0]?.Description || null,
+        fifaId: fm.IdMatch, matchNumber: fm.MatchNumber, url: matchUrl(fm.IdStage, fm.IdMatch),
+      });
+    }
+    knockout.sort((a, b) => a.order - b.order || (a.kickoff || "").localeCompare(b.kickoff || ""));
+    tournament.knockout = knockout;
     await writeFile(tPath, JSON.stringify(tournament, null, 2) + "\n", "utf-8");
     console.log(`Otteluohjelma päivitetty: ${schedUpdated}/${tournament.matches.length} ottelua` +
       (unmatched.length ? `, EI löytynyt: ${unmatched.join(", ")}` : ""));
