@@ -81,17 +81,30 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .mwrap{overflow:auto;max-height:74vh;border:1px solid var(--line);border-radius:10px;position:relative;z-index:0}
 table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-variant-numeric:tabular-nums}
 .matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
-.matrix thead th{position:sticky;top:0;background:var(--card2);z-index:5;font-weight:600}
+.matrix thead th{position:sticky;top:0;background:var(--card2);z-index:7;font-weight:600}
 .matrix .mcol{position:sticky;left:0;width:66px;min-width:66px;max-width:66px;background:var(--card);
   z-index:4;text-align:left;font-weight:600;overflow:hidden;text-overflow:ellipsis}
 .matrix .tcol{position:sticky;left:66px;background:var(--card);z-index:4}
-.matrix thead .mcol,.matrix thead .tcol{z-index:6}
-.matrix tr.grow td{background:var(--bg);color:var(--accent);font-weight:700;text-align:left;font-size:11px;
-  letter-spacing:.5px;position:sticky;left:0;z-index:4}
+.matrix thead .mcol,.matrix thead .tcol{z-index:8}
+.matrix tr.grow td{background:var(--bg)}
+.matrix .glabel{position:sticky;left:0;z-index:5;background:var(--bg);color:var(--accent);font-weight:700;
+  text-align:left;font-size:11px;letter-spacing:.5px;white-space:nowrap}
 .matrix td.actual{color:var(--muted);font-size:11px;font-weight:400}
 .msub{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:14px 2px 5px}
 .c3{background:rgba(70,196,107,.20)}.c1{background:rgba(224,179,65,.18)}.c0{color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;margin:4px 2px 12px}
+/* analytiikka */
+.asec{margin:4px 0 22px}
+.asec h3{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--accent);margin:0 2px 9px;font-weight:700}
+.cmpsel{display:flex;gap:8px;margin-bottom:10px}
+.cmpsel select{flex:1;padding:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:9px;font-size:14px}
+.pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
+.elim{color:var(--muted);text-decoration:line-through}
+.oddrow{display:grid;grid-template-columns:92px 1fr 48px;gap:8px;align-items:center;margin-bottom:5px;font-size:13px}
+.oddrow .name{font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.oddbar{position:relative;background:var(--card2);border-radius:6px;height:20px;overflow:hidden}
+.oddbar>span{position:absolute;left:0;top:0;bottom:0;background:var(--accent);opacity:.4}
+.oddrow .ov{text-align:right;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 @media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
 `;
 
@@ -100,7 +113,8 @@ const KV = JSON.parse(document.getElementById('kv').textContent);
 const T = KV.tournament, P = KV.predictions, R = KV.results;
 const NAMES = Object.keys(P);
 const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
-const state = { players: loadSel(), view: 'standings', filterOpen: false, dayFilter: 'all' };
+const state = { players: loadSel(), view: 'standings', filterOpen: false, dayFilter: 'all',
+  cmpA: null, cmpB: null, odds: null };
 
 const $ = (s) => document.querySelector(s);
 function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
@@ -234,7 +248,8 @@ function buildMatrix(players, maxH, specs){
   thead.appendChild(hr); t.appendChild(thead);
   var tb=el('tbody');
   specs.forEach(function(s){
-    if(s.group!=null){ var tr=el('tr','grow'), td=el('td',null,s.group); td.colSpan=players.length+2; tr.appendChild(td); tb.appendChild(tr); return; }
+    if(s.group!=null){ var tr=el('tr','grow'); tr.appendChild(el('td','glabel',s.group));
+      var f=el('td','gfill',''); f.colSpan=players.length+1; tr.appendChild(f); tb.appendChild(tr); return; }
     var tr=el('tr');
     tr.appendChild(el('td','mcol',s.label));
     tr.appendChild(el('td','actual tcol', s.actual==null?'–':s.actual));
@@ -276,12 +291,101 @@ function renderPredictions(){
   box.appendChild(buildMatrix(players, null, muut));
 }
 
+/* ---- analytiikka ---- */
+function mkSelect(opts, val, onCh){
+  var s=document.createElement('select');
+  opts.forEach(function(o){ var op=document.createElement('option'); op.value=o; op.textContent=o; if(o===val)op.selected=true; s.appendChild(op); });
+  s.onchange=function(){ onCh(s.value); }; return s;
+}
+function rscore(){ return Math.floor(Math.random()*4)+'-'+Math.floor(Math.random()*4); }
+function rpick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function rsample(a,n){ var c=a.slice(); for(var i=c.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=c[i]; c[i]=c[j]; c[j]=t; } return c.slice(0,n); }
+function cupPool(key){ var s={}; for(var n in P){ var v=P[n].cup&&P[n].cup[key]; if(Array.isArray(v)) v.forEach(function(t){ if(t)s[t]=1; }); else if(v) s[v]=1; } var a=Object.keys(s); return a.length?a:T.teams; }
+function undecidedMatches(){ return T.matches.filter(function(m){ return !matchDecided(R,m.id); }); }
+function undecidedCup(){ return T.cupRounds.filter(function(rd){ var a=R.rounds&&R.rounds[rd.key]; return rd.key==='champion'? !a : !(a&&a.length); }); }
+function simulateOdds(N){
+  var und=undecidedMatches(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length), cupUnd=undecidedCup();
+  var pools={}; cupUnd.forEach(function(rd){ pools[rd.key]=cupPool(rd.key); });
+  var wins={}; for(var n in P) wins[n]=0;
+  for(var s=0;s<N;s++){
+    var res={ matches:Object.assign({},R.matches), dirtiestTeams:R.dirtiestTeams, rounds:Object.assign({},R.rounds), goals:R.goals };
+    und.forEach(function(m){ res.matches[m.id]=rscore(); });
+    if(sikaUnd) res.dirtiestTeams=[rpick(T.teams)];
+    cupUnd.forEach(function(rd){ res.rounds[rd.key]= rd.key==='champion'? rpick(pools[rd.key]) : rsample(pools[rd.key], rd.slots); });
+    var rows=scoreAll(P,res,T), top=rows[0].total, w=rows.filter(function(r){ return r.total===top; });
+    w.forEach(function(x){ wins[x.name]+=1/w.length; });
+  }
+  return Object.keys(P).map(function(n){ return { name:n, odds:wins[n]/N }; }).sort(function(a,b){ return b.odds-a.odds; });
+}
+function renderAnalytics(){
+  var box=$('#analytics'); box.innerHTML='';
+  var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
+  box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
+    (cupUnd.length?'cup-vaihe kesken':'cup ratkennut')+(sikaUnd?' · sikajengi auki':'')));
+
+  // 1) Max-pisteet / kuka voi vielä voittaa
+  var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
+  var leadNow=Math.max.apply(null, mx.map(function(x){ return x.now; }));
+  mx.sort(function(a,b){ return b.max-a.max || b.now-a.now; });
+  var s1=el('div','asec'); s1.appendChild(el('h3',null,'Kuka voi vielä voittaa?'));
+  var t1=el('table','rank-t'), h1=el('thead'), hr1=el('tr');
+  ['Veikkaaja','Nyt','+Max','=Max'].forEach(function(h){ hr1.appendChild(el('th',null,h)); });
+  h1.appendChild(hr1); t1.appendChild(h1); var b1=el('tbody');
+  mx.forEach(function(x){ var tr=el('tr');
+    tr.appendChild(el('td','name'+(x.max>=leadNow?'':' elim'),x.name));
+    tr.appendChild(el('td','dim',x.now));
+    tr.appendChild(el('td','dim','+'+x.rem));
+    tr.appendChild(el('td','tot',x.max));
+    b1.appendChild(tr); });
+  t1.appendChild(b1); s1.appendChild(t1);
+  s1.appendChild(el('div','hint','Yliviivatut eivät voi enää saavuttaa johtajan nykypisteitä ('+leadNow+'). Maalintekijä ei mukana (avoin).'));
+  box.appendChild(s1);
+
+  // 2) Pelaajavertailu
+  var names=ALLROWS.map(function(r){ return r.name; });
+  if(state.cmpA==null){ state.cmpA=names[0]; state.cmpB=names[1]||names[0]; }
+  var s2=el('div','asec'); s2.appendChild(el('h3',null,'Pelaajavertailu'));
+  var sr=el('div','cmpsel');
+  sr.appendChild(mkSelect(names,state.cmpA,function(v){ state.cmpA=v; renderAnalytics(); }));
+  sr.appendChild(mkSelect(names,state.cmpB,function(v){ state.cmpB=v; renderAnalytics(); }));
+  s2.appendChild(sr);
+  var a=scoreParticipant(P[state.cmpA],R,T), b=scoreParticipant(P[state.cmpB],R,T);
+  var t2=el('table','rank-t'), h2=el('thead'), hr2=el('tr');
+  ['', state.cmpA, state.cmpB, 'Ero'].forEach(function(h){ hr2.appendChild(el('th',null,h)); });
+  h2.appendChild(hr2); t2.appendChild(h2); var b2=el('tbody');
+  [['Lohko','group'],['Sikajengi','sikajengi'],['Cup','cup'],['Maalit','goalscorer'],['Yhteensä','total']].forEach(function(row){
+    var av=a[row[1]], bv=b[row[1]], d=av-bv, tr=el('tr');
+    tr.appendChild(el('td','name',row[0]));
+    tr.appendChild(el('td', row[1]==='total'?'tot':'dim', av));
+    tr.appendChild(el('td', row[1]==='total'?'tot':'dim', bv));
+    tr.appendChild(el('td', d>0?'pos':d<0?'neg':'dim', (d>0?'+':'')+d));
+    b2.appendChild(tr);
+  });
+  t2.appendChild(b2); s2.appendChild(t2); box.appendChild(s2);
+
+  // 3) Voittotodennäköisyys (Monte Carlo)
+  var s3=el('div','asec'); s3.appendChild(el('h3',null,'Voittotodennäköisyys'));
+  if(state.odds==null) state.odds=simulateOdds(1000);
+  var top=state.odds.length?state.odds[0].odds:0;
+  var shown=state.odds.filter(function(o){ return o.odds>0; });
+  if(!shown.length){ s3.appendChild(el('div','hint','Ei ratkaisemattomia kohteita – tilanne on jo lukittu.')); }
+  shown.slice(0,12).forEach(function(o){
+    var row=el('div','oddrow'); row.appendChild(el('div','name',o.name));
+    var bar=el('div','oddbar'), fill=el('span'); fill.style.width=(top?Math.round(o.odds/top*100):0)+'%'; bar.appendChild(fill); row.appendChild(bar);
+    row.appendChild(el('div','ov',(o.odds*100).toFixed(o.odds<0.095?1:0)+'%'));
+    s3.appendChild(row);
+  });
+  s3.appendChild(el('div','hint','1000 simulaatiota: ratkaisemattomat ottelut, sikajengi ja cup-polut arvottu satunnaisesti.'));
+  box.appendChild(s3);
+}
+
 /* ---- näkymät ---- */
 function rerender(){
   persistSel();
   renderFilter();
   if(state.view==='standings') renderStandings();
   if(state.view==='predictions') renderPredictions();
+  if(state.view==='analytics') renderAnalytics();
 }
 function show(v){
   state.view=v;
@@ -307,9 +411,10 @@ const html = `<!doctype html>
 <body>
 <div id="topbar">
   <nav>
-    <button data-v="standings" class="active">Pistetilanne</button>
+    <button data-v="standings" class="active">Pisteet</button>
     <button data-v="predictions">Veikkaukset</button>
     <button data-v="schedule">Ottelut</button>
+    <button data-v="analytics">Analytiikka</button>
   </nav>
   <div id="filterbar"></div>
 </div>
@@ -317,6 +422,7 @@ const html = `<!doctype html>
   <section id="view-standings" class="view active"><div id="standings"></div></section>
   <section id="view-predictions" class="view"><div id="predictions"></div></section>
   <section id="view-schedule" class="view"><div id="schedule"></div></section>
+  <section id="view-analytics" class="view"><div id="analytics"></div></section>
 </main>
 <script type="application/json" id="kv">${KV}</script>
 <script>

@@ -39,11 +39,23 @@ const predictions = JSON.parse(await readFile(path.join(dir, "predictions.json")
 
 const results = { matches: {}, dirtiestTeams: [], rounds: {}, goals: {} };
 
-// Lohko-ottelut
-for (const m of tournament.matches) results.matches[m.id] = randomScore();
+// Lohko-ottelut. partial = ~puolet pelattu (kustakin lohkosta alkupuolisko).
+let toPlay = tournament.matches;
+if (stage === "partial") {
+  const byGroup = {};
+  tournament.matches.forEach((m) => { (byGroup[m.group] = byGroup[m.group] || []).push(m); });
+  toPlay = Object.values(byGroup).flatMap((ms) => ms.slice(0, Math.ceil(ms.length / 2)));
+}
+for (const m of toPlay) results.matches[m.id] = randomScore();
 
-// Sikajengi: arvo yksi joukkue (joskus tasatilanne)
-results.dirtiestTeams = rand() < 0.2 ? sample(tournament.teams, 2) : [pick(tournament.teams)];
+// Sikajengi ratkeaa vasta lohkovaiheen päätyttyä (ei partialissa).
+if (stage !== "partial") {
+  results.dirtiestTeams = rand() < 0.2 ? sample(tournament.teams, 2) : [pick(tournament.teams)];
+}
+
+// Maalintekijöille maaleja (myös partialissa – kisa käynnissä).
+const scorers = [...new Set(Object.values(predictions).map((p) => p.goalscorer).filter(Boolean))];
+for (const s of scorers) results.goals[s] = (stage === "partial" ? 0 : 1) + Math.floor(rand() * (stage === "partial" ? 4 : 6));
 
 if (stage === "full") {
   // Cup-joukkueet osallistujien veikkauksista → varmistaa osumat
@@ -63,12 +75,6 @@ if (stage === "full") {
   const final = sample(sf, 2);
   const champion = pick(final);
   results.rounds = { r16, qf, sf, final, champion };
-
-  // Maalintekijät: anna osallistujien veikkaamille pelaajille maaleja
-  const scorers = [...new Set(
-    Object.values(predictions).map((p) => p.goalscorer).filter(Boolean)
-  )];
-  for (const s of scorers) results.goals[s] = 1 + Math.floor(rand() * 6);
 } else {
   results.rounds = { r16: [], qf: [], sf: [], final: [], champion: null };
 }

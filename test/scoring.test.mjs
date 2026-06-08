@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   parseScore, matchPoints, sikajengiPoints, goalscorerPoints,
-  cupPoints, scoreParticipant, scoreAll,
+  cupPoints, scoreParticipant, scoreAll, remainingMax,
 } from "../scoring.mjs";
 
 test("parseScore", () => {
@@ -52,11 +52,11 @@ test("goalscorer: 1p per maali", () => {
 });
 
 const CUP_ROUNDS = [
-  { key: "r16", pointsPerTeam: 2 },
-  { key: "qf", pointsPerTeam: 4 },
-  { key: "sf", pointsPerTeam: 8 },
-  { key: "final", pointsPerTeam: 15 },
-  { key: "champion", pointsPerTeam: 30 },
+  { key: "r16", pointsPerTeam: 2, slots: 16 },
+  { key: "qf", pointsPerTeam: 4, slots: 8 },
+  { key: "sf", pointsPerTeam: 8, slots: 4 },
+  { key: "final", pointsPerTeam: 15, slots: 2 },
+  { key: "champion", pointsPerTeam: 30, slots: 1 },
 ];
 
 test("cupPoints: jatkoonpääsijät pisteytyvät kierroksittain, järjestyksellä ei väliä", () => {
@@ -120,6 +120,30 @@ test("scoreParticipant: summa kaikista osa-alueista", () => {
   assert.equal(s.cup, 32);
   assert.equal(s.goalscorer, 4);
   assert.equal(s.total, 48);
+});
+
+test("remainingMax: vain ratkaisemattomat kohteet, maalintekijä pois", () => {
+  const pred = {
+    matches: { A1: "2-1", A2: "1-1", A3: "0-2" },
+    cup: { r16: ["GER"], qf: [], sf: [], final: [], champion: "GER" },
+    sikajengi: "GER",
+    goalscorer: "Kane",
+  };
+  const results = {
+    matches: { A1: "2-1" },            // A2, A3 ratkaisematta
+    dirtiestTeams: [],                 // auki
+    rounds: { r16: [], qf: [], sf: [], final: [], champion: null }, // auki
+    goals: { Kane: 99 },               // ei vaikuta (avoin)
+  };
+  // 2 auki olevaa ottelua (veikattu) ×3 = 6 + sikajengi 8 + r16 1 pick ×2 = 2 + mestari 30 = 46
+  assert.equal(remainingMax(pred, results, TOURNAMENT), 46);
+});
+
+test("remainingMax: ratkaistut eivät tuo lisää", () => {
+  const pred = { matches: { A1: "2-1" }, cup: {}, sikajengi: "GER", goalscorer: null };
+  const results = { matches: { A1: "2-1", A2: "0-0", A3: "1-0" }, dirtiestTeams: ["GER"],
+    rounds: { r16: ["GER"], qf: ["GER"], sf: ["GER"], final: ["GER"], champion: "GER" } };
+  assert.equal(remainingMax(pred, results, TOURNAMENT), 0);
 });
 
 test("scoreAll: lajittelu ja jaetut sijat", () => {

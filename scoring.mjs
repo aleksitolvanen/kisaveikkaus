@@ -96,6 +96,35 @@ export function scoreParticipant(pred, results, tournament) {
   };
 }
 
+// Onko ottelu ratkaistu (tulos syötetty)?
+export function matchDecided(results, id) {
+  return !!(results && results.matches && results.matches[id]);
+}
+
+// Suurin lisäpistemäärä jonka veikkaaja voi vielä saada ratkaisemattomista
+// kohteista (kaikki menisi nappiin). Maalintekijä on avoin (ei ylärajaa) → ei
+// mukana. Kumulatiivinen "max mahdollinen" = scoreParticipant().total + tämä.
+export function remainingMax(pred, results, tournament) {
+  const sc = tournament.scoring || DEFAULT_SCORING;
+  const res = results || {};
+  let r = 0;
+  for (const m of tournament.matches) {
+    if (!matchDecided(res, m.id) && pred.matches && pred.matches[m.id]) r += sc.group.exact;
+  }
+  if (!(res.dirtiestTeams && res.dirtiestTeams.length) && pred.sikajengi) r += sc.sikajengi.points;
+  for (const rd of tournament.cupRounds) {
+    const actual = res.rounds && res.rounds[rd.key];
+    if (rd.key === "champion") {
+      if (!actual && pred.cup && pred.cup.champion) r += rd.pointsPerTeam;
+    } else if (!(actual && actual.length)) {
+      const picks = (pred.cup && pred.cup[rd.key]) || [];
+      const slots = rd.slots || picks.length;
+      r += rd.pointsPerTeam * Math.min(picks.length, slots);
+    }
+  }
+  return r;
+}
+
 // Kaikki veikkaajat pisteytettynä ja sijoitettuna. Tasapisteet jakavat sijan.
 export function scoreAll(predictions, results, tournament) {
   const rows = Object.entries(predictions).map(([name, pred]) => ({

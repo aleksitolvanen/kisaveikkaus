@@ -138,7 +138,9 @@ def build_tournament(tid, matches, groups, group_order):
         "groups": {g: groups[g] for g in group_order},
         "matches": [{k: v for k, v in m.items() if k != "row"} for m in matches],
         "cupRounds": [{"key": k, "label": LAYOUT["cupMeta"][k][0],
-                       "pointsPerTeam": LAYOUT["cupMeta"][k][1]} for k in ROUND_ORDER],
+                       "pointsPerTeam": LAYOUT["cupMeta"][k][1],
+                       "slots": LAYOUT["cup"][k][1] - LAYOUT["cup"][k][0] + 1}
+                      for k in ROUND_ORDER],
         "scoring": {"group": {"exact": 3, "outcome": 1, "miss": 0},
                     "sikajengi": {"points": 8, "tiePoints": 4},
                     "goalscorer": {"perGoal": 1}},

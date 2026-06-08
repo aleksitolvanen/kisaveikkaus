@@ -710,27 +710,32 @@
     {
       "key": "r16",
       "label": "16 joukkoon",
-      "pointsPerTeam": 2
+      "pointsPerTeam": 2,
+      "slots": 16
     },
     {
       "key": "qf",
       "label": "Puolivälierä",
-      "pointsPerTeam": 4
+      "pointsPerTeam": 4,
+      "slots": 8
     },
     {
       "key": "sf",
       "label": "Välierä",
-      "pointsPerTeam": 8
+      "pointsPerTeam": 8,
+      "slots": 4
     },
     {
       "key": "final",
       "label": "Finaali",
-      "pointsPerTeam": 15
+      "pointsPerTeam": 15,
+      "slots": 2
     },
     {
       "key": "champion",
       "label": "Mestari",
-      "pointsPerTeam": 30
+      "pointsPerTeam": 30,
+      "slots": 1
     }
   ],
   "scoring": {
