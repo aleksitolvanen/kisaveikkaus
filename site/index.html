@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kisaveikkaus · MM2026</title>
+<meta name="color-scheme" content="dark">
+<style>
+:root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
+  --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;--bad:#566;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  padding:0 0 40px;max-width:880px;margin:0 auto}
+header{padding:18px 16px 10px;position:sticky;top:0;background:linear-gradient(var(--bg),var(--bg) 78%,transparent);z-index:5}
+h1{font-size:20px;letter-spacing:.2px}
+.sub{color:var(--muted);font-size:13px;margin-top:2px}
+nav{display:flex;gap:8px;padding:8px 16px 4px;position:sticky;top:58px;background:var(--bg);z-index:4}
+nav button{flex:1;padding:9px 8px;border:1px solid var(--line);background:var(--card);color:var(--fg);
+  border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+nav button.active{background:var(--accent);border-color:var(--accent);color:#04121f}
+main{padding:6px 12px}
+.view{display:none}.view.active{display:block}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+th:nth-child(2),td:nth-child(2){text-align:left}
+.rank{color:var(--muted);width:30px}
+.name{font-weight:600}
+.tot{font-weight:800;color:var(--gold)}
+tr.me .name{color:var(--accent)}
+.dim{color:var(--muted)}
+.grp{margin:14px 0 6px;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.5px}
+.match{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center;
+  padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:6px}
+.match .teams{font-weight:600}
+.match .time{color:var(--muted);font-size:12px}
+.match .res{font-weight:800;font-variant-numeric:tabular-nums;background:var(--card2);
+  padding:3px 9px;border-radius:7px;min-width:46px;text-align:center}
+.match .res.none{color:var(--muted);font-weight:500}
+.hint{color:var(--muted);font-size:12px;margin:4px 2px 12px}
+@media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Kisaveikkaus · MM2026</h1>
+  <div class="sub">20 veikkaajaa · 72 lohko-ottelua</div>
+</header>
+<nav>
+  <button data-v="standings" class="active">Pistetilanne</button>
+  <button data-v="schedule">Ottelut</button>
+</nav>
+<main>
+  <section id="view-standings" class="view active"><div id="standings"></div></section>
+  <section id="view-schedule" class="view"><div id="schedule"></div></section>
+</main>
+<script type="application/json" id="kv">{"tournament":{"id":"mm2026","name":"MM2026","type":"worldcup","year":2026,"startDate":"2026-06-11","teams":["ALG","ARG","AUS","AUT","BEL","BIH","BRA","CAN","COL","CPV","CRO","CUR","CZE","DRC","ECU","EGY","ENG","ESP","FRA","GER","GHA","HAI","ICV","IRN","IRQ","JOR","JPN","KOR","KSA","MAR","MEX","NED","NOR","NZL","PAN","PAR","POR","QAT","RSA","SCO","SEN","SUI","SWE","TUN","TUR","URU","USA","UZB"],"groups":{"A":["MEX","RSA","KOR","CZE"],"B":["CAN","BIH","QAT","SUI"],"C":["BRA","MAR","HAI","SCO"],"D":["USA","PAR","AUS","TUR"],"E":["GER","CUR","ICV","ECU"],"F":["NED","JPN","SWE","TUN"],"G":["BEL","EGY","IRN","NZL"],"H":["ESP","CPV","KSA","URU"],"I":["FRA","SEN","IRQ","NOR"],"J":["ARG","ALG","AUT","JOR"],"K":["POR","DRC","UZB","COL"],"L":["ENG","CRO","GHA","PAN"]},"matches":[{"id":"A1","group":"A","home":"MEX","away":"RSA","timeLabel":"to 11.6 klo 19:00","kickoff":"2026-06-11T19:00:00"},{"id":"A2","group":"A","home":"KOR","away":"CZE","timeLabel":"to 11.6 klo 22:00","kickoff":"2026-06-11T22:00:00"},{"id":"A3","group":"A","home":"MEX","away":"KOR","timeLabel":"ti 16.6 klo 21:00","kickoff":"2026-06-16T21:00:00"},{"id":"A4","group":"A","home":"CZE","away":"RSA","timeLabel":"ti 16.6 klo 00:00","kickoff":"2026-06-16T00:00:00"},{"id":"A5","group":"A","home":"RSA","away":"KOR","timeLabel":"su 21.6 klo 18:00","kickoff":"2026-06-21T18:00:00"},{"id":"A6","group":"A","home":"CZE","away":"MEX","timeLabel":"su 21.6 klo 18:00","kickoff":"2026-06-21T18:00:00"},{"id":"B1","group":"B","home":"CAN","away":"BIH","timeLabel":"pe 12.6 klo 19:00","kickoff":"2026-06-12T19:00:00"},{"id":"B2","group":"B","home":"QAT","away":"SUI","timeLabel":"pe 12.6 klo 22:00","kickoff":"2026-06-12T22:00:00"},{"id":"B3","group":"B","home":"CAN","away":"QAT","timeLabel":"ke 17.6 klo 21:00","kickoff":"2026-06-17T21:00:00"},{"id":"B4","group":"B","home":"SUI","away":"BIH","timeLabel":"ke 17.6 klo 00:00","kickoff":"2026-06-17T00:00:00"},{"id":"B5","group":"B","home":"SUI","away":"CAN","timeLabel":"ma 22.6 klo 21:00","kickoff":"2026-06-22T21:00:00"},{"id":"B6","group":"B","home":"BIH","away":"QAT","timeLabel":"ma 22.6 klo 21:00","kickoff":"2026-06-22T21:00:00"},{"id":"C1","group":"C","home":"BRA","away":"MAR","timeLabel":"la 13.6 klo 19:00","kickoff":"2026-06-13T19:00:00"},{"id":"C2","group":"C","home":"HAI","away":"SCO","timeLabel":"la 13.6 klo 22:00","kickoff":"2026-06-13T22:00:00"},{"id":"C3","group":"C","home":"SCO","away":"MAR","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"C4","group":"C","home":"BRA","away":"HAI","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"C5","group":"C","home":"SCO","away":"BRA","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"C6","group":"C","home":"MAR","away":"HAI","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"D1","group":"D","home":"USA","away":"PAR","timeLabel":"pe 12.6 klo 22:00","kickoff":"2026-06-12T22:00:00"},{"id":"D2","group":"D","home":"AUS","away":"TUR","timeLabel":"pe 12.6 klo 19:00","kickoff":"2026-06-12T19:00:00"},{"id":"D3","group":"D","home":"USA","away":"AUS","timeLabel":"ke 17.6 klo 21:00","kickoff":"2026-06-17T21:00:00"},{"id":"D4","group":"D","home":"TUR","away":"PAR","timeLabel":"ke 17.6 klo 21:00","kickoff":"2026-06-17T21:00:00"},{"id":"D5","group":"D","home":"TUR","away":"USA","timeLabel":"ma 22.6 klo 21:00","kickoff":"2026-06-22T21:00:00"},{"id":"D6","group":"D","home":"PAR","away":"AUS","timeLabel":"ma 22.6 klo 21:00","kickoff":"2026-06-22T21:00:00"},{"id":"E1","group":"E","home":"GER","away":"CUR","timeLabel":"la 13.6 klo 19:00","kickoff":"2026-06-13T19:00:00"},{"id":"E2","group":"E","home":"ICV","away":"ECU","timeLabel":"la 13.6 klo 22:00","kickoff":"2026-06-13T22:00:00"},{"id":"E3","group":"E","home":"GER","away":"ICV","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"E4","group":"E","home":"ECU","away":"CUR","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"E5","group":"E","home":"CUR","away":"ICV","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"E6","group":"E","home":"ECU","away":"GER","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"F1","group":"F","home":"NED","away":"JPN","timeLabel":"su 14.6 klo 18:00","kickoff":"2026-06-14T18:00:00"},{"id":"F2","group":"F","home":"SWE","away":"TUN","timeLabel":"su 14.6 klo 21:00","kickoff":"2026-06-14T21:00:00"},{"id":"F3","group":"F","home":"NED","away":"SWE","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"F4","group":"F","home":"TUN","away":"JPN","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"F5","group":"F","home":"JPN","away":"SWE","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"F6","group":"F","home":"TUN","away":"NED","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"G1","group":"G","home":"BEL","away":"EGY","timeLabel":"su 14.6 klo 18:00","kickoff":"2026-06-14T18:00:00"},{"id":"G2","group":"G","home":"IRN","away":"NZL","timeLabel":"su 14.6 klo 21:00","kickoff":"2026-06-14T21:00:00"},{"id":"G3","group":"G","home":"BEL","away":"IRN","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"G4","group":"G","home":"NZL","away":"EGY","timeLabel":"to 18.6 klo 21:00","kickoff":"2026-06-18T21:00:00"},{"id":"G5","group":"G","home":"EGY","away":"IRN","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"G6","group":"G","home":"NZL","away":"BEL","timeLabel":"ti 23.6 klo 21:00","kickoff":"2026-06-23T21:00:00"},{"id":"H1","group":"H","home":"ESP","away":"CPV","timeLabel":"ma 15.6 klo 19:00","kickoff":"2026-06-15T19:00:00"},{"id":"H2","group":"H","home":"KSA","away":"URU","timeLabel":"ma 15.6 klo 22:00","kickoff":"2026-06-15T22:00:00"},{"id":"H3","group":"H","home":"ESP","away":"KSA","timeLabel":"pe 19.6 klo 21:00","kickoff":"2026-06-19T21:00:00"},{"id":"H4","group":"H","home":"URU","away":"CPV","timeLabel":"pe 19.6 klo 21:00","kickoff":"2026-06-19T21:00:00"},{"id":"H5","group":"H","home":"CPV","away":"KSA","timeLabel":"ke 24.6 klo 21:00","kickoff":"2026-06-24T21:00:00"},{"id":"H6","group":"H","home":"URU","away":"ESP","timeLabel":"ke 24.6 klo 21:00","kickoff":"2026-06-24T21:00:00"},{"id":"I1","group":"I","home":"FRA","away":"SEN","timeLabel":"ma 15.6 klo 19:00","kickoff":"2026-06-15T19:00:00"},{"id":"I2","group":"I","home":"IRQ","away":"NOR","timeLabel":"ma 15.6 klo 22:00","kickoff":"2026-06-15T22:00:00"},{"id":"I3","group":"I","home":"FRA","away":"IRQ","timeLabel":"pe 19.6 klo 21:00","kickoff":"2026-06-19T21:00:00"},{"id":"I4","group":"I","home":"NOR","away":"SEN","timeLabel":"pe 19.6 klo 21:00","kickoff":"2026-06-19T21:00:00"},{"id":"I5","group":"I","home":"NOR","away":"FRA","timeLabel":"ke 24.6 klo 21:00","kickoff":"2026-06-24T21:00:00"},{"id":"I6","group":"I","home":"SEN","away":"IRQ","timeLabel":"ke 24.6 klo 21:00","kickoff":"2026-06-24T21:00:00"},{"id":"J1","group":"J","home":"ARG","away":"ALG","timeLabel":"ti 16.6 klo 19:00","kickoff":"2026-06-16T19:00:00"},{"id":"J2","group":"J","home":"AUT","away":"JOR","timeLabel":"ti 16.6 klo 22:00","kickoff":"2026-06-16T22:00:00"},{"id":"J3","group":"J","home":"ARG","away":"AUT","timeLabel":"la 20.6 klo 21:00","kickoff":"2026-06-20T21:00:00"},{"id":"J4","group":"J","home":"JOR","away":"ALG","timeLabel":"la 20.6 klo 21:00","kickoff":"2026-06-20T21:00:00"},{"id":"J5","group":"J","home":"ALG","away":"AUT","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"},{"id":"J6","group":"J","home":"JOR","away":"ARG","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"},{"id":"K1","group":"K","home":"POR","away":"DRC","timeLabel":"ti 16.6 klo 19:00","kickoff":"2026-06-16T19:00:00"},{"id":"K2","group":"K","home":"UZB","away":"COL","timeLabel":"ti 16.6 klo 22:00","kickoff":"2026-06-16T22:00:00"},{"id":"K3","group":"K","home":"POR","away":"UZB","timeLabel":"la 20.6 klo 21:00","kickoff":"2026-06-20T21:00:00"},{"id":"K4","group":"K","home":"COL","away":"DRC","timeLabel":"la 20.6 klo 21:00","kickoff":"2026-06-20T21:00:00"},{"id":"K5","group":"K","home":"COL","away":"POR","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"},{"id":"K6","group":"K","home":"DRC","away":"UZB","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"},{"id":"L1","group":"L","home":"ENG","away":"CRO","timeLabel":"ke 17.6 klo 19:00","kickoff":"2026-06-17T19:00:00"},{"id":"L2","group":"L","home":"GHA","away":"PAN","timeLabel":"ke 17.6 klo 22:00","kickoff":"2026-06-17T22:00:00"},{"id":"L3","group":"L","home":"ENG","away":"GHA","timeLabel":"su 21.6 klo 21:00","kickoff":"2026-06-21T21:00:00"},{"id":"L4","group":"L","home":"PAN","away":"CRO","timeLabel":"su 21.6 klo 21:00","kickoff":"2026-06-21T21:00:00"},{"id":"L5","group":"L","home":"PAN","away":"ENG","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"},{"id":"L6","group":"L","home":"CRO","away":"GHA","timeLabel":"to 25.6 klo 21:00","kickoff":"2026-06-25T21:00:00"}],"cupRounds":[{"key":"r16","label":"16 joukkoon","pointsPerTeam":2},{"key":"qf","label":"Puolivälierä","pointsPerTeam":4},{"key":"sf","label":"Välierä","pointsPerTeam":8},{"key":"final","label":"Finaali","pointsPerTeam":15},{"key":"champion","label":"Mestari","pointsPerTeam":30}],"scoring":{"group":{"exact":3,"outcome":1,"miss":0},"sikajengi":{"points":8,"tiePoints":4},"goalscorer":{"perGoal":1}}},"predictions":{"Hannu":{"matches":{"A1":"2-0","A2":"1-0","A3":"2-1","A4":"0-2","A5":"0-1","A6":"1-2","B1":"2-1","B2":"1-0","B3":"3-1","B4":"1-1","B5":"0-4","B6":"1-2","C1":"1-2","C2":"0-1","C3":"2-2","C4":"1-2","C5":"3-0","C6":"1-0","D1":"0-0","D2":"0-2","D3":"1-2","D4":"1-1","D5":"2-0","D6":"2-0","E1":"0-1","E2":"2-0","E3":"1-2","E4":"2-1","E5":"1-1","E6":"0-1","F1":"2-0","F2":"1-1","F3":"1-2","F4":"0-2","F5":"0-3","F6":"2-1","G1":"2-0","G2":"1-1","G3":"1-2","G4":"0-2","G5":"0-3","G6":"2-1","H1":"2-0","H2":"1-1","H3":"1-2","H4":"0-2","H5":"0-3","H6":"2-1","I1":"2-0","I2":"1-1","I3":"1-2","I4":"0-2","I5":"0-3","I6":"2-1","J1":"2-0","J2":"1-1","J3":"1-2","J4":"0-2","J5":"0-3","J6":"2-1","K1":"2-0","K2":"1-1","K3":"1-2","K4":"0-2","K5":"0-3","K6":"2-1","L1":"2-0","L2":"1-1","L3":"1-2","L4":"0-2","L5":"0-3","L6":"2-1"},"cup":{"r16":["GER","HUN","SWI","ITA","SPA","ENG","SER","DEN","NED","FRA","UKR","SVK","BEL","POR","CZE","AUT"],"qf":["SPA","GER","POR","FRA","ENG","ITA","BEL","NED"],"sf":["GER","FRA","NED","ENG"],"final":["GER","ENG"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"ile":{"matches":{"A1":"3-0","A2":"1-2","A3":"1-0","A4":"1-1","A5":"1-1","A6":"1-1","B1":"2-1","B2":"1-0","B3":"1-1","B4":"0-0","B5":"0-1","B6":"0-2","C1":"1-1","C2":"1-2","C3":"0-2","C4":"1-1","C5":"1-0","C6":"1-1","D1":"1-1","D2":"1-3","D3":"2-1","D4":"1-2","D5":"2-1","D6":"1-0","E1":"1-1","E2":"2-0","E3":"0-0","E4":"1-0","E5":"1-1","E6":"1-1","F1":"1-1","F2":"2-1","F3":"0-1","F4":"2-3","F5":"0-1","F6":"2-0","G1":"1-1","G2":"2-1","G3":"0-1","G4":"2-3","G5":"0-1","G6":"2-0","H1":"1-1","H2":"2-1","H3":"0-1","H4":"2-3","H5":"0-1","H6":"2-0","I1":"1-1","I2":"2-1","I3":"0-1","I4":"2-3","I5":"0-1","I6":"2-0","J1":"1-1","J2":"2-1","J3":"0-1","J4":"2-3","J5":"0-1","J6":"2-0","K1":"1-1","K2":"2-1","K3":"0-1","K4":"2-3","K5":"0-1","K6":"2-0","L1":"1-1","L2":"2-1","L3":"0-1","L4":"2-3","L5":"0-1","L6":"2-0"},"cup":{"r16":["GER","SWI","ITA","SPA","ENG","SER","FRA","NED","BEL","UKR","POR","CZE","CRO","DEN","TUR","POL"],"qf":["GER","SPA","NED","FRA","ENG","CRO","DEN","POL"],"sf":["GER","ENG","FRA","POL"],"final":["GER","FRA"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"JermuP":{"matches":{"A1":"2-0","A2":"1-2","A3":"3-0","A4":"0-1","A5":"1-1","A6":"1-1","B1":"1-1","B2":"3-1","B3":"2-1","B4":"1-2","B5":"1-2","B6":"1-1","C1":"1-1","C2":"1-2","C3":"1-2","C4":"1-2","C5":"2-0","C6":"2-0","D1":"1-3","D2":"0-3","D3":"1-1","D4":"1-2","D5":"3-1","D6":"4-0","E1":"1-1","E2":"2-1","E3":"1-1","E4":"2-1","E5":"1-2","E6":"1-1","F1":"2-1","F2":"1-1","F3":"1-3","F4":"1-2","F5":"0-3","F6":"1-1","G1":"2-1","G2":"1-1","G3":"1-3","G4":"1-2","G5":"0-3","G6":"1-1","H1":"2-1","H2":"1-1","H3":"1-3","H4":"1-2","H5":"0-3","H6":"1-1","I1":"2-1","I2":"1-1","I3":"1-3","I4":"1-2","I5":"0-3","I6":"1-1","J1":"2-1","J2":"1-1","J3":"1-3","J4":"1-2","J5":"0-3","J6":"1-1","K1":"2-1","K2":"1-1","K3":"1-3","K4":"1-2","K5":"0-3","K6":"1-1","L1":"2-1","L2":"1-1","L3":"1-3","L4":"1-2","L5":"0-3","L6":"1-1"},"cup":{"r16":["GER","SWI","ENG","DEN","FRA","NED","BEL","UKR","POR","CZE","SPA","ITA","CRO","SER","POL","TUR"],"qf":["GER","FRA","BEL","SPA","NED","ITA","ENG","CRO"],"sf":["GER","FRA","ENG","CRO"],"final":["GER","FRA"],"champion":"GER"},"sikajengi":null,"goalscorer":null},"Jukka":{"matches":{"A1":"2-0","A2":"0-1","A3":"2-0","A4":"0-1","A5":"0-2","A6":"1-0","B1":"1-1","B2":"3-0","B3":"2-0","B4":"1-1","B5":"0-3","B6":"1-1","C1":"0-0","C2":"1-2","C3":"1-1","C4":"1-3","C5":"2-1","C6":"1-1","D1":"1-1","D2":"1-3","D3":"2-1","D4":"1-3","D5":"2-1","D6":"3-1","E1":"1-1","E2":"3-1","E3":"0-0","E4":"3-1","E5":"2-1","E6":"1-2","F1":"3-1","F2":"2-1","F3":"0-1","F4":"1-2","F5":"1-3","F6":"1-2","G1":"3-1","G2":"2-1","G3":"0-1","G4":"1-2","G5":"1-3","G6":"1-2","H1":"3-1","H2":"2-1","H3":"0-1","H4":"1-2","H5":"1-3","H6":"1-2","I1":"3-1","I2":"2-1","I3":"0-1","I4":"1-2","I5":"1-3","I6":"1-2","J1":"3-1","J2":"2-1","J3":"0-1","J4":"1-2","J5":"1-3","J6":"1-2","K1":"3-1","K2":"2-1","K3":"0-1","K4":"1-2","K5":"1-3","K6":"1-2","L1":"3-1","L2":"2-1","L3":"0-1","L4":"1-2","L5":"1-3","L6":"1-2"},"cup":{"r16":["SWI","CRO","GER","SVN","ENG","CZE","ITA","POL","NED","SVK","TUR","SPA","BEL","DEN","FRA","POR"],"qf":["GER","ITA","NED","TUR","ENG","CRO","BEL","FRA"],"sf":["GER","NED","CRO","FRA"],"final":["GER","FRA"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Jussi":{"matches":{"A1":"0-0","A2":"2-1","A3":"1-0","A4":"0-0","A5":"0-0","A6":"1-1","B1":"3-0","B2":"2-0","B3":"2-1","B4":"1-1","B5":"0-3","B6":"0-0","C1":"0-2","C2":"0-1","C3":"0-1","C4":"0-1","C5":"1-0","C6":"1-1","D1":"1-0","D2":"0-1","D3":"1-1","D4":"1-1","D5":"1-0","D6":"1-1","E1":"0-0","E2":"2-0","E3":"1-0","E4":"2-0","E5":"1-1","E6":"1-1","F1":"3-0","F2":"1-1","F3":"0-1","F4":"1-1","F5":"0-3","F6":"1-1","G1":"3-0","G2":"1-1","G3":"0-1","G4":"1-1","G5":"0-3","G6":"1-1","H1":"3-0","H2":"1-1","H3":"0-1","H4":"1-1","H5":"0-3","H6":"1-1","I1":"3-0","I2":"1-1","I3":"0-1","I4":"1-1","I5":"0-3","I6":"1-1","J1":"3-0","J2":"1-1","J3":"0-1","J4":"1-1","J5":"0-3","J6":"1-1","K1":"3-0","K2":"1-1","K3":"0-1","K4":"1-1","K5":"0-3","K6":"1-1","L1":"3-0","L2":"1-1","L3":"0-1","L4":"1-1","L5":"0-3","L6":"1-1"},"cup":{"r16":["GER","HUN","SPA","ITA","CRO","ENG","DEN","SER","POL","NED","FRA","BEL","SVK","TUR","POR","CZE"],"qf":["GER","SPA","ITA","ENG","FRA","TUR","POR","CZE"],"sf":["SPA","ENG","TUR","CZE"],"final":["SPA","ENG"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"Jype":{"matches":{"A1":"2-0","A2":"2-0","A3":"2-0","A4":"2-0","A5":"0-2","A6":"0-2","B1":"0-2","B2":"0-2","B3":"2-0","B4":"2-0","B5":"2-0","B6":"2-0","C1":"2-0","C2":"0-2","C3":"0-2","C4":"2-0","C5":"0-2","C6":"2-0","D1":"0-2","D2":"0-2","D3":"2-0","D4":"2-0","D5":"0-2","D6":"2-0","E1":"2-0","E2":"1-0","E3":"1-0","E4":"1-0","E5":"0-2","E6":"0-1","F1":"0-2","F2":"2-0","F3":"2-0","F4":"0-2","F5":"2-0","F6":"0-2","G1":"1-0","G2":"2-0","G3":"2-0","G4":"0-2","G5":"1-0","G6":"0-2","H1":"2-0","H2":"0-2","H3":"2-0","H4":"2-0","H5":"0-2","H6":"0-2","I1":"2-0","I2":"0-2","I3":"2-0","I4":"2-1","I5":"0-2","I6":"2-0","J1":"2-0","J2":"2-0","J3":"2-0","J4":"2-1","J5":"0-2","J6":"0-3","K1":"2-0","K2":"0-2","K3":"3-0","K4":"2-0","K5":"0-2","K6":"2-0","L1":"2-1","L2":"2-0","L3":"2-0","L4":"0-2","L5":"0-2","L6":"2-0"},"cup":{"r16":["GER","FRA","KOR","JPN","CRO","ESP","TUR","BEL","BRA","ICV","MEX","ENG","ARG","PAR","SUI","POR"],"qf":["FRA","JPN","ESP","BEL","BRA","ENG","ARG","POR"],"sf":["FRA","ESP","ENG","ARG"],"final":["FRA","ARG"],"champion":"ARG"},"sikajengi":"BIH","goalscorer":"Kane"},"Kapa":{"matches":{"A1":"2-0","A2":"1-2","A3":"1-1","A4":"0-3","A5":"0-0","A6":"0-4","B1":"0-0","B2":"3-1","B3":"2-0","B4":"0-0","B5":"0-2","B6":"1-1","C1":"1-2","C2":"1-3","C3":"2-2","C4":"1-2","C5":"2-0","C6":"1-0","D1":"1-2","D2":"0-3","D3":"1-2","D4":"1-2","D5":"1-0","D6":"1-0","E1":"2-2","E2":"2-0","E3":"0-1","E4":"2-1","E5":"0-1","E6":"1-1","F1":"2-0","F2":"2-0","F3":"1-3","F4":"1-2","F5":"0-3","F6":"1-1","G1":"2-0","G2":"2-0","G3":"1-3","G4":"1-2","G5":"0-3","G6":"1-1","H1":"2-0","H2":"2-0","H3":"1-3","H4":"1-2","H5":"0-3","H6":"1-1","I1":"2-0","I2":"2-0","I3":"1-3","I4":"1-2","I5":"0-3","I6":"1-1","J1":"2-0","J2":"2-0","J3":"1-3","J4":"1-2","J5":"0-3","J6":"1-1","K1":"2-0","K2":"2-0","K3":"1-3","K4":"1-2","K5":"0-3","K6":"1-1","L1":"2-0","L2":"2-0","L3":"1-3","L4":"1-2","L5":"0-3","L6":"1-1"},"cup":{"r16":["GER","SWI","HUN","POR","TUR","BEL","FRA","NED","DEN","ENG","CRO","SPA","ITA","CZE","ROM","UKR"],"qf":["ENG","FRA","SPA","CRO","SWI","DEN","NED","BEL"],"sf":["ENG","FRA","BEL","NED"],"final":["FRA","BEL"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Karri":{"matches":{"A1":"2-2","A2":"1-2","A3":"3-1","A4":"2-1","A5":"0-1","A6":"1-0","B1":"3-1","B2":"1-0","B3":"0-1","B4":"3-1","B5":"0-2","B6":"1-1","C1":"1-2","C2":"1-3","C3":"0-2","C4":"1-2","C5":"3-0","C6":"2-2","D1":"0-2","D2":"2-3","D3":"1-3","D4":"2-3","D5":"2-2","D6":"3-0","E1":"2-2","E2":"2-1","E3":"1-1","E4":"3-1","E5":"2-2","E6":"1-2","F1":"1-1","F2":"3-1","F3":"0-1","F4":"0-2","F5":"1-4","F6":"2-2","G1":"1-1","G2":"3-1","G3":"0-1","G4":"0-2","G5":"1-4","G6":"2-2","H1":"1-1","H2":"3-1","H3":"0-1","H4":"0-2","H5":"1-4","H6":"2-2","I1":"1-1","I2":"3-1","I3":"0-1","I4":"0-2","I5":"1-4","I6":"2-2","J1":"1-1","J2":"3-1","J3":"0-1","J4":"0-2","J5":"1-4","J6":"2-2","K1":"1-1","K2":"3-1","K3":"0-1","K4":"0-2","K5":"1-4","K6":"2-2","L1":"1-1","L2":"3-1","L3":"0-1","L4":"0-2","L5":"1-4","L6":"2-2"},"cup":{"r16":["AUT","SER","SWI","ALB","GER","SCO","SPA","ITA","ENG","DEN","FRA","NED","BEL","ROM","POR","CZE"],"qf":["SCO","SPA","ENG","DEN","FRA","NED","BEL","POR"],"sf":["SPA","ENG","FRA","NED"],"final":["SPA","ENG"],"champion":"SPA"},"sikajengi":null,"goalscorer":null},"KimmoK":{"matches":{"A1":"1-0","A2":"0-0","A3":"2-0","A4":"0-0","A5":"0-1","A6":"0-0","B1":"1-1","B2":"1-0","B3":"2-0","B4":"0-0","B5":"0-2","B6":"1-1","C1":"0-1","C2":"0-1","C3":"0-1","C4":"0-1","C5":"2-0","C6":"1-0","D1":"0-1","D2":"0-2","D3":"0-0","D4":"1-1","D5":"2-0","D6":"2-0","E1":"0-0","E2":"2-0","E3":"0-1","E4":"2-0","E5":"0-0","E6":"0-1","F1":"2-0","F2":"1-0","F3":"0-1","F4":"0-1","F5":"0-2","F6":"0-1","G1":"2-0","G2":"1-0","G3":"0-1","G4":"0-1","G5":"0-2","G6":"0-1","H1":"2-0","H2":"1-0","H3":"0-1","H4":"0-1","H5":"0-2","H6":"0-1","I1":"2-0","I2":"1-0","I3":"0-1","I4":"0-1","I5":"0-2","I6":"0-1","J1":"2-0","J2":"1-0","J3":"0-1","J4":"0-1","J5":"0-2","J6":"0-1","K1":"2-0","K2":"1-0","K3":"0-1","K4":"0-1","K5":"0-2","K6":"0-1","L1":"2-0","L2":"1-0","L3":"0-1","L4":"0-1","L5":"0-2","L6":"0-1"},"cup":{"r16":["GER","SWI","SPA","ITA","CRO","ENG","DEN","FRA","NED","BEL","UKR","POR","TUR","SER","CZE","ROM"],"qf":["FRA","ENG","SPA","POR","NED","ITA","GER","BEL"],"sf":["FRA","ENG","SPA","POR"],"final":["FRA","ENG"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"KimmoL":{"matches":{"A1":"2-0","A2":"1-2","A3":"2-0","A4":"1-2","A5":"1-2","A6":"1-1","B1":"2-1","B2":"3-0","B3":"2-0","B4":"0-0","B5":"0-3","B6":"1-2","C1":"0-2","C2":"1-2","C3":"1-1","C4":"1-2","C5":"2-0","C6":"2-1","D1":"1-2","D2":"0-2","D3":"2-1","D4":"1-2","D5":"2-0","D6":"2-1","E1":"1-1","E2":"2-0","E3":"1-2","E4":"2-0","E5":"1-1","E6":"0-2","F1":"2-0","F2":"2-1","F3":"1-2","F4":"1-2","F5":"0-4","F6":"1-1","G1":"2-0","G2":"2-1","G3":"1-2","G4":"1-2","G5":"0-4","G6":"1-1","H1":"2-0","H2":"2-1","H3":"1-2","H4":"1-2","H5":"0-4","H6":"1-1","I1":"2-0","I2":"2-1","I3":"1-2","I4":"1-2","I5":"0-4","I6":"1-1","J1":"2-0","J2":"2-1","J3":"1-2","J4":"1-2","J5":"0-4","J6":"1-1","K1":"2-0","K2":"2-1","K3":"1-2","K4":"1-2","K5":"0-4","K6":"1-1","L1":"2-0","L2":"2-1","L3":"1-2","L4":"1-2","L5":"0-4","L6":"1-1"},"cup":{"r16":["SWI","ITA","GER","DEN","ENG","CRO","SPA","POL","NED","UKR","POR","CZE","BEL","SER","FRA","TUR"],"qf":["SPA","GER","POR","NED","ENG","ITA","BEL","FRA"],"sf":["GER","POR","ENG","FRA"],"final":["ENG","FRA"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"Luka":{"matches":{"A1":"3-0","A2":"2-2","A3":"3-1","A4":"1-2","A5":"0-2","A6":"1-2","B1":"2-1","B2":"1-1","B3":"3-0","B4":"1-1","B5":"0-3","B6":"1-1","C1":"1-2","C2":"1-3","C3":"0-2","C4":"0-2","C5":"3-1","C6":"1-2","D1":"0-2","D2":"1-3","D3":"1-2","D4":"0-2","D5":"1-1","D6":"3-0","E1":"0-2","E2":"3-1","E3":"1-2","E4":"4-1","E5":"1-1","E6":"1-3","F1":"1-1","F2":"3-1","F3":"1-2","F4":"1-2","F5":"0-3","F6":"1-2","G1":"1-1","G2":"3-1","G3":"1-2","G4":"1-2","G5":"0-3","G6":"1-2","H1":"1-1","H2":"3-1","H3":"1-2","H4":"1-2","H5":"0-3","H6":"1-2","I1":"1-1","I2":"3-1","I3":"1-2","I4":"1-2","I5":"0-3","I6":"1-2","J1":"1-1","J2":"3-1","J3":"1-2","J4":"1-2","J5":"0-3","J6":"1-2","K1":"1-1","K2":"3-1","K3":"1-2","K4":"1-2","K5":"0-3","K6":"1-2","L1":"1-1","L2":"3-1","L3":"1-2","L4":"1-2","L5":"0-3","L6":"1-2"},"cup":{"r16":["GER","SER","HUN","CRO","SPA","AUT","ENG","CZE","POR","ITA","NED","UKR","BEL","FRA","SWI","TUR"],"qf":["GER","CRO","SPA","ENG","POR","NED","BEL","FRA"],"sf":["GER","NED","FRA","ENG"],"final":["GER","FRA"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Martti":{"matches":{"A1":"2-0","A2":"0-1","A3":"2-1","A4":"2-0","A5":"1-2","A6":"1-1","B1":"1-1","B2":"0-3","B3":"2-1","B4":"2-1","B5":"2-0","B6":"2-0","C1":"2-1","C2":"0-2","C3":"2-1","C4":"4-0","C5":"1-3","C6":"2-0","D1":"1-1","D2":"1-2","D3":"2-1","D4":"1-1","D5":"2-1","D6":"2-0","E1":"4-0","E2":"1-2","E3":"3-0","E4":"3-0","E5":"1-2","E6":"1-2","F1":"2-1","F2":"1-0","F3":"2-1","F4":"0-2","F5":"1-1","F6":"0-2","G1":"2-1","G2":"1-0","G3":"2-1","G4":"0-2","G5":"1-1","G6":"0-3","H1":"3-0","H2":"0-2","H3":"3-0","H4":"2-0","H5":"1-2","H6":"1-2","I1":"2-1","I2":"0-2","I3":"3-0","I4":"2-1","I5":"2-2","I6":"2-0","J1":"2-0","J2":"2-0","J3":"1-1","J4":"1-2","J5":"1-2","J6":"0-3","K1":"3-1","K2":"0-2","K3":"2-0","K4":"2-1","K5":"1-1","K6":"1-1","L1":"2-1","L2":"2-0","L3":"2-0","L4":"0-2","L5":"0-3","L6":"2-1"},"cup":{"r16":["MEX","SUI","BRA","MAR","GER","NED","BEL","ESP","FRA","ARG","POR","ENG","CZE","SCO","JPN","URU"],"qf":["MEX","BRA","GER","ESP","ARG","ENG","CZE","URU"],"sf":["BRA","ESP","ENG","URU"],"final":["ESP","ENG"],"champion":"ESP"},"sikajengi":"TUR","goalscorer":"Kane"},"Neste":{"matches":{"A1":"2-0","A2":"1-1","A3":"2-0","A4":"1-1","A5":"1-2","A6":"1-1","B1":"2-1","B2":"3-0","B3":"2-0","B4":"1-1","B5":"0-3","B6":"1-2","C1":"1-1","C2":"0-1","C3":"1-2","C4":"0-2","C5":"3-1","C6":"1-1","D1":"1-2","D2":"0-3","D3":"1-1","D4":"1-1","D5":"2-0","D6":"3-1","E1":"1-0","E2":"2-1","E3":"1-1","E4":"3-0","E5":"1-2","E6":"0-3","F1":"2-0","F2":"2-1","F3":"0-2","F4":"1-3","F5":"0-2","F6":"1-1","G1":"2-0","G2":"2-1","G3":"0-2","G4":"1-3","G5":"0-2","G6":"1-1","H1":"2-0","H2":"2-1","H3":"0-2","H4":"1-3","H5":"0-2","H6":"1-1","I1":"2-0","I2":"2-1","I3":"0-2","I4":"1-3","I5":"0-2","I6":"1-1","J1":"2-0","J2":"2-1","J3":"0-2","J4":"1-3","J5":"0-2","J6":"1-1","K1":"2-0","K2":"2-1","K3":"0-2","K4":"1-3","K5":"0-2","K6":"1-1","L1":"2-0","L2":"2-1","L3":"0-2","L4":"1-3","L5":"0-2","L6":"1-1"},"cup":{"r16":["GER","SWI","ITA","SPA","ENG","SER","FRA","NED","BEL","ROM","POR","TUR","DEN","CZE","POL","CRO"],"qf":["GER","ITA","SPA","ENG","NED","FRA","BEL","POR"],"sf":["GER","ITA","FRA","SPA"],"final":["ITA","FRA"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Pele":{"matches":{"A1":"2-0","A2":"1-1","A3":"2-0","A4":"1-1","A5":"0-1","A6":"1-1","B1":"1-0","B2":"2-0","B3":"1-0","B4":"1-1","B5":"0-2","B6":"1-1","C1":"0-1","C2":"0-2","C3":"1-1","C4":"0-1","C5":"2-0","C6":"1-1","D1":"0-2","D2":"0-2","D3":"1-1","D4":"1-1","D5":"1-1","D6":"2-0","E1":"0-1","E2":"2-0","E3":"1-1","E4":"2-0","E5":"1-1","E6":"1-1","F1":"1-0","F2":"1-0","F3":"0-1","F4":"0-1","F5":"0-2","F6":"1-1","G1":"1-0","G2":"1-0","G3":"0-1","G4":"0-1","G5":"0-2","G6":"1-1","H1":"1-0","H2":"1-0","H3":"0-1","H4":"0-1","H5":"0-2","H6":"1-1","I1":"1-0","I2":"1-0","I3":"0-1","I4":"0-1","I5":"0-2","I6":"1-1","J1":"1-0","J2":"1-0","J3":"0-1","J4":"0-1","J5":"0-2","J6":"1-1","K1":"1-0","K2":"1-0","K3":"0-1","K4":"0-1","K5":"0-2","K6":"1-1","L1":"1-0","L2":"1-0","L3":"0-1","L4":"0-1","L5":"0-2","L6":"1-1"},"cup":{"r16":["GER","SWI","SPA","ITA","ENG","DEN","FRA","NED","BEL","UKR","POR","TUR","CRO","AUT","SER","HUN"],"qf":["ENG","FRA","GER","SPA","POR","BEL","ITA","NED"],"sf":["ENG","FRA","GER","POR"],"final":["ENG","GER"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"Pexi":{"matches":{"A1":"2-0","A2":"1-2","A3":"2-0","A4":"1-1","A5":"1-3","A6":"1-2","B1":"1-0","B2":"1-0","B3":"1-0","B4":"2-0","B5":"0-2","B6":"0-1","C1":"0-2","C2":"1-3","C3":"0-1","C4":"1-2","C5":"3-0","C6":"2-1","D1":"1-2","D2":"1-3","D3":"1-2","D4":"0-2","D5":"3-1","D6":"3-0","E1":"0-0","E2":"2-0","E3":"1-2","E4":"1-0","E5":"0-1","E6":"1-2","F1":"0-1","F2":"3-0","F3":"1-2","F4":"0-1","F5":"0-2","F6":"2-1","G1":"0-1","G2":"3-0","G3":"1-2","G4":"0-1","G5":"0-2","G6":"2-1","H1":"0-1","H2":"3-0","H3":"1-2","H4":"0-1","H5":"0-2","H6":"2-1","I1":"0-1","I2":"3-0","I3":"1-2","I4":"0-1","I5":"0-2","I6":"2-1","J1":"0-1","J2":"3-0","J3":"1-2","J4":"0-1","J5":"0-2","J6":"2-1","K1":"0-1","K2":"3-0","K3":"1-2","K4":"0-1","K5":"0-2","K6":"2-1","L1":"0-1","L2":"3-0","L3":"1-2","L4":"0-1","L5":"0-2","L6":"2-1"},"cup":{"r16":["GER","HUN","SPA","ITA","ENG","DEN","FRA","NED","SWI","BEL","UKR","ROM","POR","CZE","SER","POL"],"qf":["SPA","GER","FRA","ENG","POR","SER","ITA","SWI"],"sf":["GER","POR","FRA","ENG"],"final":["FRA","GER"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Saku":{"matches":{"A1":"2-0","A2":"1-0","A3":"2-1","A4":"0-1","A5":"1-3","A6":"1-2","B1":"2-1","B2":"1-0","B3":"0-0","B4":"1-1","B5":"1-3","B6":"2-2","C1":"1-1","C2":"1-2","C3":"2-2","C4":"0-1","C5":"1-0","C6":"2-0","D1":"0-1","D2":"0-2","D3":"1-1","D4":"1-2","D5":"1-1","D6":"3-0","E1":"0-2","E2":"2-0","E3":"0-1","E4":"3-1","E5":"1-1","E6":"1-1","F1":"2-1","F2":"3-1","F3":"0-0","F4":"0-2","F5":"0-1","F6":"1-2","G1":"2-1","G2":"3-1","G3":"0-0","G4":"0-2","G5":"0-1","G6":"1-2","H1":"2-1","H2":"3-1","H3":"0-0","H4":"0-2","H5":"0-1","H6":"1-2","I1":"2-1","I2":"3-1","I3":"0-0","I4":"0-2","I5":"0-1","I6":"1-2","J1":"2-1","J2":"3-1","J3":"0-0","J4":"0-2","J5":"0-1","J6":"1-2","K1":"2-1","K2":"3-1","K3":"0-0","K4":"0-2","K5":"0-1","K6":"1-2","L1":"2-1","L2":"3-1","L3":"0-0","L4":"0-2","L5":"0-1","L6":"1-2"},"cup":{"r16":["HUN","ITA","GER","DEN","ENG","SWI","SPA","AUT","NED","UKR","POR","CRO","BEL","SVN","FRA","TUR"],"qf":["GER","SPA","UKR","POR","ENG","ITA","BEL","FRA"],"sf":["GER","UKR","ENG","FRA"],"final":["GER","FRA"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"Sampo":{"matches":{"A1":"2-0","A2":"1-1","A3":"1-1","A4":"1-2","A5":"2-2","A6":"0-2","B1":"3-2","B2":"2-0","B3":"1-0","B4":"1-1","B5":"1-2","B6":"1-1","C1":"0-3","C2":"1-2","C3":"0-3","C4":"2-2","C5":"3-1","C6":"1-0","D1":"0-1","D2":"1-1","D3":"1-1","D4":"2-2","D5":"2-1","D6":"3-1","E1":"1-3","E2":"2-0","E3":"1-1","E4":"1-0","E5":"0-2","E6":"2-2","F1":"2-1","F2":"1-0","F3":"1-3","F4":"0-2","F5":"0-4","F6":"2-2","G1":"2-1","G2":"1-0","G3":"1-3","G4":"0-2","G5":"0-4","G6":"2-2","H1":"2-1","H2":"1-0","H3":"1-3","H4":"0-2","H5":"0-4","H6":"2-2","I1":"2-1","I2":"1-0","I3":"1-3","I4":"0-2","I5":"0-4","I6":"2-2","J1":"2-1","J2":"1-0","J3":"1-3","J4":"0-2","J5":"0-4","J6":"2-2","K1":"2-1","K2":"1-0","K3":"1-3","K4":"0-2","K5":"0-4","K6":"2-2","L1":"2-1","L2":"1-0","L3":"1-3","L4":"0-2","L5":"0-4","L6":"2-2"},"cup":{"r16":["SPA","GER","POR","UKR","BEL","FRA","ENG","HUN","DEN","NED","CZE","ITA","CRO","TUR","SWI","SER"],"qf":["SPA","DEN","POR","UKR","BEL","FRA","ENG","ITA"],"sf":["SPA","POR","ENG","FRA"],"final":["POR","ENG"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"Tarhonen":{"matches":{"A1":"2-0","A2":"1-2","A3":"2-1","A4":"2-2","A5":"2-3","A6":"1-1","B1":"2-1","B2":"2-0","B3":"2-1","B4":"2-2","B5":"0-2","B6":"1-1","C1":"1-3","C2":"0-2","C3":"1-2","C4":"1-3","C5":"3-0","C6":"2-1","D1":"1-2","D2":"1-3","D3":"1-1","D4":"1-2","D5":"2-2","D6":"3-1","E1":"1-2","E2":"2-0","E3":"1-1","E4":"3-1","E5":"1-1","E6":"1-2","F1":"2-1","F2":"3-1","F3":"1-2","F4":"1-2","F5":"0-3","F6":"2-2","G1":"2-1","G2":"3-1","G3":"1-2","G4":"1-2","G5":"0-3","G6":"2-2","H1":"2-1","H2":"3-1","H3":"1-2","H4":"1-2","H5":"0-3","H6":"2-2","I1":"2-1","I2":"3-1","I3":"1-2","I4":"1-2","I5":"0-3","I6":"2-2","J1":"2-1","J2":"3-1","J3":"1-2","J4":"1-2","J5":"0-3","J6":"2-2","K1":"2-1","K2":"3-1","K3":"1-2","K4":"1-2","K5":"0-3","K6":"2-2","L1":"2-1","L2":"3-1","L3":"1-2","L4":"1-2","L5":"0-3","L6":"2-2"},"cup":{"r16":["GER","SWI","SPA","ITA","ENG","DEN","FRA","NED","BEL","UKR","POR","TUR","CRO","CZE","SER","AUT"],"qf":["GER","ENG","FRA","POR","ITA","SPA","NED","BEL"],"sf":["POR","ENG","FRA","GER"],"final":["ENG","FRA"],"champion":"ENG"},"sikajengi":null,"goalscorer":null},"ChatGPT":{"matches":{"A1":"3-1","A2":"1-2","A3":"2-0","A4":"1-1","A5":"1-3","A6":"1-1","B1":"2-1","B2":"3-0","B3":"2-0","B4":"2-1","B5":"0-3","B6":"1-2","C1":"1-2","C2":"0-2","C3":"1-1","C4":"1-2","C5":"3-0","C6":"2-1","D1":"1-2","D2":"0-3","D3":"2-1","D4":"1-2","D5":"2-0","D6":"3-1","E1":"1-2","E2":"3-0","E3":"1-2","E4":"3-1","E5":"1-1","E6":"1-2","F1":"2-0","F2":"3-1","F3":"1-2","F4":"1-2","F5":"0-3","F6":"1-2","G1":"2-0","G2":"3-1","G3":"1-2","G4":"1-2","G5":"0-3","G6":"1-2","H1":"2-0","H2":"3-1","H3":"1-2","H4":"1-2","H5":"0-3","H6":"1-2","I1":"2-0","I2":"3-1","I3":"1-2","I4":"1-2","I5":"0-3","I6":"1-2","J1":"2-0","J2":"3-1","J3":"1-2","J4":"1-2","J5":"0-3","J6":"1-2","K1":"2-0","K2":"3-1","K3":"1-2","K4":"1-2","K5":"0-3","K6":"1-2","L1":"2-0","L2":"3-1","L3":"1-2","L4":"1-2","L5":"0-3","L6":"1-2"},"cup":{"r16":["ENG","FRA","GER","POR","SPA","ITA","NED","BEL","CRO","DEN","SWI","HUN","UKR","TUR","AUT","CZE"],"qf":["ENG","FRA","GER","POR","SPA","ITA","BEL","NED"],"sf":["ENG","FRA","GER","POR"],"final":["FRA","POR"],"champion":"FRA"},"sikajengi":null,"goalscorer":null},"TommiT":{"matches":{"A1":"1-0","A2":"1-2","A3":"2-0","A4":"0-2","A5":"1-2","A6":"1-1","B1":"2-0","B2":"2-0","B3":"1-0","B4":"2-1","B5":"0-3","B6":"0-1","C1":"1-1","C2":"0-2","C3":"1-2","C4":"1-2","C5":"2-0","C6":"1-2","D1":"0-2","D2":"0-2","D3":"1-2","D4":"1-2","D5":"1-0","D6":"2-0","E1":"2-1","E2":"2-0","E3":"1-0","E4":"2-1","E5":"2-0","E6":"0-2","F1":"2-0","F2":"2-0","F3":"0-2","F4":"1-2","F5":"0-2","F6":"1-0","G1":"2-0","G2":"2-0","G3":"0-2","G4":"1-2","G5":"0-2","G6":"1-0","H1":"2-0","H2":"2-0","H3":"0-2","H4":"1-2","H5":"0-2","H6":"1-0","I1":"2-0","I2":"2-0","I3":"0-2","I4":"1-2","I5":"0-2","I6":"1-0","J1":"2-0","J2":"2-0","J3":"0-2","J4":"1-2","J5":"0-2","J6":"1-0","K1":"2-0","K2":"2-0","K3":"0-2","K4":"1-2","K5":"0-2","K6":"1-0","L1":"2-0","L2":"2-0","L3":"0-2","L4":"1-2","L5":"0-2","L6":"1-0"},"cup":{"r16":["GER","SER","SWI","ITA","SPA","CZE","ENG","AUT","POR","CRO","SVK","BEL","DEN","FRA","TUR","NED"],"qf":["GER","ITA","SPA","ENG","CRO","NED","BEL","FRA"],"sf":["SPA","NED","FRA","ENG"],"final":["NED","FRA"],"champion":"NED"},"sikajengi":null,"goalscorer":null}},"results":{"matches":{"A1":"2-1","A2":"3-2","A3":"0-2","A4":"1-2","A5":"3-1","A6":"0-3","B1":"2-1","B2":"0-2","B3":"2-2","B4":"0-1","B5":"3-0","B6":"2-0","C1":"1-0","C2":"0-3","C3":"2-0","C4":"0-3","C5":"1-3","C6":"1-1","D1":"0-0","D2":"2-2","D3":"0-2","D4":"0-1","D5":"2-3","D6":"2-0","E1":"1-1","E2":"0-2","E3":"2-2","E4":"3-0","E5":"3-1","E6":"3-0","F1":"0-0","F2":"1-1","F3":"2-3","F4":"0-2","F5":"3-1","F6":"2-0","G1":"2-3","G2":"0-3","G3":"2-3","G4":"1-2","G5":"1-2","G6":"1-2","H1":"1-1","H2":"3-2","H3":"3-3","H4":"1-2","H5":"1-0","H6":"2-1","I1":"3-3","I2":"0-1","I3":"3-0","I4":"3-0","I5":"2-2","I6":"0-1","J1":"0-2","J2":"1-0","J3":"2-3","J4":"1-3","J5":"1-0","J6":"3-1","K1":"0-2","K2":"2-3","K3":"3-0","K4":"2-1","K5":"0-0","K6":"2-2","L1":"1-1","L2":"1-0","L3":"0-3","L4":"2-3","L5":"0-0","L6":"2-1"},"dirtiestTeams":["GHA"],"rounds":{"r16":["NED","ICV","MAR","SCO","ALB","SUI","ROM","AUT","TUR","SVN","SWI","KOR","GER","POL","HUN","BRA"],"qf":["GER","NED","SUI","SWI","KOR","SVN","HUN","ALB"],"sf":["ALB","HUN","SUI","KOR"],"final":["ALB","HUN"],"champion":"HUN"},"goals":{"Kane":3}}}</script>
+<script>
+// Pisteytyslogiikka — Excelin kaavat 1:1 koodissa. Puhdas moduuli: ei DOM:ia,
+// ei I/O:ta. Jaettu selaimen (site.mjs inlinoi) ja node:test-yksikkötestien välillä.
+//
+// Säännöt (data/<tid>/tournament.json:n "scoring"):
+//   Lohko-ottelu: oikea tulos = 3p, oikea lopputulos (voittaja/tasapeli) = 1p, muuten 0.
+//   Sikajengi:    oikea joukkue = 8p; jos useampi tasan piskein, oikein = 4p.
+//   Cup-vaihe:    jokainen oikein veikattu jatkoonpääsijä = kierroksen pisteet/joukkue.
+//   Maalintekijä: 1p per veikatun pelaajan maali.
+
+const DEFAULT_SCORING = {
+  group: { exact: 3, outcome: 1, miss: 0 },
+  sikajengi: { points: 8, tiePoints: 4 },
+  goalscorer: { perGoal: 1 },
+};
+
+// "2-1" -> [2,1]; tukee myös ajatusviivaa. null jos tyhjä/virheellinen.
+function parseScore(s) {
+  if (s == null) return null;
+  const m = String(s).trim().match(/^(\d+)\s*[-–—]\s*(\d+)$/);
+  return m ? [Number(m[1]), Number(m[2])] : null;
+}
+
+function sign(n) {
+  return n > 0 ? 1 : n < 0 ? -1 : 0;
+}
+
+// Yhden lohko-ottelun pisteet. Tyhjä tulos (pelaamaton) tai tyhjä veikkaus -> 0.
+function matchPoints(pred, result, cfg = DEFAULT_SCORING.group) {
+  const r = parseScore(result);
+  const p = parseScore(pred);
+  if (!r || !p) return 0;
+  if (p[0] === r[0] && p[1] === r[1]) return cfg.exact;
+  if (sign(p[0] - p[1]) === sign(r[0] - r[1])) return cfg.outcome;
+  return cfg.miss;
+}
+
+function sikajengiPoints(pred, dirtiest, cfg = DEFAULT_SCORING.sikajengi) {
+  if (!pred || !dirtiest || !dirtiest.length) return 0;
+  if (!dirtiest.includes(pred)) return 0;
+  return dirtiest.length > 1 ? cfg.tiePoints : cfg.points;
+}
+
+function goalscorerPoints(pred, goals, cfg = DEFAULT_SCORING.goalscorer) {
+  if (!pred || !goals) return 0;
+  return (goals[pred] || 0) * cfg.perGoal;
+}
+
+// Cup-vaiheen pisteet + erittely kierroksittain. cupRounds = tournament.cupRounds.
+function cupPoints(cupPred, rounds, cupRounds) {
+  const breakdown = {};
+  let total = 0;
+  for (const rd of cupRounds) {
+    const actual = rounds ? rounds[rd.key] : null;
+    let hits = 0;
+    if (rd.key === "champion") {
+      const pick = cupPred ? cupPred.champion : null;
+      hits = pick && actual && pick === actual ? 1 : 0;
+    } else {
+      const set = new Set(actual || []);
+      const picks = (cupPred && cupPred[rd.key]) || [];
+      hits = picks.filter((t) => set.has(t)).length;
+    }
+    const pts = hits * rd.pointsPerTeam;
+    breakdown[rd.key] = { hits, points: pts };
+    total += pts;
+  }
+  return { total, breakdown };
+}
+
+// Yhden veikkaajan kokonaispisteet + erittely. tournament antaa matsit/kierrokset/säännöt.
+function scoreParticipant(pred, results, tournament) {
+  const scoring = tournament.scoring || DEFAULT_SCORING;
+  const res = results || {};
+  const resMatches = res.matches || {};
+
+  let group = 0;
+  const matchPts = {};
+  for (const m of tournament.matches) {
+    const pts = matchPoints(pred.matches?.[m.id], resMatches[m.id], scoring.group);
+    matchPts[m.id] = pts;
+    group += pts;
+  }
+
+  const sikajengi = sikajengiPoints(pred.sikajengi, res.dirtiestTeams, scoring.sikajengi);
+  const cup = cupPoints(pred.cup, res.rounds, tournament.cupRounds);
+  const goalscorer = goalscorerPoints(pred.goalscorer, res.goals, scoring.goalscorer);
+
+  return {
+    group,
+    sikajengi,
+    cup: cup.total,
+    cupBreakdown: cup.breakdown,
+    goalscorer,
+    total: group + sikajengi + cup.total + goalscorer,
+    matchPoints: matchPts,
+  };
+}
+
+// Kaikki veikkaajat pisteytettynä ja sijoitettuna. Tasapisteet jakavat sijan.
+function scoreAll(predictions, results, tournament) {
+  const rows = Object.entries(predictions).map(([name, pred]) => ({
+    name,
+    ...scoreParticipant(pred, results, tournament),
+  }));
+  rows.sort((a, b) => b.total - a.total || a.name.localeCompare(b.name, "fi"));
+  let rank = 0;
+  let prev = null;
+  rows.forEach((row, i) => {
+    if (prev === null || row.total !== prev) rank = i + 1;
+    row.rank = rank;
+    prev = row.total;
+  });
+  return rows;
+}
+
+const KV = JSON.parse(document.getElementById('kv').textContent);
+const {tournament:T, predictions:P, results:R} = KV;
+const rows = scoreAll(P, R, T);
+const $ = (s,el)=> (el||document).querySelector(s);
+const el = (tag,cls,txt)=>{var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;};
+
+function renderStandings(){
+  var played = Object.keys(R.matches||{}).length;
+  var t = el('table');
+  var thead = el('thead'); var hr = el('tr');
+  ['#','Veikkaaja','Yht','Lohko','Sika','Cup','Maalit'].forEach(function(h,i){
+    var th=el('th',null,h); if(i>=3)th.className='hide-sm'; hr.appendChild(th);});
+  thead.appendChild(hr); t.appendChild(thead);
+  var tb = el('tbody');
+  rows.forEach(function(r){
+    var tr=el('tr');
+    tr.appendChild(el('td','rank',r.rank));
+    tr.appendChild(el('td','name',r.name));
+    tr.appendChild(el('td','tot',r.total));
+    [['group'],['sikajengi'],['cup'],['goalscorer']].forEach(function(k){
+      tr.appendChild(el('td','dim hide-sm',r[k[0]]));});
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb);
+  var box=$('#standings'); box.innerHTML='';
+  var h=el('div','hint', played+' / '+T.matches.length+' lohko-ottelua pelattu'+(R.rounds&&R.rounds.champion?' · mestari '+R.rounds.champion:''));
+  box.appendChild(h); box.appendChild(t);
+}
+
+function renderSchedule(){
+  var box=$('#schedule'); box.innerHTML='';
+  var byGroup={};
+  T.matches.forEach(function(m){(byGroup[m.group]=byGroup[m.group]||[]).push(m);});
+  Object.keys(byGroup).forEach(function(g){
+    box.appendChild(el('div','grp','LOHKO '+g));
+    byGroup[g].forEach(function(m){
+      var row=el('div','match');
+      var left=el('div');
+      left.appendChild(el('div','teams',m.home+' – '+m.away));
+      left.appendChild(el('div','time',m.timeLabel||''));
+      row.appendChild(left);
+      var res=(R.matches||{})[m.id];
+      row.appendChild(el('div','res'+(res?'':' none'), res||'–'));
+      box.appendChild(row);
+    });
+  });
+}
+
+function show(v){
+  document.querySelectorAll('.view').forEach(function(e){e.classList.toggle('active',e.id==='view-'+v);});
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('active',b.dataset.v===v);});
+}
+document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){show(b.dataset.v);};});
+renderStandings(); renderSchedule(); show('standings');
+</script>
+</body>
+</html>
