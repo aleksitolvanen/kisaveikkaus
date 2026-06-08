@@ -537,10 +537,10 @@ const html = `<!doctype html>
 <body>
 <div id="topbar">
   <nav>
-    <button data-v="standings" class="active">Pisteet</button>
-    <button data-v="predictions">Veikkaukset</button>
+    <button data-v="predictions">Veikkaus</button>
     <button data-v="schedule">Ottelut</button>
-    <button data-v="analytics">Analytiikka</button>
+    <button data-v="standings" class="active">Pisteet</button>
+    <button data-v="analytics">Analyt.</button>
   </nav>
   <div id="filterbar"></div>
 </div>
