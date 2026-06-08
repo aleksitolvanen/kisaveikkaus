@@ -1,0 +1,11 @@
+{
+  "name": "kisaveikkaus",
+  "private": true,
+  "type": "module",
+  "description": "Kaveriporukan kisaveikkaus-sivusto: veikkaukset, livetulokset, pistetilanne ja analytiikka. Staattinen sivu (Cloudflare Pages), data JSONina.",
+  "scripts": {
+    "test": "node --test",
+    "build": "node site.mjs",
+    "results": "node tools/random-results.mjs"
+  }
+}
