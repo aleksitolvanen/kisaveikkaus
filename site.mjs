@@ -82,9 +82,8 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-variant-numeric:tabular-nums}
 .matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
 .matrix thead th{position:sticky;top:0;background:var(--card2);z-index:7;font-weight:600}
-.matrix .mcol{position:sticky;left:0;width:66px;min-width:66px;max-width:66px;background:var(--card);
-  z-index:4;text-align:left;font-weight:600;overflow:hidden;text-overflow:ellipsis}
-.matrix .tcol{position:sticky;left:66px;background:var(--card);z-index:4}
+.matrix .mcol{position:sticky;left:0;background:var(--card);z-index:4;text-align:left;font-weight:600;white-space:nowrap}
+.matrix .tcol{position:sticky;left:var(--mcolw,72px);background:var(--card);z-index:4}
 .matrix thead .mcol,.matrix thead .tcol{z-index:8}
 .matrix tr.grow td{background:var(--bg)}
 .matrix .glabel{position:sticky;left:0;z-index:5;background:var(--bg);color:var(--accent);font-weight:700;
@@ -258,6 +257,13 @@ function buildMatrix(players, maxH, specs){
   });
   t.appendChild(tb); wrap.appendChild(t); return wrap;
 }
+// Mittaa Ottelu-sarakkeen todellinen leveys ja jäädytä Tulos-sarake sen viereen
+// (Ottelu-sarake sovittautuu sisältöön → maakoodit eivät koskaan leikkaudu).
+function freezeOffsets(wrap){
+  if(!wrap.querySelector) return;
+  var c=wrap.querySelector('.mcol'), t=wrap.querySelector('table');
+  if(c && t && c.offsetWidth) t.style.setProperty('--mcolw', c.offsetWidth+'px');
+}
 function renderPredictions(){
   var box=$('#predictions'); box.innerHTML='';
   var players=sel();
@@ -274,7 +280,7 @@ function renderPredictions(){
       }});
     });
   });
-  box.appendChild(buildMatrix(players, '70vh', rows));
+  var w1=buildMatrix(players, '70vh', rows); box.appendChild(w1); freezeOffsets(w1);
   // Muut – oma taulukko (ei levennä Ottelu-saraketta)
   box.appendChild(el('div','msub','Muut'));
   var muut=[
@@ -288,7 +294,7 @@ function renderPredictions(){
         var pred=P[n].goalscorer, goals=(R.goals||{})[pred];
         return { txt:pred?(pred+(goals?' ('+goals+')':'')):'', cls:goals?'c3':'' }; }},
   ];
-  box.appendChild(buildMatrix(players, null, muut));
+  var w2=buildMatrix(players, null, muut); box.appendChild(w2); freezeOffsets(w2);
 }
 
 /* ---- analytiikka ---- */
