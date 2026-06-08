@@ -194,8 +194,9 @@ function renderFilter(){
   row.appendChild(tog);
   var facts=el('div','facts');
   var all=el('a',null,'Kaikki'); all.onclick=function(){ NAMES.forEach(function(n){state.players.add(n);}); rerender(); };
+  var top4=el('a',null,'Top 4'); top4.onclick=function(){ state.players=new Set(ALLROWS.slice(0,4).map(function(r){ return r.name; })); rerender(); };
   var none=el('a',null,'Tyhjennä'); none.onclick=function(){ state.players.clear(); rerender(); };
-  facts.appendChild(all); facts.appendChild(none); row.appendChild(facts);
+  facts.appendChild(all); facts.appendChild(top4); facts.appendChild(none); row.appendChild(facts);
   bar.appendChild(row);
   if(!state.filterOpen) return;
   var chips=el('div','chips');
