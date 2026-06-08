@@ -45,9 +45,9 @@ function curlJson(url) {
   return JSON.parse(out);
 }
 
-function fetchFifaMatches() {
+function fetchFifaMatches(fromIso = FIFA.from, toIso = FIFA.to) {
   const url = `${FIFA.base}/calendar/matches?idCompetition=${FIFA.idCompetition}` +
-    `&idSeason=${FIFA.idSeason}&from=${FIFA.from}&to=${FIFA.to}&count=104&language=en`;
+    `&idSeason=${FIFA.idSeason}&from=${fromIso}&to=${toIso}&count=104&language=en`;
   return curlJson(url).Results || [];
 }
 
@@ -66,14 +66,84 @@ function indexFifa(matches) {
   return byPair;
 }
 
+// Päivittää lohko-otteluiden tulokset results.matches:iin (vain muuttuneet). Palauttaa muutosten määrän.
+function applyResults(byPair, tournament, results) {
+  let n = 0;
+  for (const m of tournament.matches) {
+    const f = byPair[pairKey(m.group, m.home, m.away)];
+    if (!f) continue;
+    const hs = f.HomeTeamScore, as = f.AwayTeamScore;
+    if (hs == null || as == null || String(f.MatchStatus) === "1") continue;
+    const fHome = norm(f.Home?.Abbreviation);
+    const [H, A] = fHome === m.home ? [hs, as] : [as, hs]; // kohdista koti/vieras koodilla
+    const v = `${H}-${A}`;
+    if (results.matches[m.id] !== v) { results.matches[m.id] = v; n++; }
+  }
+  return n;
+}
+
+// Päivittää olemassa olevat pudotuspeli-entryt (parit + tulokset) FIFA-datasta. Palauttaa muuttuiko.
+function updateKnockout(fifa, tournament) {
+  if (!tournament.knockout) return false;
+  const byId = {};
+  for (const e of tournament.knockout) byId[e.fifaId] = e;
+  let changed = false;
+  for (const fm of fifa) {
+    if (!KO_ROUNDS[fm.StageName?.[0]?.Description]) continue;
+    const e = byId[fm.IdMatch];
+    if (!e) continue;
+    const home = norm(fm.Home?.Abbreviation) || fm.PlaceHolderA || "?";
+    const away = norm(fm.Away?.Abbreviation) || fm.PlaceHolderB || "?";
+    const played = fm.HomeTeamScore != null && fm.AwayTeamScore != null && String(fm.MatchStatus) !== "1";
+    const score = played ? `${fm.HomeTeamScore}-${fm.AwayTeamScore}` : null;
+    const real = !!(fm.Home?.Abbreviation && fm.Away?.Abbreviation);
+    if (e.home !== home || e.away !== away || e.score !== score || e.real !== real) {
+      e.home = home; e.away = away; e.real = real; e.score = score; changed = true;
+    }
+  }
+  return changed;
+}
+
+// Live-tila: hakee ja päivittää vain jos ottelu on parhaillaan käynnissä (kickoff…+170 min).
+const LIVE_WINDOW_MIN = 170; // kattaa lisäajan + rankkarit
+async function runLive(tournament, tPath) {
+  const now = Date.now();
+  const live = [...tournament.matches, ...(tournament.knockout || [])].some((m) => {
+    if (!m.kickoff) return false;
+    const k = new Date(m.kickoff).getTime();
+    return now >= k && now <= k + LIVE_WINDOW_MIN * 60000;
+  });
+  if (!live) { console.log("Ei käynnissä olevia otteluita – ei API-kutsua."); return; }
+
+  const fromIso = new Date(now - LIVE_WINDOW_MIN * 60000).toISOString();
+  const toIso = new Date(now + 5 * 60000).toISOString();
+  const fifa = fetchFifaMatches(fromIso, toIso);
+
+  const rPath = path.join(dir, "results.json");
+  let results;
+  try { results = JSON.parse(await readFile(rPath, "utf-8")); }
+  catch { results = { matches: {}, dirtiestTeams: [], rounds: {}, goals: {} }; }
+
+  const n = applyResults(indexFifa(fifa), tournament, results);
+  const koChanged = updateKnockout(fifa, tournament);
+
+  if (n) await writeFile(rPath, JSON.stringify(results, null, 2) + "\n", "utf-8");
+  if (koChanged) await writeFile(tPath, JSON.stringify(tournament, null, 2) + "\n", "utf-8");
+  console.log(`Live (${fifa.length} ottelua ikkunassa): ${n} lohkotulosta päivitetty` +
+    (koChanged ? ", pudotuspelit päivitetty" : "") + ".");
+}
+
 async function main() {
   const tPath = path.join(dir, "tournament.json");
   const tournament = JSON.parse(await readFile(tPath, "utf-8"));
+
+  if (mode === "live") { await runLive(tournament, tPath); return; }
+
   const fifa = fetchFifaMatches();
   const byPair = indexFifa(fifa);
   console.log(`FIFA: ${fifa.length} ottelua haettu, ${Object.keys(byPair).length} lohko-ottelua indeksoitu`);
 
-  let schedUpdated = 0, resWritten = 0, unmatched = [];
+  let schedUpdated = 0, unmatched = [];
 
   if (mode === "schedule" || mode === "all") {
     for (const m of tournament.matches) {
@@ -129,21 +199,12 @@ async function main() {
     let results;
     try { results = JSON.parse(await readFile(rPath, "utf-8")); }
     catch { results = { matches: {}, dirtiestTeams: [], rounds: {}, goals: {} }; }
-    for (const m of tournament.matches) {
-      const f = byPair[pairKey(m.group, m.home, m.away)];
-      if (!f) continue;
-      const hs = f.HomeTeamScore, as = f.AwayTeamScore;
-      if (hs == null || as == null) continue;       // ei pelattu / ei tulosta
-      if (String(f.MatchStatus) === "1") continue;   // 1 = ei alkanut
-      // FIFA:n koti/vieras voi olla eri päin kuin meillä → kohdista koodilla
-      const fHome = norm(f.Home?.Abbreviation);
-      const [H, A] = fHome === m.home ? [hs, as] : [as, hs];
-      results.matches[m.id] = `${H}-${A}`;
-      resWritten++;
-    }
+    const resWritten = applyResults(byPair, tournament, results);
     await writeFile(rPath, JSON.stringify(results, null, 2) + "\n", "utf-8");
-    console.log(`Tulokset päivitetty: ${resWritten} pelattua lohko-ottelua ` +
-      `(sikajengi, cup ja maalit syötetään käsin / muusta lähteestä)`);
+    if (mode === "results") { // all-tilassa knockout päivittyy jo schedule-blokissa
+      if (updateKnockout(fifa, tournament)) await writeFile(tPath, JSON.stringify(tournament, null, 2) + "\n", "utf-8");
+    }
+    console.log(`Tulokset päivitetty: ${resWritten} lohkotulosta (sikajengi, cup ja maalit syötetään käsin).`);
   }
 }
 
