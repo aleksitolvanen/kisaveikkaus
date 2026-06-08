@@ -104,6 +104,11 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .oddbar{position:relative;background:var(--card2);border-radius:6px;height:20px;overflow:hidden}
 .oddbar>span{position:absolute;left:0;top:0;bottom:0;background:var(--accent);opacity:.4}
 .oddrow .ov{text-align:right;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
+.chartbox svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
+.legi{display:flex;align-items:center;gap:6px;font-size:12px}
+.legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
 @media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
 `;
 
@@ -323,11 +328,53 @@ function simulateOdds(N){
   }
   return Object.keys(P).map(function(n){ return { name:n, odds:wins[n]/N }; }).sort(function(a,b){ return b.odds-a.odds; });
 }
+// Aikajana: ratkenneet pisteytystapahtumat loogisessa järjestyksessä +
+// per-veikkaaja pistedelta. Lohko-ottelut kickoff-järjestyksessä, sitten
+// sikajengi, cup-kierrokset ja lopuksi maalit.
+function pointsTimeline(){
+  var ev=[], names=Object.keys(P);
+  T.matches.filter(function(m){ return matchDecided(R,m.id); })
+    .slice().sort(function(a,b){ return (a.kickoff||'').localeCompare(b.kickoff||''); })
+    .forEach(function(m){ var d={}; names.forEach(function(n){ d[n]=matchPoints((P[n].matches||{})[m.id], R.matches[m.id], T.scoring.group); }); ev.push({label:m.home+'–'+m.away, deltas:d}); });
+  if(R.dirtiestTeams&&R.dirtiestTeams.length){ var d={}; names.forEach(function(n){ d[n]=sikajengiPoints(P[n].sikajengi,R.dirtiestTeams,T.scoring.sikajengi); }); ev.push({label:'Sikajengi', deltas:d}); }
+  T.cupRounds.forEach(function(rd){ var a=R.rounds&&R.rounds[rd.key]; var dec=rd.key==='champion'?!!a:(a&&a.length); if(!dec)return;
+    var d={}; names.forEach(function(n){ d[n]=cupPoints(P[n].cup, R.rounds, [rd]).total; }); ev.push({label:rd.label, deltas:d}); });
+  if(R.goals && Object.keys(R.goals).length){ var d={}; names.forEach(function(n){ d[n]=goalscorerPoints(P[n].goalscorer,R.goals,T.scoring.goalscorer); }); ev.push({label:'Maalit', deltas:d}); }
+  return ev;
+}
+function renderTimeChart(){
+  var s=el('div','asec'); s.appendChild(el('h3',null,'Pisteet ajan yli'));
+  var events=pointsTimeline();
+  if(!events.length){ s.appendChild(el('div','hint','Ei vielä ratkenneita otteluita.')); return s; }
+  var names=Object.keys(P), cum={}, series={};
+  names.forEach(function(n){ cum[n]=0; series[n]=[0]; });
+  events.forEach(function(e){ names.forEach(function(n){ cum[n]+=e.deltas[n]||0; series[n].push(cum[n]); }); });
+  var top=names.slice().sort(function(a,b){ return cum[b]-cum[a]; }).slice(0,8);
+  var maxY=1; top.forEach(function(n){ if(cum[n]>maxY)maxY=cum[n]; });
+  var W=340,H=190,padL=6,padR=6,padT=10,padB=10,xN=events.length;
+  function X(i){ return (padL+(xN?i/xN:0)*(W-padL-padR)).toFixed(1); }
+  function Y(v){ return (H-padB-(v/maxY)*(H-padT-padB)).toFixed(1); }
+  var pal=['#3ea6ff','#ffd24a','#46c46b','#e2706e','#b98cff','#46c9c0','#ff9d4a','#e36fb0'];
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
+  svg+='<line x1="'+padL+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#2a2f3a"/>';
+  top.forEach(function(n,idx){
+    var pts=series[n].map(function(v,i){ return X(i)+','+Y(v); }).join(' ');
+    svg+='<polyline points="'+pts+'" fill="none" stroke="'+pal[idx%pal.length]+'" stroke-width="1.8" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>';
+  });
+  svg+='</svg>';
+  var cb=el('div','chartbox'); cb.innerHTML=svg; s.appendChild(cb);
+  var leg=el('div','legend');
+  top.forEach(function(n,idx){ var it=el('div','legi'); var sw=el('span','legsw'); sw.style.background=pal[idx%pal.length]; it.appendChild(sw); it.appendChild(el('span',null,n+' ('+cum[n]+')')); leg.appendChild(it); });
+  s.appendChild(leg);
+  s.appendChild(el('div','hint', events.length+' ratkennutta tapahtumaa · top 8 näytetään (maalit mukana lopussa)'));
+  return s;
+}
 function renderAnalytics(){
   var box=$('#analytics'); box.innerHTML='';
   var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
   box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
     (cupUnd.length?'cup-vaihe kesken':'cup ratkennut')+(sikaUnd?' · sikajengi auki':'')));
+  box.appendChild(renderTimeChart());
 
   // 1) Max-pisteet / kuka voi vielä voittaa
   var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
