@@ -80,6 +80,15 @@ async function main() {
       schedUpdated++;
     }
     tournament.matches.sort((a, b) => (a.kickoff || "").localeCompare(b.kickoff || ""));
+    // Maiden koko nimet (koodi -> nimi) tooltippejä varten
+    const teamNames = {};
+    for (const fm of fifa) {
+      for (const side of [fm.Home, fm.Away]) {
+        const code = norm(side?.Abbreviation), name = side?.TeamName?.[0]?.Description;
+        if (code && name && tournament.teams.includes(code)) teamNames[code] = name;
+      }
+    }
+    tournament.teamNames = teamNames;
     await writeFile(tPath, JSON.stringify(tournament, null, 2) + "\n", "utf-8");
     console.log(`Otteluohjelma päivitetty: ${schedUpdated}/${tournament.matches.length} ottelua` +
       (unmatched.length ? `, EI löytynyt: ${unmatched.join(", ")}` : ""));

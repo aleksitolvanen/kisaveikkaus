@@ -123,6 +123,8 @@ const CLIENT = String.raw`
 const KV = JSON.parse(document.getElementById('kv').textContent);
 const T = KV.tournament, P = KV.predictions, R = KV.results;
 const NAMES = Object.keys(P);
+function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
+function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
 const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
 const state = { players: loadSel(), view: 'standings', filterOpen: false, dayFilter: 'all',
   cmpA: null, cmpB: null, odds: null };
@@ -212,7 +214,7 @@ function matchCell(m){
   var cell=el('div','mcell'), row=el('div','match');
   row.appendChild(el('span','chev','▶'));
   var left=el('div');
-  left.appendChild(el('div','teams',m.home+' – '+m.away));
+  var tdiv=el('div','teams',m.home+' – '+m.away); tdiv.title=pairTitle(m.home,m.away); left.appendChild(tdiv);
   left.appendChild(el('div','time', fiTime(m.kickoff) || m.timeLabel || ''));
   row.appendChild(left);
   // FIFA-linkki otteluparin ja tuloksen väliin (keskelle tyhjää kohtaa)
@@ -276,9 +278,9 @@ function buildMatrix(players, maxH, specs){
     if(s.group!=null){ var tr=el('tr','grow'); tr.appendChild(el('td','glabel',s.group));
       var f=el('td','gfill',''); f.colSpan=players.length+1; tr.appendChild(f); tb.appendChild(tr); return; }
     var tr=el('tr');
-    tr.appendChild(el('td','mcol'+(s.mono?' mono':''),s.label));
-    tr.appendChild(el('td','actual tcol', s.actual==null?'–':s.actual));
-    players.forEach(function(n){ var c=s.cellFor(n); tr.appendChild(el('td',c.cls,c.txt==null?'':c.txt)); });
+    var lc=el('td','mcol'+(s.mono?' mono':''),s.label); if(s.title) lc.title=s.title; tr.appendChild(lc);
+    var ac=el('td','actual tcol', s.actual==null?'–':s.actual); if(s.actualTitle) ac.title=s.actualTitle; tr.appendChild(ac);
+    players.forEach(function(n){ var c=s.cellFor(n); var td=el('td',c.cls,c.txt==null?'':c.txt); if(c.title) td.title=c.title; tr.appendChild(td); });
     tb.appendChild(tr);
   });
   t.appendChild(tb); wrap.appendChild(t); return wrap;
@@ -300,7 +302,7 @@ function renderPredictions(){
     rows.push({group:'LOHKO '+g});
     by[g].forEach(function(m){
       var res=(R.matches||{})[m.id], has=!!res;
-      rows.push({ label:m.home+'–'+m.away, mono:true, actual:res, cellFor:function(n){
+      rows.push({ label:m.home+'–'+m.away, mono:true, title:pairTitle(m.home,m.away), actual:res, cellFor:function(n){
         var pred=(P[n].matches||{})[m.id];
         return { txt:pred||'', cls:cellClass(matchPoints(pred,res,T.scoring.group), has) };
       }});
@@ -311,12 +313,14 @@ function renderPredictions(){
   // Muut – oma taulukko (ei levennä Ottelu-saraketta)
   box.appendChild(el('div','msub','Muut'));
   var muut=[
-    { label:'Sikajengi', actual:(R.dirtiestTeams||[]).join(' / ')||null, cellFor:function(n){
+    { label:'Sikajengi', actual:(R.dirtiestTeams||[]).join(' / ')||null,
+      actualTitle:(R.dirtiestTeams||[]).map(teamName).join(' / ')||null, cellFor:function(n){
         var pred=P[n].sikajengi;
-        return { txt:pred||'', cls:cellClass(sikajengiPoints(pred,R.dirtiestTeams,T.scoring.sikajengi),(R.dirtiestTeams||[]).length>0) }; }},
-    { label:'Mestari', actual:(R.rounds&&R.rounds.champion)||null, cellFor:function(n){
+        return { txt:pred||'', title:pred?teamName(pred):null, cls:cellClass(sikajengiPoints(pred,R.dirtiestTeams,T.scoring.sikajengi),(R.dirtiestTeams||[]).length>0) }; }},
+    { label:'Mestari', actual:(R.rounds&&R.rounds.champion)||null,
+      actualTitle:(R.rounds&&R.rounds.champion)?teamName(R.rounds.champion):null, cellFor:function(n){
         var pred=P[n].cup&&P[n].cup.champion, has=!!(R.rounds&&R.rounds.champion);
-        return { txt:pred||'', cls:!has?'':(pred===R.rounds.champion?'c3':'c0') }; }},
+        return { txt:pred||'', title:pred?teamName(pred):null, cls:!has?'':(pred===R.rounds.champion?'c3':'c0') }; }},
     { label:'Maalintekijä', actual:null, cellFor:function(n){
         var pred=P[n].goalscorer, goals=(R.goals||{})[pred];
         return { txt:pred?(pred+(goals?' ('+goals+')':'')):'', cls:goals?'c3':'' }; }},
