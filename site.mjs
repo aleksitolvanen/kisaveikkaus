@@ -89,7 +89,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
 .matrix thead th{position:sticky;top:0;background:var(--card2);z-index:7;font-weight:600}
 .matrix .mcol{position:sticky;left:0;background:var(--card);z-index:4;text-align:left;font-weight:600;white-space:nowrap}
-.matrix .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
+.matrix .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
 .matrix .tcol{position:sticky;left:var(--mcolw,72px);background:var(--card);z-index:4}
 .matrix thead .mcol,.matrix thead .tcol{z-index:8}
 .matrix tr.grow td{background:var(--bg)}
