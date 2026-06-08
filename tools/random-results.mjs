@@ -57,7 +57,7 @@ if (stage !== "partial") {
 const scorers = [...new Set(Object.values(predictions).map((p) => p.goalscorer).filter(Boolean))];
 for (const s of scorers) results.goals[s] = (stage === "partial" ? 0 : 1) + Math.floor(rand() * (stage === "partial" ? 4 : 6));
 
-if (stage === "full") {
+if (stage === "full" || stage === "mid") {
   // Cup-joukkueet osallistujien veikkauksista → varmistaa osumat
   const poolFor = (key) => {
     const s = new Set();
@@ -71,10 +71,13 @@ if (stage === "full") {
   const r16pool = poolFor("r16");
   const r16 = sample(r16pool.length >= 16 ? r16pool : tournament.teams, 16);
   const qf = sample(r16, 8);
-  const sf = sample(qf, 4);
-  const final = sample(sf, 2);
-  const champion = pick(final);
-  results.rounds = { r16, qf, sf, final, champion };
+  if (stage === "mid") {
+    // r16 + puolivälierä ratkennut, loppu auki
+    results.rounds = { r16, qf, sf: [], final: [], champion: null };
+  } else {
+    const sf = sample(qf, 4), final = sample(sf, 2);
+    results.rounds = { r16, qf, sf, final, champion: pick(final) };
+  }
 } else {
   results.rounds = { r16: [], qf: [], sf: [], final: [], champion: null };
 }

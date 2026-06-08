@@ -61,6 +61,8 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .rank-t th:nth-child(2),.rank-t td:nth-child(2){text-align:left}
 .rank{color:var(--muted);width:30px}.name{font-weight:600}
 .tot{font-weight:800;color:var(--gold)}.dim{color:var(--muted)}
+.rank-t td.pts{text-align:right;white-space:nowrap}
+.brk{color:var(--muted);font-size:12px;margin-right:8px;font-variant-numeric:tabular-nums}
 /* ottelut */
 .seg{display:inline-flex;align-self:flex-start;gap:2px;margin:2px 0 12px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px}
 .seg button{border:none;background:transparent;color:var(--muted);padding:5px 13px;border-radius:999px;
@@ -187,17 +189,19 @@ function renderStandings(){
   box.appendChild(el('div','hint', played+' / '+T.matches.length+' lohko-ottelua pelattu'+
     (R.rounds&&R.rounds.champion?' · mestari '+R.rounds.champion:'')));
   var t=el('table','rank-t'), thead=el('thead'), hr=el('tr');
-  ['#','Veikkaaja','Yht','Lohko','Sika','Cup','Maalit'].forEach(function(h,i){
-    var th=el('th',i>=3?'hide-sm':null,h); hr.appendChild(th); });
+  ['#','Veikkaaja','Pisteet'].forEach(function(h){ hr.appendChild(el('th',null,h)); });
   thead.appendChild(hr); t.appendChild(thead);
   var tb=el('tbody');
   ALLROWS.forEach(function(r){                       // aina kaikki veikkaajat
     var tr=el('tr');
     tr.appendChild(el('td','rank',r.rank));
     tr.appendChild(el('td','name',r.name));
-    tr.appendChild(el('td','tot',r.total));
-    ['group','sikajengi','cup','goalscorer'].forEach(function(k){ tr.appendChild(el('td','dim hide-sm',r[k])); });
-    tb.appendChild(tr);
+    var parts=[['Lohko',r.group],['Sikajengi',r.sikajengi],['Cup',r.cup],['Maalit',r.goalscorer]];
+    var nz=parts.filter(function(p){ return p[1]>0; }).map(function(p){ return p[1]; });
+    var td=el('td','pts'); td.title=parts.map(function(p){ return p[0]+' '+p[1]; }).join(' · ');
+    if(nz.length>1) td.appendChild(el('span','brk','('+nz.join('+')+')'));
+    td.appendChild(el('span','tot',r.total));
+    tr.appendChild(td); tb.appendChild(tr);
   });
   t.appendChild(tb); box.appendChild(t);
 }
