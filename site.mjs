@@ -144,7 +144,7 @@ function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
 let ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (päivittyy pollauksessa)
 // Mistä tuore data haetaan ilman sivun reloadia. Oletus: sama origin ('data.json').
 // Voi osoittaa erilliseen lähteeseen (R2/data-repo) → sivua ei tarvitse deployata datan muuttuessa.
-var DATA_URL = 'data.json';
+var DATA_URL = 'https://raw.githubusercontent.com/aleksitolvanen/kisaveikkaus-mm2026/main/data.json';
 const savedUI = loadUI();
 const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
