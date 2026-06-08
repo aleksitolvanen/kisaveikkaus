@@ -108,6 +108,11 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
 .legi{display:flex;align-items:center;gap:6px;font-size:12px}
 .legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
+.wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
+.wmatch{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+.wname{color:var(--muted)}
+.wsub{color:var(--muted);font-size:11px;margin-top:2px}
+.wpred{font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
 @media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
 </style>
 </head>
@@ -647,6 +652,25 @@ function renderTimeChart(){
     (allSel?'top 8 värillä, muut harmaana (suodata veikkaajavalinnasta)':picked.length+' valittua veikkaajaa')+' · maalit mukana lopussa'));
   return s;
 }
+// Villeimmät veikkaukset: ennusteen keskim. etäisyys muiden veikkauksiin samassa
+// ottelussa (maaliero + vastakkainen lopputulos +2). Top 10.
+function wildScoreDist(a,b){ return Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1])+(sign(a[0]-a[1])!==sign(b[0]-b[1])?2:0); }
+function wildestPredictions(){
+  var out=[];
+  T.matches.forEach(function(m){
+    var preds=[];
+    NAMES.forEach(function(n){ var s=parseScore((P[n].matches||{})[m.id]); if(s) preds.push({n:n,s:s}); });
+    if(preds.length<3) return;
+    var counts={}; preds.forEach(function(p){ var k=p.s[0]+'-'+p.s[1]; counts[k]=(counts[k]||0)+1; });
+    var mode=Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; })[0];
+    preds.forEach(function(p){
+      var sum=0; preds.forEach(function(q){ if(q!==p) sum+=wildScoreDist(p.s,q.s); });
+      out.push({ m:m, player:p.n, pred:p.s[0]+'-'+p.s[1], mode:mode, wild:sum/(preds.length-1) });
+    });
+  });
+  out.sort(function(a,b){ return b.wild-a.wild; });
+  return out.slice(0,10);
+}
 function renderAnalytics(){
   var box=$('#analytics'); box.innerHTML='';
   var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
@@ -708,6 +732,19 @@ function renderAnalytics(){
   });
   s3.appendChild(el('div','hint','1000 simulaatiota: ratkaisemattomat ottelut, sikajengi ja cup-polut arvottu satunnaisesti.'));
   box.appendChild(s3);
+
+  // 4) Villeimmät veikkaukset
+  var sw=el('div','asec'); sw.appendChild(el('h3',null,'Villeimmät veikkaukset'));
+  wildestPredictions().forEach(function(w){
+    var row=el('div','wildrow'), l=el('div','wleft'), line1=el('div');
+    var mm=el('span','wmatch',w.m.home+'–'+w.m.away); mm.title=pairTitle(w.m.home,w.m.away);
+    line1.appendChild(mm); line1.appendChild(el('span','wname',' · '+w.player));
+    l.appendChild(line1); l.appendChild(el('div','wsub','yleisin '+w.mode));
+    row.appendChild(l); row.appendChild(el('span','wpred',w.pred));
+    sw.appendChild(row);
+  });
+  sw.appendChild(el('div','hint','Eniten muiden veikkauksista poikkeavat lohkoveikkaukset.'));
+  box.appendChild(sw);
   trackScroll($('#view-analytics'),'analytics');
 }
 
