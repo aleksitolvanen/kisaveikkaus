@@ -12,17 +12,15 @@
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   padding:0 0 40px;max-width:980px;margin:0 auto}
-header{padding:9px 14px 2px}
-h1{font-size:16px;letter-spacing:.2px;font-weight:700}
-h1 span{color:var(--muted);font-weight:400;font-size:12px;margin-left:6px}
-nav{display:flex;gap:8px;padding:6px 14px;position:sticky;top:0;background:var(--bg);z-index:5}
+#topbar{position:sticky;top:0;z-index:20;background:var(--bg)}
+nav{display:flex;gap:8px;padding:8px 14px 6px;background:var(--bg)}
 nav button{flex:1;padding:8px 6px;border:1px solid var(--line);background:var(--card);color:var(--fg);
   border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 nav button.active{background:var(--accent);border-color:var(--accent);color:#04121f}
 main{padding:4px 12px}
 .view{display:none}.view.active{display:block}
 /* filtteri (kokoontaitettava) */
-#filterbar{padding:3px 14px 2px;position:sticky;top:42px;background:var(--bg);z-index:4}
+#filterbar{padding:2px 14px 6px;background:var(--bg)}
 .ftoggle{display:inline-flex;align-items:center;gap:7px;cursor:pointer;color:var(--muted);user-select:none;
   font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:3px 0}
 .ftoggle .chev2{font-size:9px}
@@ -41,7 +39,7 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .rank{color:var(--muted);width:30px}.name{font-weight:600}
 .tot{font-weight:800;color:var(--gold)}.dim{color:var(--muted)}
 /* ottelut */
-.seg{display:flex;gap:6px;margin:2px 0 10px;position:sticky;top:42px;background:var(--bg);padding:4px 0;z-index:3}
+.seg{display:flex;gap:6px;margin:2px 0 10px}
 .seg button{flex:1;padding:7px 6px;border:1px solid var(--line);background:var(--card);color:var(--fg);
   border-radius:9px;font-size:13px;font-weight:600;cursor:pointer}
 .seg button.on{background:var(--accent);border-color:var(--accent);color:#04121f}
@@ -61,7 +59,7 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .pname{color:var(--muted);overflow:hidden;text-overflow:ellipsis}
 .pval{font-weight:700;font-variant-numeric:tabular-nums;padding:1px 6px;border-radius:5px;min-width:38px;text-align:center}
 /* veikkausmatriisi */
-.mwrap{overflow:auto;max-height:78vh;border:1px solid var(--line);border-radius:10px}
+.mwrap{overflow:auto;max-height:74vh;border:1px solid var(--line);border-radius:10px;position:relative;z-index:0}
 table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-variant-numeric:tabular-nums}
 .matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
 .matrix thead th{position:sticky;top:0;background:var(--card2);z-index:5;font-weight:600}
@@ -75,19 +73,18 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .msub{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:14px 2px 5px}
 .c3{background:rgba(70,196,107,.20)}.c1{background:rgba(224,179,65,.18)}.c0{color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;margin:4px 2px 12px}
-@media(max-width:560px){.hide-sm{display:none}body{font-size:14px}#filterbar{top:100px}}
+@media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
 </style>
 </head>
 <body>
-<header>
-  <h1>Kisaveikkaus · MM2026<span>20 veikkaajaa</span></h1>
-</header>
-<nav>
-  <button data-v="standings" class="active">Pistetilanne</button>
-  <button data-v="predictions">Veikkaukset</button>
-  <button data-v="schedule">Ottelut</button>
-</nav>
-<div id="filterbar"></div>
+<div id="topbar">
+  <nav>
+    <button data-v="standings" class="active">Pistetilanne</button>
+    <button data-v="predictions">Veikkaukset</button>
+    <button data-v="schedule">Ottelut</button>
+  </nav>
+  <div id="filterbar"></div>
+</div>
 <main>
   <section id="view-standings" class="view active"><div id="standings"></div></section>
   <section id="view-predictions" class="view"><div id="predictions"></div></section>
