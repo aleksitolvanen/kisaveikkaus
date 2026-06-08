@@ -58,10 +58,10 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .rank{color:var(--muted);width:30px}.name{font-weight:600}
 .tot{font-weight:800;color:var(--gold)}.dim{color:var(--muted)}
 /* ottelut */
-.seg{display:flex;gap:6px;margin:2px 0 10px}
-.seg button{flex:1;padding:7px 6px;border:1px solid var(--line);background:var(--card);color:var(--fg);
-  border-radius:9px;font-size:13px;font-weight:600;cursor:pointer}
-.seg button.on{background:var(--accent);border-color:var(--accent);color:#04121f}
+.seg{display:inline-flex;gap:2px;margin:2px 0 12px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:none;background:transparent;color:var(--muted);padding:5px 13px;border-radius:999px;
+  font-size:12px;font-weight:600;cursor:pointer;line-height:1.2}
+.seg button.on{background:var(--accent);color:#04121f}
 .grp{margin:14px 0 6px;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.5px}
 .mcell{margin-bottom:6px}
 .match{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;cursor:pointer;
