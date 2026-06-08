@@ -1,0 +1,51 @@
+name: Päivitä kisaveikkaus
+
+# Hakee FIFA:n virallisen otteluohjelman + tulokset, regeneroi site/index.html:n
+# ja committaa muutokset. Push mainiin triggeröi Cloudflare Pages -deployn
+# (CF tarjoilee site/:n suoraan, ei build-vaihetta). Ajaa ajastetusti + käsin.
+#
+# Manuaaliset kentät (sikajengi, cup-jatkoonpääsijät, maalintekijämaalit) eivät
+# tule FIFA:lta — ne syötetään käsin data/mm2026/results.json:iin. fetch-fifa
+# säilyttää ne (päivittää vain otteluiden tulokset + pudotuspeliparit/-ajat).
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # 30 min välein. Säädä tai poista turnauksen jälkeen.
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/Helsinki   # ajat lasketaan Suomen aikaan riippumatta runnerista
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Hae FIFA-data ja regeneroi sivu
+        run: |
+          node tools/fetch-fifa.mjs mm2026 --mode=all
+          node site.mjs mm2026
+
+      - name: Committaa ja pushaa muutokset
+        run: |
+          git config user.name "kisaveikkaus-päivitys"
+          git config user.email "noreply@github.com"
+          git add -f data/mm2026/tournament.json data/mm2026/results.json site/index.html
+          if ! git diff --quiet --cached; then
+            git commit -m "Päivitä tulokset ($(date -u +%FT%H:%MZ))"
+            git pull --rebase --autostash
+            git push
+          else
+            echo "Ei muutoksia."
+          fi
