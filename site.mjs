@@ -1,8 +1,8 @@
 // Generoi site/index.html staattisena sivuna. Lukee data/<tid>/:n JSONit ja
-// upottaa ne + pisteytyslogiikan (scoring.mjs) sivulle; pistetilanne ja
-// otteluohjelma renderöidään selaimessa, jotta filtterit/analytiikka voidaan
-// kerrostaa päälle ilman build-vaihetta. Kirjoittaa vain jos sisältö muuttui
-// (ei turhia CF Pages -deployja).
+// upottaa ne + pisteytyslogiikan (scoring.mjs) sivulle; pistetilanne,
+// otteluohjelma ja veikkausmatriisi renderöidään selaimessa, jotta
+// filtterit/analytiikka voidaan kerrostaa ilman build-vaihetta. Kirjoittaa
+// vain jos sisältö muuttui (ei turhia CF Pages -deployja).
 //
 // Käyttö:  node site.mjs [tid]
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -21,105 +21,226 @@ const scoringSrc = readFileSync("scoring.mjs", "utf-8").replace(/^export\s+/gm, 
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-// Estä </script>-pako upotetussa JSONissa.
 const jsonBlob = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
-
 const KV = jsonBlob({ tournament, predictions, results });
 
 const CSS = `
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
-  --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;--bad:#566;}
+  --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  padding:0 0 40px;max-width:880px;margin:0 auto}
-header{padding:18px 16px 10px;position:sticky;top:0;background:linear-gradient(var(--bg),var(--bg) 78%,transparent);z-index:5}
+  padding:0 0 40px;max-width:980px;margin:0 auto}
+header{padding:16px 16px 8px;position:sticky;top:0;background:linear-gradient(var(--bg),var(--bg) 78%,transparent);z-index:6}
 h1{font-size:20px;letter-spacing:.2px}
 .sub{color:var(--muted);font-size:13px;margin-top:2px}
-nav{display:flex;gap:8px;padding:8px 16px 4px;position:sticky;top:58px;background:var(--bg);z-index:4}
-nav button{flex:1;padding:9px 8px;border:1px solid var(--line);background:var(--card);color:var(--fg);
+nav{display:flex;gap:8px;padding:8px 14px 4px;position:sticky;top:54px;background:var(--bg);z-index:5}
+nav button{flex:1;padding:9px 6px;border:1px solid var(--line);background:var(--card);color:var(--fg);
   border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 nav button.active{background:var(--accent);border-color:var(--accent);color:#04121f}
 main{padding:6px 12px}
 .view{display:none}.view.active{display:block}
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line)}
-th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
-th:nth-child(2),td:nth-child(2){text-align:left}
-.rank{color:var(--muted);width:30px}
-.name{font-weight:600}
-.tot{font-weight:800;color:var(--gold)}
-tr.me .name{color:var(--accent)}
-.dim{color:var(--muted)}
+/* filtteri */
+#filterbar{padding:8px 14px 2px;position:sticky;top:104px;background:var(--bg);z-index:4}
+.fbtitle{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:6px;
+  display:flex;justify-content:space-between;align-items:center}
+.fbtitle a{color:var(--accent);font-size:12px;text-transform:none;letter-spacing:0;cursor:pointer;margin-left:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 10px;border:1px solid var(--line);border-radius:14px;font-size:12px;cursor:pointer;
+  user-select:none;background:var(--card);white-space:nowrap}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
+/* pistetilanne */
+table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rank-t th,.rank-t td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line)}
+.rank-t th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.rank-t th:nth-child(2),.rank-t td:nth-child(2){text-align:left}
+.rank{color:var(--muted);width:30px}.name{font-weight:600}
+.tot{font-weight:800;color:var(--gold)}.dim{color:var(--muted)}
+/* ottelut */
 .grp{margin:14px 0 6px;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.5px}
-.match{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center;
-  padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:6px}
-.match .teams{font-weight:600}
-.match .time{color:var(--muted);font-size:12px}
-.match .res{font-weight:800;font-variant-numeric:tabular-nums;background:var(--card2);
-  padding:3px 9px;border-radius:7px;min-width:46px;text-align:center}
+.mcell{margin-bottom:6px}
+.match{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;cursor:pointer;
+  padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.match.open{border-radius:10px 10px 0 0;border-bottom-color:transparent}
+.match .chev{color:var(--muted);font-size:11px;transition:transform .15s}
+.match.open .chev{transform:rotate(90deg)}
+.match .teams{font-weight:600}.match .time{color:var(--muted);font-size:12px}
+.match .res{font-weight:800;background:var(--card2);padding:3px 9px;border-radius:7px;min-width:46px;text-align:center}
 .match .res.none{color:var(--muted);font-weight:500}
+.mdetail{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:5px 12px;
+  padding:9px 11px;border:1px solid var(--line);border-top:none;border-radius:0 0 10px 10px;background:var(--card2)}
+.pitem{display:flex;justify-content:space-between;gap:8px;font-size:13px;align-items:center}
+.pname{color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+.pval{font-weight:700;font-variant-numeric:tabular-nums;padding:1px 6px;border-radius:5px;min-width:38px;text-align:center}
+/* veikkausmatriisi */
+.mwrap{overflow:auto;max-height:78vh;border:1px solid var(--line);border-radius:10px}
+table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-variant-numeric:tabular-nums}
+.matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
+.matrix thead th{position:sticky;top:0;background:var(--card2);z-index:2;font-weight:600}
+.matrix .mcol{position:sticky;left:0;background:var(--card);z-index:1;text-align:left;font-weight:600;min-width:96px}
+.matrix thead .mcol{z-index:3}
+.matrix tr.grow td{background:var(--bg);color:var(--accent);font-weight:700;text-align:left;font-size:11px;
+  letter-spacing:.5px;position:sticky;left:0}
+.matrix .res-row td{color:var(--gold);font-weight:700}
+.matrix .actual{color:var(--muted);font-size:11px;font-weight:400}
+.c3{background:rgba(70,196,107,.20)}.c1{background:rgba(224,179,65,.18)}.c0{color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;margin:4px 2px 12px}
-@media(max-width:560px){.hide-sm{display:none}body{font-size:14px}}
+@media(max-width:560px){.hide-sm{display:none}body{font-size:14px}#filterbar{top:100px}}
 `;
 
-// --- selainpuolen renderöinti (string, inlinoidaan; ei backtick/`${}` täällä) ---
-const CLIENT = [
-  "const KV = JSON.parse(document.getElementById('kv').textContent);",
-  "const {tournament:T, predictions:P, results:R} = KV;",
-  "const rows = scoreAll(P, R, T);",
-  "const $ = (s,el)=> (el||document).querySelector(s);",
-  "const el = (tag,cls,txt)=>{var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;};",
-  "",
-  "function renderStandings(){",
-  "  var played = Object.keys(R.matches||{}).length;",
-  "  var t = el('table');",
-  "  var thead = el('thead'); var hr = el('tr');",
-  "  ['#','Veikkaaja','Yht','Lohko','Sika','Cup','Maalit'].forEach(function(h,i){",
-  "    var th=el('th',null,h); if(i>=3)th.className='hide-sm'; hr.appendChild(th);});",
-  "  thead.appendChild(hr); t.appendChild(thead);",
-  "  var tb = el('tbody');",
-  "  rows.forEach(function(r){",
-  "    var tr=el('tr');",
-  "    tr.appendChild(el('td','rank',r.rank));",
-  "    tr.appendChild(el('td','name',r.name));",
-  "    tr.appendChild(el('td','tot',r.total));",
-  "    [['group'],['sikajengi'],['cup'],['goalscorer']].forEach(function(k){",
-  "      tr.appendChild(el('td','dim hide-sm',r[k[0]]));});",
-  "    tb.appendChild(tr);",
-  "  });",
-  "  t.appendChild(tb);",
-  "  var box=$('#standings'); box.innerHTML='';",
-  "  var h=el('div','hint', played+' / '+T.matches.length+' lohko-ottelua pelattu'+(R.rounds&&R.rounds.champion?' · mestari '+R.rounds.champion:''));",
-  "  box.appendChild(h); box.appendChild(t);",
-  "}",
-  "",
-  "function renderSchedule(){",
-  "  var box=$('#schedule'); box.innerHTML='';",
-  "  var byGroup={};",
-  "  T.matches.forEach(function(m){(byGroup[m.group]=byGroup[m.group]||[]).push(m);});",
-  "  Object.keys(byGroup).forEach(function(g){",
-  "    box.appendChild(el('div','grp','LOHKO '+g));",
-  "    byGroup[g].forEach(function(m){",
-  "      var row=el('div','match');",
-  "      var left=el('div');",
-  "      left.appendChild(el('div','teams',m.home+' – '+m.away));",
-  "      left.appendChild(el('div','time',m.timeLabel||''));",
-  "      row.appendChild(left);",
-  "      var res=(R.matches||{})[m.id];",
-  "      row.appendChild(el('div','res'+(res?'':' none'), res||'–'));",
-  "      box.appendChild(row);",
-  "    });",
-  "  });",
-  "}",
-  "",
-  "function show(v){",
-  "  document.querySelectorAll('.view').forEach(function(e){e.classList.toggle('active',e.id==='view-'+v);});",
-  "  document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('active',b.dataset.v===v);});",
-  "}",
-  "document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){show(b.dataset.v);};});",
-  "renderStandings(); renderSchedule(); show('standings');",
-].join("\n");
+const CLIENT = String.raw`
+const KV = JSON.parse(document.getElementById('kv').textContent);
+const T = KV.tournament, P = KV.predictions, R = KV.results;
+const NAMES = Object.keys(P);
+const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
+const state = { players: new Set(NAMES), view: 'standings' };
+
+const $ = (s) => document.querySelector(s);
+function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+function sel(){ return NAMES.filter(function(n){ return state.players.has(n); }); }
+
+/* ---- pelaajafiltteri ---- */
+function renderFilter(){
+  var bar=$('#filterbar'); bar.innerHTML='';
+  var head=el('div','fbtitle'); head.appendChild(el('span',null,'Veikkaajat ('+state.players.size+'/'+NAMES.length+')'));
+  var acts=el('span');
+  var all=el('a',null,'Kaikki'); all.onclick=function(){ NAMES.forEach(function(n){state.players.add(n);}); rerender(); };
+  var none=el('a',null,'Tyhjennä'); none.onclick=function(){ state.players.clear(); rerender(); };
+  acts.appendChild(all); acts.appendChild(none); head.appendChild(acts); bar.appendChild(head);
+  var chips=el('div','chips');
+  NAMES.forEach(function(n){
+    var c=el('span','chip'+(state.players.has(n)?' on':''),n);
+    c.onclick=function(){ if(state.players.has(n))state.players.delete(n); else state.players.add(n); rerender(); };
+    chips.appendChild(c);
+  });
+  bar.appendChild(chips);
+}
+
+/* ---- pistetilanne ---- */
+function renderStandings(){
+  var box=$('#standings'); box.innerHTML='';
+  var played=Object.keys(R.matches||{}).length;
+  box.appendChild(el('div','hint', played+' / '+T.matches.length+' lohko-ottelua pelattu'+
+    (R.rounds&&R.rounds.champion?' · mestari '+R.rounds.champion:'')));
+  var t=el('table','rank-t'), thead=el('thead'), hr=el('tr');
+  ['#','Veikkaaja','Yht','Lohko','Sika','Cup','Maalit'].forEach(function(h,i){
+    var th=el('th',i>=3?'hide-sm':null,h); hr.appendChild(th); });
+  thead.appendChild(hr); t.appendChild(thead);
+  var tb=el('tbody');
+  ALLROWS.filter(function(r){return state.players.has(r.name);}).forEach(function(r){
+    var tr=el('tr');
+    tr.appendChild(el('td','rank',r.rank));
+    tr.appendChild(el('td','name',r.name));
+    tr.appendChild(el('td','tot',r.total));
+    ['group','sikajengi','cup','goalscorer'].forEach(function(k){ tr.appendChild(el('td','dim hide-sm',r[k])); });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb); box.appendChild(t);
+}
+
+/* ---- otteluohjelma + matsia klikkaamalla kaikkien veikkaukset ---- */
+function matchDetail(m){
+  var res=(R.matches||{})[m.id], has=!!res;
+  var rows=NAMES.map(function(n){ var p=(P[n].matches||{})[m.id]||''; return { n:n, p:p, pts:matchPoints(p,res,T.scoring.group) }; });
+  if(has) rows.sort(function(a,b){ return b.pts-a.pts || a.n.localeCompare(b.n,'fi'); });
+  var d=el('div','mdetail');
+  rows.forEach(function(r){
+    var it=el('div','pitem');
+    it.appendChild(el('span','pname',r.n));
+    it.appendChild(el('span','pval '+cellClass(r.pts,has), r.p||'–'));
+    d.appendChild(it);
+  });
+  return d;
+}
+function renderSchedule(){
+  var box=$('#schedule'); box.innerHTML='';
+  var by={}; T.matches.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
+  Object.keys(by).forEach(function(g){
+    box.appendChild(el('div','grp','LOHKO '+g));
+    by[g].forEach(function(m){
+      var cell=el('div','mcell'), row=el('div','match');
+      row.appendChild(el('span','chev','▶'));
+      var left=el('div');
+      left.appendChild(el('div','teams',m.home+' – '+m.away));
+      left.appendChild(el('div','time',m.timeLabel||''));
+      row.appendChild(left);
+      var res=(R.matches||{})[m.id];
+      row.appendChild(el('div','res'+(res?'':' none'), res||'–'));
+      var det=matchDetail(m); det.style.display='none';
+      row.onclick=function(){ var open=det.style.display==='none'; det.style.display=open?'':'none'; row.classList.toggle('open',open); };
+      cell.appendChild(row); cell.appendChild(det); box.appendChild(cell);
+    });
+  });
+}
+
+/* ---- veikkausmatriisi (ottelut × veikkaajat) ---- */
+function cellClass(pts, hasRes){ return !hasRes?'':(pts===0?'c0':pts>=3?'c3':'c1'); }
+function renderPredictions(){
+  var box=$('#predictions'); box.innerHTML='';
+  var players=sel();
+  if(!players.length){ box.appendChild(el('div','hint','Valitse veikkaajia filtteristä.')); return; }
+  var wrap=el('div','mwrap'), t=el('table','matrix');
+  var thead=el('thead'), hr=el('tr');
+  hr.appendChild(el('th','mcol','Ottelu'));
+  hr.appendChild(el('th',null,'Tulos'));
+  players.forEach(function(n){ hr.appendChild(el('th',null,n)); });
+  thead.appendChild(hr); t.appendChild(thead);
+  var tb=el('tbody');
+  function groupRow(label){ var tr=el('tr','grow'); var td=el('td',null,label); td.colSpan=players.length+2; tr.appendChild(td); tb.appendChild(tr); }
+  function dataRow(label, actual, cellFor){
+    var tr=el('tr');
+    tr.appendChild(el('td','mcol',label));
+    tr.appendChild(el('td','actual', actual==null?'–':actual));
+    players.forEach(function(n){ var c=cellFor(n); var td=el('td',c.cls,c.txt==null?'':c.txt); tr.appendChild(td); });
+    tb.appendChild(tr);
+  }
+  var by={}; T.matches.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
+  Object.keys(by).forEach(function(g){
+    groupRow('LOHKO '+g);
+    by[g].forEach(function(m){
+      var res=(R.matches||{})[m.id]; var has=!!res;
+      dataRow(m.home+'–'+m.away, res, function(n){
+        var pred=(P[n].matches||{})[m.id];
+        return { txt: pred||'', cls: cellClass(matchPoints(pred,res,T.scoring.group), has) };
+      });
+    });
+  });
+  // erikoisrivit
+  groupRow('MUUT');
+  dataRow('Sikajengi', (R.dirtiestTeams||[]).join(' / ')||null, function(n){
+    var pred=P[n].sikajengi, pts=sikajengiPoints(pred,R.dirtiestTeams,T.scoring.sikajengi);
+    return { txt: pred||'', cls: cellClass(pts, (R.dirtiestTeams||[]).length>0) };
+  });
+  dataRow('Mestari', (R.rounds&&R.rounds.champion)||null, function(n){
+    var pred=P[n].cup&&P[n].cup.champion, has=!!(R.rounds&&R.rounds.champion);
+    var ok=has&&pred===R.rounds.champion;
+    return { txt: pred||'', cls: !has?'':(ok?'c3':'c0') };
+  });
+  dataRow('Maalintekijä', null, function(n){
+    var pred=P[n].goalscorer, goals=(R.goals||{})[pred];
+    return { txt: pred? (pred+(goals?' ('+goals+')':'')) : '', cls: goals?'c3':'' };
+  });
+  t.appendChild(tb); wrap.appendChild(t); box.appendChild(wrap);
+  box.appendChild(el('div','hint','Solun väri: vihreä = täydet pisteet, keltainen = osittain, harmaa = 0. Vieritä sivuun nähdäksesi lisää veikkaajia.'));
+}
+
+/* ---- näkymät ---- */
+function rerender(){
+  renderFilter();
+  if(state.view==='standings') renderStandings();
+  if(state.view==='predictions') renderPredictions();
+}
+function show(v){
+  state.view=v;
+  document.querySelectorAll('.view').forEach(function(e){ e.classList.toggle('active', e.id==='view-'+v); });
+  document.querySelectorAll('nav button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===v); });
+  $('#filterbar').style.display = (v==='schedule') ? 'none' : '';
+  rerender();
+}
+document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
+renderSchedule();
+show('standings');
+`;
 
 const html = `<!doctype html>
 <html lang="fi">
@@ -137,10 +258,13 @@ const html = `<!doctype html>
 </header>
 <nav>
   <button data-v="standings" class="active">Pistetilanne</button>
+  <button data-v="predictions">Veikkaukset</button>
   <button data-v="schedule">Ottelut</button>
 </nav>
+<div id="filterbar"></div>
 <main>
   <section id="view-standings" class="view active"><div id="standings"></div></section>
+  <section id="view-predictions" class="view"><div id="predictions"></div></section>
   <section id="view-schedule" class="view"><div id="schedule"></div></section>
 </main>
 <script type="application/json" id="kv">${KV}</script>
