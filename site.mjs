@@ -45,9 +45,10 @@ main{padding:4px 12px}
 .ftoggle{display:inline-flex;align-items:center;gap:7px;cursor:pointer;color:var(--muted);user-select:none;
   font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:3px 0}
 .ftoggle .chev2{font-size:9px}
-.fbtitle{display:flex;gap:12px;margin:6px 0;font-size:12px}
-.fbtitle a{color:var(--accent);cursor:pointer}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.frow{display:flex;justify-content:space-between;align-items:center}
+.facts{display:flex;gap:14px;font-size:12px}
+.facts a{color:var(--accent);cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
 .chip{padding:5px 10px;border:1px solid var(--line);border-radius:14px;font-size:12px;cursor:pointer;
   user-select:none;background:var(--card);white-space:nowrap}
 .chip.on{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
@@ -127,16 +128,18 @@ function persistSel(){
 /* ---- pelaajafiltteri (kokoontaitettava, oletuksena piilossa) ---- */
 function renderFilter(){
   var bar=$('#filterbar'); bar.innerHTML='';
+  var row=el('div','frow');
   var tog=el('div','ftoggle');
   tog.appendChild(el('span','chev2', state.filterOpen?'▼':'▶'));
   tog.appendChild(el('span',null,'Veikkaajat ('+state.players.size+'/'+NAMES.length+')'));
   tog.onclick=function(){ state.filterOpen=!state.filterOpen; renderFilter(); };
-  bar.appendChild(tog);
-  if(!state.filterOpen) return;
-  var acts=el('div','fbtitle');
+  row.appendChild(tog);
+  var facts=el('div','facts');
   var all=el('a',null,'Kaikki'); all.onclick=function(){ NAMES.forEach(function(n){state.players.add(n);}); rerender(); };
   var none=el('a',null,'Tyhjennä'); none.onclick=function(){ state.players.clear(); rerender(); };
-  acts.appendChild(all); acts.appendChild(none); bar.appendChild(acts);
+  facts.appendChild(all); facts.appendChild(none); row.appendChild(facts);
+  bar.appendChild(row);
+  if(!state.filterOpen) return;
   var chips=el('div','chips');
   NAMES.forEach(function(n){
     var c=el('span','chip'+(state.players.has(n)?' on':''),n);
@@ -157,7 +160,7 @@ function renderStandings(){
     var th=el('th',i>=3?'hide-sm':null,h); hr.appendChild(th); });
   thead.appendChild(hr); t.appendChild(thead);
   var tb=el('tbody');
-  ALLROWS.filter(function(r){return state.players.has(r.name);}).forEach(function(r){
+  ALLROWS.forEach(function(r){                       // aina kaikki veikkaajat
     var tr=el('tr');
     tr.appendChild(el('td','rank',r.rank));
     tr.appendChild(el('td','name',r.name));
@@ -286,7 +289,7 @@ function show(v){
   state.view=v;
   document.querySelectorAll('.view').forEach(function(e){ e.classList.toggle('active', e.id==='view-'+v); });
   document.querySelectorAll('nav button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===v); });
-  $('#filterbar').style.display = (v==='schedule') ? 'none' : '';
+  $('#filterbar').style.display = (v==='predictions') ? '' : 'none';
   rerender();
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
