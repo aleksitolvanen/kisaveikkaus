@@ -277,8 +277,12 @@ const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
 const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
-const state = { players: loadSel(), view: 'predictions', filterOpen: false, dayFilter: 'all',
-  predMode: 'lohko', cmpA: null, cmpB: null, odds: null };
+const savedUI = loadUI();
+const state = { players: loadSel(),
+  view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
+  dayFilter: savedUI.dayFilter || 'all', predMode: savedUI.predMode || 'lohko',
+  cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null, odds: null,
+  scroll: savedUI.scroll || {} };
 
 const $ = (s) => document.querySelector(s);
 function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
@@ -301,6 +305,27 @@ function persistSel(){
   try{ if(all) localStorage.removeItem('kv-players'); else localStorage.setItem('kv-players',val); }catch(e){}
 }
 
+/* muiden valintojen + skrollikohdan pysyvyys (localStorage 'kv-ui') */
+function loadUI(){ try{ return JSON.parse(localStorage.getItem('kv-ui')||'{}')||{}; }catch(e){ return {}; } }
+function saveUI(){ try{ localStorage.setItem('kv-ui', JSON.stringify({ view:state.view, predMode:state.predMode,
+  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB, scroll:state.scroll })); }catch(e){} }
+var uiTimer=null;
+function saveUISoon(){ if(uiTimer) return; uiTimer=setTimeout(function(){ uiTimer=null; saveUI(); }, 400); }
+function trackScroll(elem, key){
+  if(!elem) return;
+  elem.onscroll=function(){ state.scroll[key]=elem.scrollTop; saveUISoon(); };
+  if(elem.clientHeight>0){ var y=state.scroll[key]||0;
+    if(typeof requestAnimationFrame==='function') requestAnimationFrame(function(){ try{ elem.scrollTop=y; }catch(e){} });
+    else try{ elem.scrollTop=y; }catch(e){} }
+}
+function activeScroller(){
+  if(state.view==='predictions') return { elem: document.querySelector('#predictions .mwrap')||document.querySelector('#predictions .mutwrap'), key:'pred:'+state.predMode };
+  return { elem: document.querySelector('#view-'+state.view), key: state.view+(state.view==='schedule'?(':'+state.dayFilter):'') };
+}
+function restoreScroll(){ var a=activeScroller(); if(!a.elem) return; var y=state.scroll[a.key]||0;
+  if(typeof requestAnimationFrame==='function') requestAnimationFrame(function(){ try{ a.elem.scrollTop=y; }catch(e){} });
+  else try{ a.elem.scrollTop=y; }catch(e){} }
+
 /* ---- pelaajafiltteri (kokoontaitettava, oletuksena piilossa) ---- */
 function renderFilter(){
   var bar=$('#filterbar'); bar.innerHTML='';
@@ -308,7 +333,7 @@ function renderFilter(){
   var tog=el('div','ftoggle');
   tog.appendChild(el('span','chev2', state.filterOpen?'▼':'▶'));
   tog.appendChild(el('span',null,'Veikkaajat ('+state.players.size+'/'+NAMES.length+')'));
-  tog.onclick=function(){ state.filterOpen=!state.filterOpen; renderFilter(); };
+  tog.onclick=function(){ state.filterOpen=!state.filterOpen; renderFilter(); saveUI(); };
   row.appendChild(tog);
   var facts=el('div','facts');
   var all=el('a',null,'Kaikki'); all.onclick=function(){ NAMES.forEach(function(n){state.players.add(n);}); rerender(); };
@@ -347,6 +372,7 @@ function renderStandings(){
     tr.appendChild(td); tb.appendChild(tr);
   });
   t.appendChild(tb); box.appendChild(t);
+  trackScroll($('#view-standings'),'standings');
 }
 
 /* ---- otteluohjelma + matsia klikkaamalla kaikkien veikkaukset ---- */
@@ -395,7 +421,7 @@ function renderSchedule(){
   var seg=el('div','seg');
   [['today','Tänään'],['tomorrow','Huomenna'],['upcoming','Tulevat'],['all','Kaikki']].forEach(function(o){
     var b=el('button', state.dayFilter===o[0]?'on':null, o[1]);
-    b.onclick=function(){ state.dayFilter=o[0]; renderSchedule(); };
+    b.onclick=function(){ state.dayFilter=o[0]; renderSchedule(); saveUI(); };
     seg.appendChild(b);
   });
   box.appendChild(seg);
@@ -415,6 +441,7 @@ function renderSchedule(){
     list.appendChild(el('div','grp','LOHKO '+g));
     by[g].forEach(function(m){ list.appendChild(matchCell(m)); });
   });
+  trackScroll($('#view-schedule'),'schedule:'+state.dayFilter);
 }
 
 /* ---- veikkausmatriisi (ottelut × veikkaajat) ---- */
@@ -450,7 +477,7 @@ function predSeg(){
   var seg=el('div','seg');
   [['lohko','Lohko'],['cup','Cup'],['muut','Muut']].forEach(function(o){
     var b=el('button', state.predMode===o[0]?'on':null, o[1]);
-    b.onclick=function(){ state.predMode=o[0]; renderPredictions(); };
+    b.onclick=function(){ state.predMode=o[0]; renderPredictions(); saveUI(); };
     seg.appendChild(b);
   });
   return seg;
@@ -483,7 +510,7 @@ function renderCupInto(box, players){
     }
   });
   var w=buildMatrix(players, null, rows); w.style.flex='1 1 auto'; w.style.minHeight='0';
-  box.appendChild(w); freezeOffsets(w);
+  box.appendChild(w); freezeOffsets(w); trackScroll(w,'pred:cup');
   box.appendChild(el('div','hint','Kuten Excelissä: sarake = veikkaajan jatkoonpääsijät, Tulos = oikeat joukkueet. Vihreä = oikein, harmaa = väärin (kun ratkennut).'));
 }
 function renderPredictions(){
@@ -506,7 +533,7 @@ function renderPredictions(){
     });
   });
   var w1=buildMatrix(players, null, rows); w1.style.flex='1 1 auto'; w1.style.minHeight='0';
-  box.appendChild(w1); freezeOffsets(w1);
+  box.appendChild(w1); freezeOffsets(w1); trackScroll(w1,'pred:lohko');
 }
 // Muut: sikajengi + maalintekijä yksinkertaisena listana (pelaaja → veikkaus)
 function renderMuutInto(box, players){
@@ -526,7 +553,7 @@ function renderMuutInto(box, players){
     row.appendChild(el('span','pk', pred ? (pred+(goals!=null?' ('+goals+' maalia)':'')) : '–'));
     wrap.appendChild(row);
   });
-  box.appendChild(wrap);
+  box.appendChild(wrap); trackScroll(wrap,'pred:muut');
 }
 
 /* ---- analytiikka ---- */
@@ -634,8 +661,8 @@ function renderAnalytics(){
   if(state.cmpA==null){ state.cmpA=names[0]; state.cmpB=names[1]||names[0]; }
   var s2=el('div','asec'); s2.appendChild(el('h3',null,'Pelaajavertailu'));
   var sr=el('div','cmpsel');
-  sr.appendChild(mkSelect(names,state.cmpA,function(v){ state.cmpA=v; renderAnalytics(); }));
-  sr.appendChild(mkSelect(names,state.cmpB,function(v){ state.cmpB=v; renderAnalytics(); }));
+  sr.appendChild(mkSelect(names,state.cmpA,function(v){ state.cmpA=v; renderAnalytics(); saveUI(); }));
+  sr.appendChild(mkSelect(names,state.cmpB,function(v){ state.cmpB=v; renderAnalytics(); saveUI(); }));
   s2.appendChild(sr);
   var a=scoreParticipant(P[state.cmpA],R,T), b=scoreParticipant(P[state.cmpB],R,T);
   var t2=el('table','rank-t'), h2=el('thead'), hr2=el('tr');
@@ -665,6 +692,7 @@ function renderAnalytics(){
   });
   s3.appendChild(el('div','hint','1000 simulaatiota: ratkaisemattomat ottelut, sikajengi ja cup-polut arvottu satunnaisesti.'));
   box.appendChild(s3);
+  trackScroll($('#view-analytics'),'analytics');
 }
 
 /* ---- näkymät ---- */
@@ -681,10 +709,12 @@ function show(v){
   document.querySelectorAll('nav button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===v); });
   $('#filterbar').style.display = (v==='predictions' || v==='analytics') ? '' : 'none';
   rerender();
+  restoreScroll();
+  saveUI();
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
 renderSchedule();
-show('predictions');
+show(state.view);
 
 </script>
 </body>
