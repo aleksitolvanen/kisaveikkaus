@@ -270,7 +270,7 @@ function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
 const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
 const state = { players: loadSel(), view: 'standings', filterOpen: false, dayFilter: 'all',
-  cmpA: null, cmpB: null, odds: null };
+  predMode: 'lohko', cmpA: null, cmpB: null, odds: null };
 
 const $ = (s) => document.querySelector(s);
 function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
@@ -435,10 +435,52 @@ function freezeOffsets(wrap){
   var c=wrap.querySelector('.mcol'), t=wrap.querySelector('table');
   if(c && t && c.offsetWidth) t.style.setProperty('--mcolw', c.offsetWidth+'px');
 }
+function predSeg(){
+  var seg=el('div','seg');
+  [['lohko','Lohko'],['cup','Cup'],['muut','Muut']].forEach(function(o){
+    var b=el('button', state.predMode===o[0]?'on':null, o[1]);
+    b.onclick=function(){ state.predMode=o[0]; renderPredictions(); };
+    seg.appendChild(b);
+  });
+  return seg;
+}
+// Cup-vaiheen veikkaukset: rivit = veikatut joukkueet kierroksittain, ● = veikattu jatkoon.
+function renderCupInto(box, players){
+  var rows=[];
+  T.cupRounds.forEach(function(rd){
+    rows.push({ group: rd.label.toUpperCase()+' ('+rd.pointsPerTeam+'p)' });
+    var pop={};
+    NAMES.forEach(function(n){
+      var v=P[n].cup&&P[n].cup[rd.key];
+      var arr = rd.key==='champion' ? (v?[v]:[]) : (v||[]);
+      arr.forEach(function(t){ pop[t]=(pop[t]||0)+1; });
+    });
+    var teams=Object.keys(pop).sort(function(a,b){ return pop[b]-pop[a] || a.localeCompare(b); });
+    var actual = rd.key==='champion' ? ((R.rounds&&R.rounds.champion)?[R.rounds.champion]:[]) : ((R.rounds&&R.rounds[rd.key])||[]);
+    var resolved = actual.length>0;
+    if(!teams.length){ rows.push({ label:'–', actual:null, cellFor:function(){ return {txt:''}; } }); return; }
+    teams.forEach(function(t){
+      var reached = actual.indexOf(t)>=0;
+      rows.push({ label:t, mono:true, title:teamName(t),
+        actual: reached?'✓':(resolved?'✗':'–'), actualTitle:teamName(t),
+        cellFor:(function(team,key,reach,res){ return function(n){
+          var v=P[n].cup&&P[n].cup[key];
+          var picked = key==='champion' ? (v===team) : (Array.isArray(v)&&v.indexOf(team)>=0);
+          return picked ? { txt:'●', title:teamName(team), cls: res?(reach?'c3':'c0'):'' } : { txt:'' };
+        }; })(t, rd.key, reached, resolved) });
+    });
+  });
+  var w=buildMatrix(players, null, rows); w.style.flex='1 1 auto'; w.style.minHeight='0';
+  box.appendChild(w); freezeOffsets(w);
+  box.appendChild(el('div','hint','● = veikattu jatkoon. Vihreä = oikein, harmaa = väärin (kun kierros ratkennut). Tulos-sarake: ✓ = joukkue pääsi, ✗ = ei.'));
+}
 function renderPredictions(){
   var box=$('#predictions'); box.innerHTML='';
+  box.appendChild(predSeg());
   var players=sel();
   if(!players.length){ box.appendChild(el('div','hint','Avaa filtteri ja valitse veikkaajia.')); return; }
+  if(state.predMode==='cup'){ renderCupInto(box, players); return; }
+  if(state.predMode==='muut'){ renderMuutInto(box, players); return; }
   // lohko-ottelut
   var rows=[]; var by={}; T.matches.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
   Object.keys(by).forEach(function(g){
@@ -453,22 +495,19 @@ function renderPredictions(){
   });
   var w1=buildMatrix(players, null, rows); w1.style.flex='1 1 auto'; w1.style.minHeight='0';
   box.appendChild(w1); freezeOffsets(w1);
-  // Muut – oma taulukko (ei levennä Ottelu-saraketta)
-  box.appendChild(el('div','msub','Muut'));
+}
+// Muut: sikajengi + maalintekijä (oma välilehti)
+function renderMuutInto(box, players){
   var muut=[
     { label:'Sikajengi', actual:(R.dirtiestTeams||[]).join(' / ')||null,
       actualTitle:(R.dirtiestTeams||[]).map(teamName).join(' / ')||null, cellFor:function(n){
         var pred=P[n].sikajengi;
         return { txt:pred||'', title:pred?teamName(pred):null, cls:cellClass(sikajengiPoints(pred,R.dirtiestTeams,T.scoring.sikajengi),(R.dirtiestTeams||[]).length>0) }; }},
-    { label:'Mestari', actual:(R.rounds&&R.rounds.champion)||null,
-      actualTitle:(R.rounds&&R.rounds.champion)?teamName(R.rounds.champion):null, cellFor:function(n){
-        var pred=P[n].cup&&P[n].cup.champion, has=!!(R.rounds&&R.rounds.champion);
-        return { txt:pred||'', title:pred?teamName(pred):null, cls:!has?'':(pred===R.rounds.champion?'c3':'c0') }; }},
     { label:'Maalintekijä', actual:null, cellFor:function(n){
         var pred=P[n].goalscorer, goals=(R.goals||{})[pred];
         return { txt:pred?(pred+(goals?' ('+goals+')':'')):'', cls:goals?'c3':'' }; }},
   ];
-  var w2=buildMatrix(players, null, muut); box.appendChild(w2); freezeOffsets(w2);
+  var w=buildMatrix(players, null, muut); box.appendChild(w); freezeOffsets(w);
 }
 
 /* ---- analytiikka ---- */
