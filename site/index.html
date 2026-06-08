@@ -43,7 +43,7 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .rank{color:var(--muted);width:30px}.name{font-weight:600}
 .tot{font-weight:800;color:var(--gold)}.dim{color:var(--muted)}
 /* ottelut */
-.seg{display:inline-flex;gap:2px;margin:2px 0 12px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg{display:inline-flex;align-self:flex-start;gap:2px;margin:2px 0 12px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px}
 .seg button{border:none;background:transparent;color:var(--muted);padding:5px 13px;border-radius:999px;
   font-size:12px;font-weight:600;cursor:pointer;line-height:1.2}
 .seg button.on{background:var(--accent);color:#04121f}
@@ -73,11 +73,17 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .matrix .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
 .matrix .tcol{position:sticky;left:var(--mcolw,72px);background:var(--card);z-index:4}
 .matrix thead .mcol,.matrix thead .tcol{z-index:8}
-.matrix tr.grow td{background:var(--bg)}
-.matrix .glabel{position:sticky;left:0;z-index:5;background:var(--bg);color:var(--accent);font-weight:700;
-  text-align:left;font-size:11px;letter-spacing:.5px;white-space:nowrap}
+.matrix tr.grow td{background:var(--bg);height:22px}
+.matrix .glabel{position:sticky;left:0;z-index:5;background:var(--bg);padding:0}
+.matrix .glabel span{position:absolute;left:8px;top:5px;white-space:nowrap;color:var(--accent);
+  font-weight:700;font-size:11px;letter-spacing:.5px}
 .matrix td.actual{color:var(--muted);font-size:11px;font-weight:400}
 .msub{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:14px 2px 5px}
+.mutwrap{flex:1 1 auto;min-height:0;overflow:auto}
+.mutrow{display:flex;justify-content:space-between;gap:10px;padding:7px 6px;border-bottom:1px solid var(--line)}
+.mutrow .nm{font-weight:600}
+.mutrow .pk{font-weight:600;color:var(--muted)}
+.mutrow .pk.pos{color:var(--good)}.mutrow .pk.neg{color:#e2706e}
 .c3{background:rgba(70,196,107,.20)}.c1{background:rgba(224,179,65,.18)}.c0{color:var(--muted)}
 .hint{color:var(--muted);font-size:12px;margin:4px 2px 12px}
 /* analytiikka */
@@ -103,16 +109,16 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 <body>
 <div id="topbar">
   <nav>
-    <button data-v="predictions">Veikkaus</button>
+    <button data-v="predictions" class="active">Veikkaus</button>
     <button data-v="schedule">Ottelut</button>
-    <button data-v="standings" class="active">Pisteet</button>
+    <button data-v="standings">Pisteet</button>
     <button data-v="analytics">Analyt.</button>
   </nav>
   <div id="filterbar"></div>
 </div>
 <main>
-  <section id="view-standings" class="view active"><div id="standings"></div></section>
-  <section id="view-predictions" class="view"><div id="predictions"></div></section>
+  <section id="view-standings" class="view"><div id="standings"></div></section>
+  <section id="view-predictions" class="view active"><div id="predictions"></div></section>
   <section id="view-schedule" class="view"><div id="schedule"></div></section>
   <section id="view-analytics" class="view"><div id="analytics"></div></section>
 </main>
@@ -269,7 +275,7 @@ const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
 const ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (ei suodatettu)
-const state = { players: loadSel(), view: 'standings', filterOpen: false, dayFilter: 'all',
+const state = { players: loadSel(), view: 'predictions', filterOpen: false, dayFilter: 'all',
   predMode: 'lohko', cmpA: null, cmpB: null, odds: null };
 
 const $ = (s) => document.querySelector(s);
@@ -418,11 +424,12 @@ function buildMatrix(players, maxH, specs){
   thead.appendChild(hr); t.appendChild(thead);
   var tb=el('tbody');
   specs.forEach(function(s){
-    if(s.group!=null){ var tr=el('tr','grow'); tr.appendChild(el('td','glabel',s.group));
+    if(s.group!=null){ var tr=el('tr','grow'); var lab=el('td','glabel');
+      var sp=document.createElement('span'); sp.textContent=s.group; lab.appendChild(sp); tr.appendChild(lab);
       var f=el('td','gfill',''); f.colSpan=players.length+1; tr.appendChild(f); tb.appendChild(tr); return; }
     var tr=el('tr');
     var lc=el('td','mcol'+(s.mono?' mono':''),s.label); if(s.title) lc.title=s.title; tr.appendChild(lc);
-    var ac=el('td','actual tcol', s.actual==null?'–':s.actual); if(s.actualTitle) ac.title=s.actualTitle; tr.appendChild(ac);
+    var ac=el('td','actual tcol'+(s.mono?' mono':''), s.actual==null?'–':s.actual); if(s.actualTitle) ac.title=s.actualTitle; tr.appendChild(ac);
     players.forEach(function(n){ var c=s.cellFor(n); var td=el('td',c.cls,c.txt==null?'':c.txt); if(c.title) td.title=c.title; tr.appendChild(td); });
     tb.appendChild(tr);
   });
@@ -444,35 +451,36 @@ function predSeg(){
   });
   return seg;
 }
-// Cup-vaiheen veikkaukset: rivit = veikatut joukkueet kierroksittain, ● = veikattu jatkoon.
+// Cup-vaihe Excel-tyylillä: rivit = paikat kierroksittain, kukin sarake listaa
+// veikkaajan jatkoonpääsijät (koodit), Tulos-sarake = oikeat joukkueet.
 function renderCupInto(box, players){
   var rows=[];
   T.cupRounds.forEach(function(rd){
     rows.push({ group: rd.label.toUpperCase()+' ('+rd.pointsPerTeam+'p)' });
-    var pop={};
-    NAMES.forEach(function(n){
-      var v=P[n].cup&&P[n].cup[rd.key];
-      var arr = rd.key==='champion' ? (v?[v]:[]) : (v||[]);
-      arr.forEach(function(t){ pop[t]=(pop[t]||0)+1; });
-    });
-    var teams=Object.keys(pop).sort(function(a,b){ return pop[b]-pop[a] || a.localeCompare(b); });
+    var slots = rd.slots || 1;
     var actual = rd.key==='champion' ? ((R.rounds&&R.rounds.champion)?[R.rounds.champion]:[]) : ((R.rounds&&R.rounds[rd.key])||[]);
+    var actualSet={}; actual.forEach(function(t){ actualSet[t]=1; });
     var resolved = actual.length>0;
-    if(!teams.length){ rows.push({ label:'–', actual:null, cellFor:function(){ return {txt:''}; } }); return; }
-    teams.forEach(function(t){
-      var reached = actual.indexOf(t)>=0;
-      rows.push({ label:t, mono:true, title:teamName(t),
-        actual: reached?'✓':(resolved?'✗':'–'), actualTitle:teamName(t),
-        cellFor:(function(team,key,reach,res){ return function(n){
-          var v=P[n].cup&&P[n].cup[key];
-          var picked = key==='champion' ? (v===team) : (Array.isArray(v)&&v.indexOf(team)>=0);
-          return picked ? { txt:'●', title:teamName(team), cls: res?(reach?'c3':'c0'):'' } : { txt:'' };
-        }; })(t, rd.key, reached, resolved) });
-    });
+    var actualSorted = actual.slice().sort();
+    for(var i=0;i<slots;i++){
+      (function(key, i){
+        rows.push({ label:String(i+1), mono:true,
+          actual: actualSorted[i] || (resolved?'':'–'),
+          actualTitle: actualSorted[i] ? teamName(actualSorted[i]) : null,
+          cellFor:function(n){
+            var v=P[n].cup&&P[n].cup[key];
+            var arr = key==='champion' ? (v?[v]:[]) : (v||[]);
+            var pick=arr[i];
+            if(!pick) return { txt:'', cls:'mono' };
+            return { txt:pick, title:teamName(pick), cls:'mono '+(resolved?(actualSet[pick]?'c3':'c0'):'') };
+          }
+        });
+      })(rd.key, i);
+    }
   });
   var w=buildMatrix(players, null, rows); w.style.flex='1 1 auto'; w.style.minHeight='0';
   box.appendChild(w); freezeOffsets(w);
-  box.appendChild(el('div','hint','● = veikattu jatkoon. Vihreä = oikein, harmaa = väärin (kun kierros ratkennut). Tulos-sarake: ✓ = joukkue pääsi, ✗ = ei.'));
+  box.appendChild(el('div','hint','Kuten Excelissä: sarake = veikkaajan jatkoonpääsijät, Tulos = oikeat joukkueet. Vihreä = oikein, harmaa = väärin (kun ratkennut).'));
 }
 function renderPredictions(){
   var box=$('#predictions'); box.innerHTML='';
@@ -496,18 +504,25 @@ function renderPredictions(){
   var w1=buildMatrix(players, null, rows); w1.style.flex='1 1 auto'; w1.style.minHeight='0';
   box.appendChild(w1); freezeOffsets(w1);
 }
-// Muut: sikajengi + maalintekijä (oma välilehti)
+// Muut: sikajengi + maalintekijä yksinkertaisena listana (pelaaja → veikkaus)
 function renderMuutInto(box, players){
-  var muut=[
-    { label:'Sikajengi', actual:(R.dirtiestTeams||[]).join(' / ')||null,
-      actualTitle:(R.dirtiestTeams||[]).map(teamName).join(' / ')||null, cellFor:function(n){
-        var pred=P[n].sikajengi;
-        return { txt:pred||'', title:pred?teamName(pred):null, cls:cellClass(sikajengiPoints(pred,R.dirtiestTeams,T.scoring.sikajengi),(R.dirtiestTeams||[]).length>0) }; }},
-    { label:'Maalintekijä', actual:null, cellFor:function(n){
-        var pred=P[n].goalscorer, goals=(R.goals||{})[pred];
-        return { txt:pred?(pred+(goals?' ('+goals+')':'')):'', cls:goals?'c3':'' }; }},
-  ];
-  var w=buildMatrix(players, null, muut); box.appendChild(w); freezeOffsets(w);
+  var wrap=el('div','mutwrap'), dirty=R.dirtiestTeams||[];
+  wrap.appendChild(el('div','msub','Sikajengi'+(dirty.length?' · oikein: '+dirty.map(teamName).join(' / '):'')));
+  players.forEach(function(n){
+    var pred=P[n].sikajengi, row=el('div','mutrow');
+    row.appendChild(el('span','nm',n));
+    var pk=el('span','pk',pred||'–'); if(pred) pk.title=teamName(pred);
+    if(dirty.length&&pred) pk.className='pk '+(dirty.indexOf(pred)>=0?'pos':'neg');
+    row.appendChild(pk); wrap.appendChild(row);
+  });
+  wrap.appendChild(el('div','msub','Maalintekijä'));
+  players.forEach(function(n){
+    var pred=P[n].goalscorer, goals=(R.goals||{})[pred], row=el('div','mutrow');
+    row.appendChild(el('span','nm',n));
+    row.appendChild(el('span','pk', pred ? (pred+(goals!=null?' ('+goals+' maalia)':'')) : '–'));
+    wrap.appendChild(row);
+  });
+  box.appendChild(wrap);
 }
 
 /* ---- analytiikka ---- */
@@ -665,7 +680,7 @@ function show(v){
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
 renderSchedule();
-show('standings');
+show('predictions');
 
 </script>
 </body>
