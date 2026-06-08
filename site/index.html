@@ -769,8 +769,24 @@ function show(v){
   saveUI();
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
+// Analytiikka näkyy vasta kun jotain on ratkennut (muuten luvut eivät tarkoita mitään).
+function hasResults(){
+  var r=R||{};
+  if(r.matches && Object.keys(r.matches).length) return true;
+  if(r.dirtiestTeams && r.dirtiestTeams.length) return true;
+  if(r.goals && Object.keys(r.goals).length) return true;
+  if(r.rounds){ if(r.rounds.champion) return true; var ks=['r16','qf','sf','final']; for(var i=0;i<ks.length;i++){ if((r.rounds[ks[i]]||[]).length) return true; } }
+  return false;
+}
+function updateAnalyticsTab(){
+  var btn=document.querySelector('nav button[data-v="analytics"]');
+  if(btn) btn.style.display = hasResults() ? '' : 'none';
+  if(!hasResults() && state.view==='analytics') show('predictions');
+}
+if(state.view==='analytics' && !hasResults()) state.view='predictions';
 renderSchedule();
 show(state.view);
+updateAnalyticsTab();
 
 // Live-päivitys ilman reloadia: hae data jaetusta lähteestä ~60 s välein,
 // päivitä näkymä jos tulokset/otteluohjelma muuttuivat (UI-tila + skrolli säilyy).
@@ -782,7 +798,7 @@ function refreshFromServer(){
        && JSON.stringify(d.tournament.matches)===JSON.stringify(T.matches)
        && JSON.stringify(d.tournament.knockout||[])===JSON.stringify(T.knockout||[])) return;
     T=d.tournament; R=d.results; ALLROWS=scoreAll(P,R,T); state.odds=null;
-    renderSchedule(); rerender();
+    renderSchedule(); rerender(); updateAnalyticsTab();
   }).catch(function(){});
 }
 if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:') setInterval(refreshFromServer, 60000);
