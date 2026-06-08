@@ -134,576 +134,864 @@
       "group": "A",
       "home": "MEX",
       "away": "RSA",
-      "timeLabel": "to 11.6 klo 19:00",
-      "kickoff": "2026-06-11T19:00:00"
+      "kickoff": "2026-06-11T19:00:00Z",
+      "fifaId": "400021443",
+      "matchNumber": 1,
+      "stadium": "Mexico City Stadium",
+      "city": "Mexico City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021443"
     },
     {
       "id": "A2",
       "group": "A",
       "home": "KOR",
       "away": "CZE",
-      "timeLabel": "to 11.6 klo 22:00",
-      "kickoff": "2026-06-11T22:00:00"
-    },
-    {
-      "id": "A3",
-      "group": "A",
-      "home": "MEX",
-      "away": "KOR",
-      "timeLabel": "ti 16.6 klo 21:00",
-      "kickoff": "2026-06-16T21:00:00"
-    },
-    {
-      "id": "A4",
-      "group": "A",
-      "home": "CZE",
-      "away": "RSA",
-      "timeLabel": "ti 16.6 klo 00:00",
-      "kickoff": "2026-06-16T00:00:00"
-    },
-    {
-      "id": "A5",
-      "group": "A",
-      "home": "RSA",
-      "away": "KOR",
-      "timeLabel": "su 21.6 klo 18:00",
-      "kickoff": "2026-06-21T18:00:00"
-    },
-    {
-      "id": "A6",
-      "group": "A",
-      "home": "CZE",
-      "away": "MEX",
-      "timeLabel": "su 21.6 klo 18:00",
-      "kickoff": "2026-06-21T18:00:00"
+      "kickoff": "2026-06-12T02:00:00Z",
+      "fifaId": "400021441",
+      "matchNumber": 2,
+      "stadium": "Guadalajara Stadium",
+      "city": "Guadalajara",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021441"
     },
     {
       "id": "B1",
       "group": "B",
       "home": "CAN",
       "away": "BIH",
-      "timeLabel": "pe 12.6 klo 19:00",
-      "kickoff": "2026-06-12T19:00:00"
-    },
-    {
-      "id": "B2",
-      "group": "B",
-      "home": "QAT",
-      "away": "SUI",
-      "timeLabel": "pe 12.6 klo 22:00",
-      "kickoff": "2026-06-12T22:00:00"
-    },
-    {
-      "id": "B3",
-      "group": "B",
-      "home": "CAN",
-      "away": "QAT",
-      "timeLabel": "ke 17.6 klo 21:00",
-      "kickoff": "2026-06-17T21:00:00"
-    },
-    {
-      "id": "B4",
-      "group": "B",
-      "home": "SUI",
-      "away": "BIH",
-      "timeLabel": "ke 17.6 klo 00:00",
-      "kickoff": "2026-06-17T00:00:00"
-    },
-    {
-      "id": "B5",
-      "group": "B",
-      "home": "SUI",
-      "away": "CAN",
-      "timeLabel": "ma 22.6 klo 21:00",
-      "kickoff": "2026-06-22T21:00:00"
-    },
-    {
-      "id": "B6",
-      "group": "B",
-      "home": "BIH",
-      "away": "QAT",
-      "timeLabel": "ma 22.6 klo 21:00",
-      "kickoff": "2026-06-22T21:00:00"
-    },
-    {
-      "id": "C1",
-      "group": "C",
-      "home": "BRA",
-      "away": "MAR",
-      "timeLabel": "la 13.6 klo 19:00",
-      "kickoff": "2026-06-13T19:00:00"
-    },
-    {
-      "id": "C2",
-      "group": "C",
-      "home": "HAI",
-      "away": "SCO",
-      "timeLabel": "la 13.6 klo 22:00",
-      "kickoff": "2026-06-13T22:00:00"
-    },
-    {
-      "id": "C3",
-      "group": "C",
-      "home": "SCO",
-      "away": "MAR",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "C4",
-      "group": "C",
-      "home": "BRA",
-      "away": "HAI",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "C5",
-      "group": "C",
-      "home": "SCO",
-      "away": "BRA",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
-    },
-    {
-      "id": "C6",
-      "group": "C",
-      "home": "MAR",
-      "away": "HAI",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
+      "kickoff": "2026-06-12T19:00:00Z",
+      "fifaId": "400021449",
+      "matchNumber": 3,
+      "stadium": "Toronto Stadium",
+      "city": "Toronto",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021449"
     },
     {
       "id": "D1",
       "group": "D",
       "home": "USA",
       "away": "PAR",
-      "timeLabel": "pe 12.6 klo 22:00",
-      "kickoff": "2026-06-12T22:00:00"
+      "kickoff": "2026-06-13T01:00:00Z",
+      "fifaId": "400021458",
+      "matchNumber": 4,
+      "stadium": "Los Angeles Stadium",
+      "city": "Los Angeles",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021458"
+    },
+    {
+      "id": "B2",
+      "group": "B",
+      "home": "QAT",
+      "away": "SUI",
+      "kickoff": "2026-06-13T19:00:00Z",
+      "fifaId": "400021447",
+      "matchNumber": 8,
+      "stadium": "San Francisco Bay Area Stadium",
+      "city": "San Francisco Bay Area",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021447"
+    },
+    {
+      "id": "C1",
+      "group": "C",
+      "home": "BRA",
+      "away": "MAR",
+      "kickoff": "2026-06-13T22:00:00Z",
+      "fifaId": "400021456",
+      "matchNumber": 7,
+      "stadium": "New York/New Jersey Stadium",
+      "city": "New Jersey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021456"
+    },
+    {
+      "id": "C2",
+      "group": "C",
+      "home": "HAI",
+      "away": "SCO",
+      "kickoff": "2026-06-14T01:00:00Z",
+      "fifaId": "400021453",
+      "matchNumber": 5,
+      "stadium": "Boston Stadium",
+      "city": "Boston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021453"
     },
     {
       "id": "D2",
       "group": "D",
       "home": "AUS",
       "away": "TUR",
-      "timeLabel": "pe 12.6 klo 19:00",
-      "kickoff": "2026-06-12T19:00:00"
-    },
-    {
-      "id": "D3",
-      "group": "D",
-      "home": "USA",
-      "away": "AUS",
-      "timeLabel": "ke 17.6 klo 21:00",
-      "kickoff": "2026-06-17T21:00:00"
-    },
-    {
-      "id": "D4",
-      "group": "D",
-      "home": "TUR",
-      "away": "PAR",
-      "timeLabel": "ke 17.6 klo 21:00",
-      "kickoff": "2026-06-17T21:00:00"
-    },
-    {
-      "id": "D5",
-      "group": "D",
-      "home": "TUR",
-      "away": "USA",
-      "timeLabel": "ma 22.6 klo 21:00",
-      "kickoff": "2026-06-22T21:00:00"
-    },
-    {
-      "id": "D6",
-      "group": "D",
-      "home": "PAR",
-      "away": "AUS",
-      "timeLabel": "ma 22.6 klo 21:00",
-      "kickoff": "2026-06-22T21:00:00"
+      "kickoff": "2026-06-14T04:00:00Z",
+      "fifaId": "400021463",
+      "matchNumber": 6,
+      "stadium": "BC Place Vancouver",
+      "city": "Vancouver",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021463"
     },
     {
       "id": "E1",
       "group": "E",
       "home": "GER",
       "away": "CUR",
-      "timeLabel": "la 13.6 klo 19:00",
-      "kickoff": "2026-06-13T19:00:00"
-    },
-    {
-      "id": "E2",
-      "group": "E",
-      "home": "ICV",
-      "away": "ECU",
-      "timeLabel": "la 13.6 klo 22:00",
-      "kickoff": "2026-06-13T22:00:00"
-    },
-    {
-      "id": "E3",
-      "group": "E",
-      "home": "GER",
-      "away": "ICV",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "E4",
-      "group": "E",
-      "home": "ECU",
-      "away": "CUR",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "E5",
-      "group": "E",
-      "home": "CUR",
-      "away": "ICV",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
-    },
-    {
-      "id": "E6",
-      "group": "E",
-      "home": "ECU",
-      "away": "GER",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
+      "kickoff": "2026-06-14T17:00:00Z",
+      "fifaId": "400021464",
+      "matchNumber": 10,
+      "stadium": "Houston Stadium",
+      "city": "Houston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021464"
     },
     {
       "id": "F1",
       "group": "F",
       "home": "NED",
       "away": "JPN",
-      "timeLabel": "su 14.6 klo 18:00",
-      "kickoff": "2026-06-14T18:00:00"
+      "kickoff": "2026-06-14T20:00:00Z",
+      "fifaId": "400021470",
+      "matchNumber": 11,
+      "stadium": "Dallas Stadium",
+      "city": "Dallas",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021470"
+    },
+    {
+      "id": "E2",
+      "group": "E",
+      "home": "ICV",
+      "away": "ECU",
+      "kickoff": "2026-06-14T23:00:00Z",
+      "fifaId": "400021467",
+      "matchNumber": 9,
+      "stadium": "Philadelphia Stadium",
+      "city": "Philadelphia",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021467"
     },
     {
       "id": "F2",
       "group": "F",
       "home": "SWE",
       "away": "TUN",
-      "timeLabel": "su 14.6 klo 21:00",
-      "kickoff": "2026-06-14T21:00:00"
-    },
-    {
-      "id": "F3",
-      "group": "F",
-      "home": "NED",
-      "away": "SWE",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "F4",
-      "group": "F",
-      "home": "TUN",
-      "away": "JPN",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "F5",
-      "group": "F",
-      "home": "JPN",
-      "away": "SWE",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
-    },
-    {
-      "id": "F6",
-      "group": "F",
-      "home": "TUN",
-      "away": "NED",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
-    },
-    {
-      "id": "G1",
-      "group": "G",
-      "home": "BEL",
-      "away": "EGY",
-      "timeLabel": "su 14.6 klo 18:00",
-      "kickoff": "2026-06-14T18:00:00"
-    },
-    {
-      "id": "G2",
-      "group": "G",
-      "home": "IRN",
-      "away": "NZL",
-      "timeLabel": "su 14.6 klo 21:00",
-      "kickoff": "2026-06-14T21:00:00"
-    },
-    {
-      "id": "G3",
-      "group": "G",
-      "home": "BEL",
-      "away": "IRN",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "G4",
-      "group": "G",
-      "home": "NZL",
-      "away": "EGY",
-      "timeLabel": "to 18.6 klo 21:00",
-      "kickoff": "2026-06-18T21:00:00"
-    },
-    {
-      "id": "G5",
-      "group": "G",
-      "home": "EGY",
-      "away": "IRN",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
-    },
-    {
-      "id": "G6",
-      "group": "G",
-      "home": "NZL",
-      "away": "BEL",
-      "timeLabel": "ti 23.6 klo 21:00",
-      "kickoff": "2026-06-23T21:00:00"
+      "kickoff": "2026-06-15T02:00:00Z",
+      "fifaId": "400021474",
+      "matchNumber": 12,
+      "stadium": "Monterrey Stadium",
+      "city": "Monterrey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021474"
     },
     {
       "id": "H1",
       "group": "H",
       "home": "ESP",
       "away": "CPV",
-      "timeLabel": "ma 15.6 klo 19:00",
-      "kickoff": "2026-06-15T19:00:00"
+      "kickoff": "2026-06-15T16:00:00Z",
+      "fifaId": "400021482",
+      "matchNumber": 14,
+      "stadium": "Atlanta Stadium",
+      "city": "Atlanta",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021482"
+    },
+    {
+      "id": "G1",
+      "group": "G",
+      "home": "BEL",
+      "away": "EGY",
+      "kickoff": "2026-06-15T19:00:00Z",
+      "fifaId": "400021478",
+      "matchNumber": 16,
+      "stadium": "Seattle Stadium",
+      "city": "Seattle",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021478"
     },
     {
       "id": "H2",
       "group": "H",
       "home": "KSA",
       "away": "URU",
-      "timeLabel": "ma 15.6 klo 22:00",
-      "kickoff": "2026-06-15T22:00:00"
+      "kickoff": "2026-06-15T22:00:00Z",
+      "fifaId": "400021486",
+      "matchNumber": 13,
+      "stadium": "Miami Stadium",
+      "city": "Miami",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021486"
     },
     {
-      "id": "H3",
-      "group": "H",
-      "home": "ESP",
-      "away": "KSA",
-      "timeLabel": "pe 19.6 klo 21:00",
-      "kickoff": "2026-06-19T21:00:00"
-    },
-    {
-      "id": "H4",
-      "group": "H",
-      "home": "URU",
-      "away": "CPV",
-      "timeLabel": "pe 19.6 klo 21:00",
-      "kickoff": "2026-06-19T21:00:00"
-    },
-    {
-      "id": "H5",
-      "group": "H",
-      "home": "CPV",
-      "away": "KSA",
-      "timeLabel": "ke 24.6 klo 21:00",
-      "kickoff": "2026-06-24T21:00:00"
-    },
-    {
-      "id": "H6",
-      "group": "H",
-      "home": "URU",
-      "away": "ESP",
-      "timeLabel": "ke 24.6 klo 21:00",
-      "kickoff": "2026-06-24T21:00:00"
+      "id": "G2",
+      "group": "G",
+      "home": "IRN",
+      "away": "NZL",
+      "kickoff": "2026-06-16T01:00:00Z",
+      "fifaId": "400021476",
+      "matchNumber": 15,
+      "stadium": "Los Angeles Stadium",
+      "city": "Los Angeles",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021476"
     },
     {
       "id": "I1",
       "group": "I",
       "home": "FRA",
       "away": "SEN",
-      "timeLabel": "ma 15.6 klo 19:00",
-      "kickoff": "2026-06-15T19:00:00"
+      "kickoff": "2026-06-16T19:00:00Z",
+      "fifaId": "400021490",
+      "matchNumber": 17,
+      "stadium": "New York/New Jersey Stadium",
+      "city": "New Jersey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021490"
     },
     {
       "id": "I2",
       "group": "I",
       "home": "IRQ",
       "away": "NOR",
-      "timeLabel": "ma 15.6 klo 22:00",
-      "kickoff": "2026-06-15T22:00:00"
-    },
-    {
-      "id": "I3",
-      "group": "I",
-      "home": "FRA",
-      "away": "IRQ",
-      "timeLabel": "pe 19.6 klo 21:00",
-      "kickoff": "2026-06-19T21:00:00"
-    },
-    {
-      "id": "I4",
-      "group": "I",
-      "home": "NOR",
-      "away": "SEN",
-      "timeLabel": "pe 19.6 klo 21:00",
-      "kickoff": "2026-06-19T21:00:00"
-    },
-    {
-      "id": "I5",
-      "group": "I",
-      "home": "NOR",
-      "away": "FRA",
-      "timeLabel": "ke 24.6 klo 21:00",
-      "kickoff": "2026-06-24T21:00:00"
-    },
-    {
-      "id": "I6",
-      "group": "I",
-      "home": "SEN",
-      "away": "IRQ",
-      "timeLabel": "ke 24.6 klo 21:00",
-      "kickoff": "2026-06-24T21:00:00"
+      "kickoff": "2026-06-16T22:00:00Z",
+      "fifaId": "400021488",
+      "matchNumber": 18,
+      "stadium": "Boston Stadium",
+      "city": "Boston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021488"
     },
     {
       "id": "J1",
       "group": "J",
       "home": "ARG",
       "away": "ALG",
-      "timeLabel": "ti 16.6 klo 19:00",
-      "kickoff": "2026-06-16T19:00:00"
+      "kickoff": "2026-06-17T01:00:00Z",
+      "fifaId": "400021496",
+      "matchNumber": 19,
+      "stadium": "Kansas City Stadium",
+      "city": "Kansas City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021496"
     },
     {
       "id": "J2",
       "group": "J",
       "home": "AUT",
       "away": "JOR",
-      "timeLabel": "ti 16.6 klo 22:00",
-      "kickoff": "2026-06-16T22:00:00"
-    },
-    {
-      "id": "J3",
-      "group": "J",
-      "home": "ARG",
-      "away": "AUT",
-      "timeLabel": "la 20.6 klo 21:00",
-      "kickoff": "2026-06-20T21:00:00"
-    },
-    {
-      "id": "J4",
-      "group": "J",
-      "home": "JOR",
-      "away": "ALG",
-      "timeLabel": "la 20.6 klo 21:00",
-      "kickoff": "2026-06-20T21:00:00"
-    },
-    {
-      "id": "J5",
-      "group": "J",
-      "home": "ALG",
-      "away": "AUT",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
-    },
-    {
-      "id": "J6",
-      "group": "J",
-      "home": "JOR",
-      "away": "ARG",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
+      "kickoff": "2026-06-17T04:00:00Z",
+      "fifaId": "400021498",
+      "matchNumber": 20,
+      "stadium": "San Francisco Bay Area Stadium",
+      "city": "San Francisco Bay Area",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021498"
     },
     {
       "id": "K1",
       "group": "K",
       "home": "POR",
       "away": "DRC",
-      "timeLabel": "ti 16.6 klo 19:00",
-      "kickoff": "2026-06-16T19:00:00"
-    },
-    {
-      "id": "K2",
-      "group": "K",
-      "home": "UZB",
-      "away": "COL",
-      "timeLabel": "ti 16.6 klo 22:00",
-      "kickoff": "2026-06-16T22:00:00"
-    },
-    {
-      "id": "K3",
-      "group": "K",
-      "home": "POR",
-      "away": "UZB",
-      "timeLabel": "la 20.6 klo 21:00",
-      "kickoff": "2026-06-20T21:00:00"
-    },
-    {
-      "id": "K4",
-      "group": "K",
-      "home": "COL",
-      "away": "DRC",
-      "timeLabel": "la 20.6 klo 21:00",
-      "kickoff": "2026-06-20T21:00:00"
-    },
-    {
-      "id": "K5",
-      "group": "K",
-      "home": "COL",
-      "away": "POR",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
-    },
-    {
-      "id": "K6",
-      "group": "K",
-      "home": "DRC",
-      "away": "UZB",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
+      "kickoff": "2026-06-17T17:00:00Z",
+      "fifaId": "400021502",
+      "matchNumber": 23,
+      "stadium": "Houston Stadium",
+      "city": "Houston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021502"
     },
     {
       "id": "L1",
       "group": "L",
       "home": "ENG",
       "away": "CRO",
-      "timeLabel": "ke 17.6 klo 19:00",
-      "kickoff": "2026-06-17T19:00:00"
+      "kickoff": "2026-06-17T20:00:00Z",
+      "fifaId": "400021507",
+      "matchNumber": 22,
+      "stadium": "Dallas Stadium",
+      "city": "Dallas",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021507"
     },
     {
       "id": "L2",
       "group": "L",
       "home": "GHA",
       "away": "PAN",
-      "timeLabel": "ke 17.6 klo 22:00",
-      "kickoff": "2026-06-17T22:00:00"
+      "kickoff": "2026-06-17T23:00:00Z",
+      "fifaId": "400021510",
+      "matchNumber": 21,
+      "stadium": "Toronto Stadium",
+      "city": "Toronto",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021510"
+    },
+    {
+      "id": "K2",
+      "group": "K",
+      "home": "UZB",
+      "away": "COL",
+      "kickoff": "2026-06-18T02:00:00Z",
+      "fifaId": "400021504",
+      "matchNumber": 24,
+      "stadium": "Mexico City Stadium",
+      "city": "Mexico City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021504"
+    },
+    {
+      "id": "A4",
+      "group": "A",
+      "home": "CZE",
+      "away": "RSA",
+      "kickoff": "2026-06-18T16:00:00Z",
+      "fifaId": "400021440",
+      "matchNumber": 25,
+      "stadium": "Atlanta Stadium",
+      "city": "Atlanta",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021440"
+    },
+    {
+      "id": "B4",
+      "group": "B",
+      "home": "SUI",
+      "away": "BIH",
+      "kickoff": "2026-06-18T19:00:00Z",
+      "fifaId": "400021446",
+      "matchNumber": 26,
+      "stadium": "Los Angeles Stadium",
+      "city": "Los Angeles",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021446"
+    },
+    {
+      "id": "B3",
+      "group": "B",
+      "home": "CAN",
+      "away": "QAT",
+      "kickoff": "2026-06-18T22:00:00Z",
+      "fifaId": "400021450",
+      "matchNumber": 27,
+      "stadium": "BC Place Vancouver",
+      "city": "Vancouver",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021450"
+    },
+    {
+      "id": "A3",
+      "group": "A",
+      "home": "MEX",
+      "away": "KOR",
+      "kickoff": "2026-06-19T01:00:00Z",
+      "fifaId": "400021442",
+      "matchNumber": 28,
+      "stadium": "Guadalajara Stadium",
+      "city": "Guadalajara",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021442"
+    },
+    {
+      "id": "D3",
+      "group": "D",
+      "home": "USA",
+      "away": "AUS",
+      "kickoff": "2026-06-19T19:00:00Z",
+      "fifaId": "400021462",
+      "matchNumber": 32,
+      "stadium": "Seattle Stadium",
+      "city": "Seattle",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021462"
+    },
+    {
+      "id": "C3",
+      "group": "C",
+      "home": "SCO",
+      "away": "MAR",
+      "kickoff": "2026-06-19T22:00:00Z",
+      "fifaId": "400021454",
+      "matchNumber": 30,
+      "stadium": "Boston Stadium",
+      "city": "Boston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021454"
+    },
+    {
+      "id": "C4",
+      "group": "C",
+      "home": "BRA",
+      "away": "HAI",
+      "kickoff": "2026-06-20T00:30:00Z",
+      "fifaId": "400021457",
+      "matchNumber": 29,
+      "stadium": "Philadelphia Stadium",
+      "city": "Philadelphia",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021457"
+    },
+    {
+      "id": "D4",
+      "group": "D",
+      "home": "TUR",
+      "away": "PAR",
+      "kickoff": "2026-06-20T03:00:00Z",
+      "fifaId": "400021460",
+      "matchNumber": 31,
+      "stadium": "San Francisco Bay Area Stadium",
+      "city": "San Francisco Bay Area",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021460"
+    },
+    {
+      "id": "F3",
+      "group": "F",
+      "home": "NED",
+      "away": "SWE",
+      "kickoff": "2026-06-20T17:00:00Z",
+      "fifaId": "400021472",
+      "matchNumber": 35,
+      "stadium": "Houston Stadium",
+      "city": "Houston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021472"
+    },
+    {
+      "id": "E3",
+      "group": "E",
+      "home": "GER",
+      "away": "ICV",
+      "kickoff": "2026-06-20T20:00:00Z",
+      "fifaId": "400021469",
+      "matchNumber": 33,
+      "stadium": "Toronto Stadium",
+      "city": "Toronto",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021469"
+    },
+    {
+      "id": "E4",
+      "group": "E",
+      "home": "ECU",
+      "away": "CUR",
+      "kickoff": "2026-06-21T00:00:00Z",
+      "fifaId": "400021465",
+      "matchNumber": 34,
+      "stadium": "Kansas City Stadium",
+      "city": "Kansas City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021465"
+    },
+    {
+      "id": "F4",
+      "group": "F",
+      "home": "TUN",
+      "away": "JPN",
+      "kickoff": "2026-06-21T04:00:00Z",
+      "fifaId": "400021475",
+      "matchNumber": 36,
+      "stadium": "Monterrey Stadium",
+      "city": "Monterrey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021475"
+    },
+    {
+      "id": "H3",
+      "group": "H",
+      "home": "ESP",
+      "away": "KSA",
+      "kickoff": "2026-06-21T16:00:00Z",
+      "fifaId": "400021483",
+      "matchNumber": 38,
+      "stadium": "Atlanta Stadium",
+      "city": "Atlanta",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021483"
+    },
+    {
+      "id": "G3",
+      "group": "G",
+      "home": "BEL",
+      "away": "IRN",
+      "kickoff": "2026-06-21T19:00:00Z",
+      "fifaId": "400021477",
+      "matchNumber": 39,
+      "stadium": "Los Angeles Stadium",
+      "city": "Los Angeles",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021477"
+    },
+    {
+      "id": "H4",
+      "group": "H",
+      "home": "URU",
+      "away": "CPV",
+      "kickoff": "2026-06-21T22:00:00Z",
+      "fifaId": "400021487",
+      "matchNumber": 37,
+      "stadium": "Miami Stadium",
+      "city": "Miami",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021487"
+    },
+    {
+      "id": "G4",
+      "group": "G",
+      "home": "NZL",
+      "away": "EGY",
+      "kickoff": "2026-06-22T01:00:00Z",
+      "fifaId": "400021480",
+      "matchNumber": 40,
+      "stadium": "BC Place Vancouver",
+      "city": "Vancouver",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021480"
+    },
+    {
+      "id": "J3",
+      "group": "J",
+      "home": "ARG",
+      "away": "AUT",
+      "kickoff": "2026-06-22T17:00:00Z",
+      "fifaId": "400021494",
+      "matchNumber": 43,
+      "stadium": "Dallas Stadium",
+      "city": "Dallas",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021494"
+    },
+    {
+      "id": "I3",
+      "group": "I",
+      "home": "FRA",
+      "away": "IRQ",
+      "kickoff": "2026-06-22T21:00:00Z",
+      "fifaId": "400021492",
+      "matchNumber": 42,
+      "stadium": "Philadelphia Stadium",
+      "city": "Philadelphia",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021492"
+    },
+    {
+      "id": "I4",
+      "group": "I",
+      "home": "NOR",
+      "away": "SEN",
+      "kickoff": "2026-06-23T00:00:00Z",
+      "fifaId": "400021491",
+      "matchNumber": 41,
+      "stadium": "New York/New Jersey Stadium",
+      "city": "New Jersey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021491"
+    },
+    {
+      "id": "J4",
+      "group": "J",
+      "home": "JOR",
+      "away": "ALG",
+      "kickoff": "2026-06-23T03:00:00Z",
+      "fifaId": "400021499",
+      "matchNumber": 44,
+      "stadium": "San Francisco Bay Area Stadium",
+      "city": "San Francisco Bay Area",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021499"
+    },
+    {
+      "id": "K3",
+      "group": "K",
+      "home": "POR",
+      "away": "UZB",
+      "kickoff": "2026-06-23T17:00:00Z",
+      "fifaId": "400021503",
+      "matchNumber": 47,
+      "stadium": "Houston Stadium",
+      "city": "Houston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021503"
     },
     {
       "id": "L3",
       "group": "L",
       "home": "ENG",
       "away": "GHA",
-      "timeLabel": "su 21.6 klo 21:00",
-      "kickoff": "2026-06-21T21:00:00"
+      "kickoff": "2026-06-23T20:00:00Z",
+      "fifaId": "400021506",
+      "matchNumber": 45,
+      "stadium": "Boston Stadium",
+      "city": "Boston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021506"
     },
     {
       "id": "L4",
       "group": "L",
       "home": "PAN",
       "away": "CRO",
-      "timeLabel": "su 21.6 klo 21:00",
-      "kickoff": "2026-06-21T21:00:00"
+      "kickoff": "2026-06-23T23:00:00Z",
+      "fifaId": "400021511",
+      "matchNumber": 46,
+      "stadium": "Toronto Stadium",
+      "city": "Toronto",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021511"
+    },
+    {
+      "id": "K4",
+      "group": "K",
+      "home": "COL",
+      "away": "DRC",
+      "kickoff": "2026-06-24T02:00:00Z",
+      "fifaId": "400021501",
+      "matchNumber": 48,
+      "stadium": "Guadalajara Stadium",
+      "city": "Guadalajara",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021501"
+    },
+    {
+      "id": "B5",
+      "group": "B",
+      "home": "SUI",
+      "away": "CAN",
+      "kickoff": "2026-06-24T19:00:00Z",
+      "fifaId": "400021451",
+      "matchNumber": 51,
+      "stadium": "BC Place Vancouver",
+      "city": "Vancouver",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021451"
+    },
+    {
+      "id": "B6",
+      "group": "B",
+      "home": "BIH",
+      "away": "QAT",
+      "kickoff": "2026-06-24T19:00:00Z",
+      "fifaId": "400021448",
+      "matchNumber": 52,
+      "stadium": "Seattle Stadium",
+      "city": "Seattle",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021448"
+    },
+    {
+      "id": "C5",
+      "group": "C",
+      "home": "SCO",
+      "away": "BRA",
+      "kickoff": "2026-06-24T22:00:00Z",
+      "fifaId": "400021455",
+      "matchNumber": 49,
+      "stadium": "Miami Stadium",
+      "city": "Miami",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021455"
+    },
+    {
+      "id": "C6",
+      "group": "C",
+      "home": "MAR",
+      "away": "HAI",
+      "kickoff": "2026-06-24T22:00:00Z",
+      "fifaId": "400021452",
+      "matchNumber": 50,
+      "stadium": "Atlanta Stadium",
+      "city": "Atlanta",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021452"
+    },
+    {
+      "id": "A5",
+      "group": "A",
+      "home": "RSA",
+      "away": "KOR",
+      "kickoff": "2026-06-25T01:00:00Z",
+      "fifaId": "400021445",
+      "matchNumber": 54,
+      "stadium": "Monterrey Stadium",
+      "city": "Monterrey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021445"
+    },
+    {
+      "id": "A6",
+      "group": "A",
+      "home": "CZE",
+      "away": "MEX",
+      "kickoff": "2026-06-25T01:00:00Z",
+      "fifaId": "400021444",
+      "matchNumber": 53,
+      "stadium": "Mexico City Stadium",
+      "city": "Mexico City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021444"
+    },
+    {
+      "id": "E5",
+      "group": "E",
+      "home": "CUR",
+      "away": "ICV",
+      "kickoff": "2026-06-25T20:00:00Z",
+      "fifaId": "400021468",
+      "matchNumber": 55,
+      "stadium": "Philadelphia Stadium",
+      "city": "Philadelphia",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021468"
+    },
+    {
+      "id": "E6",
+      "group": "E",
+      "home": "ECU",
+      "away": "GER",
+      "kickoff": "2026-06-25T20:00:00Z",
+      "fifaId": "400021466",
+      "matchNumber": 56,
+      "stadium": "New York/New Jersey Stadium",
+      "city": "New Jersey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021466"
+    },
+    {
+      "id": "F5",
+      "group": "F",
+      "home": "JPN",
+      "away": "SWE",
+      "kickoff": "2026-06-25T23:00:00Z",
+      "fifaId": "400021471",
+      "matchNumber": 57,
+      "stadium": "Dallas Stadium",
+      "city": "Dallas",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021471"
+    },
+    {
+      "id": "F6",
+      "group": "F",
+      "home": "TUN",
+      "away": "NED",
+      "kickoff": "2026-06-25T23:00:00Z",
+      "fifaId": "400021473",
+      "matchNumber": 58,
+      "stadium": "Kansas City Stadium",
+      "city": "Kansas City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021473"
+    },
+    {
+      "id": "D5",
+      "group": "D",
+      "home": "TUR",
+      "away": "USA",
+      "kickoff": "2026-06-26T02:00:00Z",
+      "fifaId": "400021459",
+      "matchNumber": 59,
+      "stadium": "Los Angeles Stadium",
+      "city": "Los Angeles",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021459"
+    },
+    {
+      "id": "D6",
+      "group": "D",
+      "home": "PAR",
+      "away": "AUS",
+      "kickoff": "2026-06-26T02:00:00Z",
+      "fifaId": "400021461",
+      "matchNumber": 60,
+      "stadium": "San Francisco Bay Area Stadium",
+      "city": "San Francisco Bay Area",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021461"
+    },
+    {
+      "id": "I5",
+      "group": "I",
+      "home": "NOR",
+      "away": "FRA",
+      "kickoff": "2026-06-26T19:00:00Z",
+      "fifaId": "400021489",
+      "matchNumber": 61,
+      "stadium": "Boston Stadium",
+      "city": "Boston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021489"
+    },
+    {
+      "id": "I6",
+      "group": "I",
+      "home": "SEN",
+      "away": "IRQ",
+      "kickoff": "2026-06-26T19:00:00Z",
+      "fifaId": "400021493",
+      "matchNumber": 62,
+      "stadium": "Toronto Stadium",
+      "city": "Toronto",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021493"
+    },
+    {
+      "id": "H5",
+      "group": "H",
+      "home": "CPV",
+      "away": "KSA",
+      "kickoff": "2026-06-27T00:00:00Z",
+      "fifaId": "400021485",
+      "matchNumber": 65,
+      "stadium": "Houston Stadium",
+      "city": "Houston",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021485"
+    },
+    {
+      "id": "H6",
+      "group": "H",
+      "home": "URU",
+      "away": "ESP",
+      "kickoff": "2026-06-27T00:00:00Z",
+      "fifaId": "400021484",
+      "matchNumber": 66,
+      "stadium": "Guadalajara Stadium",
+      "city": "Guadalajara",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021484"
+    },
+    {
+      "id": "G5",
+      "group": "G",
+      "home": "EGY",
+      "away": "IRN",
+      "kickoff": "2026-06-27T03:00:00Z",
+      "fifaId": "400021479",
+      "matchNumber": 63,
+      "stadium": "Seattle Stadium",
+      "city": "Seattle",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021479"
+    },
+    {
+      "id": "G6",
+      "group": "G",
+      "home": "NZL",
+      "away": "BEL",
+      "kickoff": "2026-06-27T03:00:00Z",
+      "fifaId": "400021481",
+      "matchNumber": 64,
+      "stadium": "BC Place Vancouver",
+      "city": "Vancouver",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021481"
     },
     {
       "id": "L5",
       "group": "L",
       "home": "PAN",
       "away": "ENG",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
+      "kickoff": "2026-06-27T21:00:00Z",
+      "fifaId": "400021508",
+      "matchNumber": 67,
+      "stadium": "New York/New Jersey Stadium",
+      "city": "New Jersey",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021508"
     },
     {
       "id": "L6",
       "group": "L",
       "home": "CRO",
       "away": "GHA",
-      "timeLabel": "to 25.6 klo 21:00",
-      "kickoff": "2026-06-25T21:00:00"
+      "kickoff": "2026-06-27T21:00:00Z",
+      "fifaId": "400021509",
+      "matchNumber": 68,
+      "stadium": "Philadelphia Stadium",
+      "city": "Philadelphia",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021509"
+    },
+    {
+      "id": "K5",
+      "group": "K",
+      "home": "COL",
+      "away": "POR",
+      "kickoff": "2026-06-27T23:30:00Z",
+      "fifaId": "400021505",
+      "matchNumber": 71,
+      "stadium": "Miami Stadium",
+      "city": "Miami",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021505"
+    },
+    {
+      "id": "K6",
+      "group": "K",
+      "home": "DRC",
+      "away": "UZB",
+      "kickoff": "2026-06-27T23:30:00Z",
+      "fifaId": "400021500",
+      "matchNumber": 72,
+      "stadium": "Atlanta Stadium",
+      "city": "Atlanta",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021500"
+    },
+    {
+      "id": "J5",
+      "group": "J",
+      "home": "ALG",
+      "away": "AUT",
+      "kickoff": "2026-06-28T02:00:00Z",
+      "fifaId": "400021497",
+      "matchNumber": 69,
+      "stadium": "Kansas City Stadium",
+      "city": "Kansas City",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021497"
+    },
+    {
+      "id": "J6",
+      "group": "J",
+      "home": "JOR",
+      "away": "ARG",
+      "kickoff": "2026-06-28T02:00:00Z",
+      "fifaId": "400021495",
+      "matchNumber": 70,
+      "stadium": "Dallas Stadium",
+      "city": "Dallas",
+      "url": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021495"
     }
   ],
   "cupRounds": [

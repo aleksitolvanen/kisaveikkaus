@@ -29,21 +29,25 @@ const CSS = `
   --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
+html{height:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  padding:0 0 40px;max-width:980px;margin:0 auto}
-#topbar{position:sticky;top:0;z-index:20;background:var(--bg)}
+  max-width:980px;margin:0 auto;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+#topbar{flex:0 0 auto;z-index:20;background:var(--bg)}
 nav{display:flex;gap:8px;padding:8px 14px 6px;background:var(--bg)}
 nav button{flex:1;padding:8px 6px;border:1px solid var(--line);background:var(--card);color:var(--fg);
   border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 nav button.active{background:var(--accent);border-color:var(--accent);color:#04121f}
-main{padding:4px 12px}
-.view{display:none}.view.active{display:block}
+main{flex:1 1 auto;min-height:0;padding:4px 12px;display:flex;flex-direction:column}
+.view{display:none;min-height:0}
+.view.active{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:auto}
+#view-predictions.active{overflow:hidden}
+#predictions{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
 /* filtteri (kokoontaitettava) */
 #filterbar{padding:2px 14px 6px;background:var(--bg)}
 .ftoggle{display:inline-flex;align-items:center;gap:7px;cursor:pointer;color:var(--muted);user-select:none;
   font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:3px 0}
 .ftoggle .chev2{font-size:9px}
-.frow{display:flex;justify-content:space-between;align-items:center}
+.frow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .facts{display:flex;gap:14px;font-size:12px}
 .facts a{color:var(--accent);cursor:pointer}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
@@ -64,7 +68,7 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .seg button.on{background:var(--accent);color:#04121f}
 .grp{margin:14px 0 6px;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.5px}
 .mcell{margin-bottom:6px}
-.match{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;cursor:pointer;
+.match{display:grid;grid-template-columns:auto auto 1fr auto;gap:8px 12px;align-items:center;cursor:pointer;
   padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .match.open{border-radius:10px 10px 0 0;border-bottom-color:transparent}
 .match .chev{color:var(--muted);font-size:11px;transition:transform .15s}
@@ -72,17 +76,20 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .match .teams{font-weight:600}.match .time{color:var(--muted);font-size:12px}
 .match .res{font-weight:800;background:var(--card2);padding:3px 9px;border-radius:7px;min-width:46px;text-align:center}
 .match .res.none{color:var(--muted);font-weight:500}
+.fifalink{justify-self:center;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap;font-weight:600}
+.fifalink:hover{text-decoration:underline}
 .mdetail{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:5px 12px;
   padding:9px 11px;border:1px solid var(--line);border-top:none;border-radius:0 0 10px 10px;background:var(--card2)}
 .pitem{display:flex;justify-content:space-between;gap:8px;font-size:13px;align-items:center}
 .pname{color:var(--muted);overflow:hidden;text-overflow:ellipsis}
 .pval{font-weight:700;font-variant-numeric:tabular-nums;padding:1px 6px;border-radius:5px;min-width:38px;text-align:center}
 /* veikkausmatriisi */
-.mwrap{overflow:auto;max-height:74vh;border:1px solid var(--line);border-radius:10px;position:relative;z-index:0}
+.mwrap{overflow:auto;border:1px solid var(--line);border-radius:10px;position:relative;z-index:0}
 table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-variant-numeric:tabular-nums}
 .matrix th,.matrix td{padding:6px 8px;white-space:nowrap;border-bottom:1px solid var(--line);text-align:center}
 .matrix thead th{position:sticky;top:0;background:var(--card2);z-index:7;font-weight:600}
 .matrix .mcol{position:sticky;left:0;background:var(--card);z-index:4;text-align:left;font-weight:600;white-space:nowrap}
+.matrix .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px}
 .matrix .tcol{position:sticky;left:var(--mcolw,72px);background:var(--card);z-index:4}
 .matrix thead .mcol,.matrix thead .tcol{z-index:8}
 .matrix tr.grow td{background:var(--bg)}
@@ -206,15 +213,28 @@ function matchCell(m){
   row.appendChild(el('span','chev','▶'));
   var left=el('div');
   left.appendChild(el('div','teams',m.home+' – '+m.away));
-  left.appendChild(el('div','time',m.timeLabel||''));
+  left.appendChild(el('div','time', fiTime(m.kickoff) || m.timeLabel || ''));
   row.appendChild(left);
+  // FIFA-linkki otteluparin ja tuloksen väliin (keskelle tyhjää kohtaa)
+  if(m.url){ var a=document.createElement('a'); a.className='fifalink'; a.textContent='FIFA ↗';
+    a.href=m.url; a.target='_blank'; a.rel='noopener noreferrer'; a.onclick=function(e){ e.stopPropagation(); }; row.appendChild(a); }
+  else row.appendChild(el('span'));
   var res=(R.matches||{})[m.id];
   row.appendChild(el('div','res'+(res?'':' none'), res||'–'));
   var det=matchDetail(m); det.style.display='none';
   row.onclick=function(){ var open=det.style.display==='none'; det.style.display=open?'':'none'; row.classList.toggle('open',open); };
   cell.appendChild(row); cell.appendChild(det); return cell;
 }
-function dayKey(d){ function p(n){ return (n<10?'0':'')+n; } return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+// Tietokannassa kickoff on UTC; näytetään aina Suomen aika.
+function fiTime(iso){
+  if(!iso) return '';
+  var p={}; new Intl.DateTimeFormat('fi-FI',{timeZone:'Europe/Helsinki',weekday:'short',day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date(iso)).forEach(function(x){p[x.type]=x.value;});
+  return p.weekday.replace('.','')+' '+p.day+'.'+p.month+' klo '+p.hour+':'+p.minute;
+}
+function fiDayKey(iso){
+  var p={}; new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Helsinki',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(iso)).forEach(function(x){p[x.type]=x.value;});
+  return p.year+'-'+p.month+'-'+p.day;
+}
 function renderSchedule(){
   var box=$('#schedule'); box.innerHTML='';
   var seg=el('div','seg');
@@ -226,23 +246,20 @@ function renderSchedule(){
   box.appendChild(seg);
   var list=el('div'); box.appendChild(list);
   var df=state.dayFilter, now=new Date();
+  var todayK=fiDayKey(now.toISOString()), tmrK=fiDayKey(new Date(Date.now()+86400000).toISOString());
   var ms;
-  if(df==='today') ms=T.matches.filter(function(m){ return m.kickoff && m.kickoff.slice(0,10)===dayKey(now); });
-  else if(df==='tomorrow') ms=T.matches.filter(function(m){ return m.kickoff && m.kickoff.slice(0,10)===dayKey(new Date(Date.now()+86400000)); });
+  if(df==='today') ms=T.matches.filter(function(m){ return m.kickoff && fiDayKey(m.kickoff)===todayK; });
+  else if(df==='tomorrow') ms=T.matches.filter(function(m){ return m.kickoff && fiDayKey(m.kickoff)===tmrK; });
   else if(df==='upcoming') ms=T.matches.filter(function(m){ return m.kickoff && new Date(m.kickoff) > now; });
   else ms=T.matches;
   if(!ms.length){ list.appendChild(el('div','hint',
     df==='today'?'Ei otteluita tänään.':df==='tomorrow'?'Ei otteluita huomenna.':df==='upcoming'?'Ei tulevia otteluita.':'Ei otteluita.')); return; }
-  if(df==='all'){
-    var by={}; ms.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
-    Object.keys(by).forEach(function(g){
-      list.appendChild(el('div','grp','LOHKO '+g));
-      by[g].forEach(function(m){ list.appendChild(matchCell(m)); });
-    });
-  } else {
-    ms.slice().sort(function(a,b){ return (a.kickoff||'').localeCompare(b.kickoff||''); })
-      .forEach(function(m){ list.appendChild(matchCell(m)); });
-  }
+  // Aina lohkoittain (A–L), lohkon sisällä aikajärjestyksessä.
+  var by={}; ms.forEach(function(m){ (by[m.group]=by[m.group]||[]).push(m); });
+  Object.keys(by).sort().forEach(function(g){
+    list.appendChild(el('div','grp','LOHKO '+g));
+    by[g].forEach(function(m){ list.appendChild(matchCell(m)); });
+  });
 }
 
 /* ---- veikkausmatriisi (ottelut × veikkaajat) ---- */
@@ -259,7 +276,7 @@ function buildMatrix(players, maxH, specs){
     if(s.group!=null){ var tr=el('tr','grow'); tr.appendChild(el('td','glabel',s.group));
       var f=el('td','gfill',''); f.colSpan=players.length+1; tr.appendChild(f); tb.appendChild(tr); return; }
     var tr=el('tr');
-    tr.appendChild(el('td','mcol',s.label));
+    tr.appendChild(el('td','mcol'+(s.mono?' mono':''),s.label));
     tr.appendChild(el('td','actual tcol', s.actual==null?'–':s.actual));
     players.forEach(function(n){ var c=s.cellFor(n); tr.appendChild(el('td',c.cls,c.txt==null?'':c.txt)); });
     tb.appendChild(tr);
@@ -283,13 +300,14 @@ function renderPredictions(){
     rows.push({group:'LOHKO '+g});
     by[g].forEach(function(m){
       var res=(R.matches||{})[m.id], has=!!res;
-      rows.push({ label:m.home+'–'+m.away, actual:res, cellFor:function(n){
+      rows.push({ label:m.home+'–'+m.away, mono:true, actual:res, cellFor:function(n){
         var pred=(P[n].matches||{})[m.id];
         return { txt:pred||'', cls:cellClass(matchPoints(pred,res,T.scoring.group), has) };
       }});
     });
   });
-  var w1=buildMatrix(players, '70vh', rows); box.appendChild(w1); freezeOffsets(w1);
+  var w1=buildMatrix(players, null, rows); w1.style.flex='1 1 auto'; w1.style.minHeight='0';
+  box.appendChild(w1); freezeOffsets(w1);
   // Muut – oma taulukko (ei levennä Ottelu-saraketta)
   box.appendChild(el('div','msub','Muut'));
   var muut=[
