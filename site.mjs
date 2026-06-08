@@ -349,12 +349,16 @@ function renderTimeChart(){
   var names=Object.keys(P), cum={}, series={};
   names.forEach(function(n){ cum[n]=0; series[n]=[0]; });
   events.forEach(function(e){ names.forEach(function(n){ cum[n]+=e.deltas[n]||0; series[n].push(cum[n]); }); });
-  var top=names.slice().sort(function(a,b){ return cum[b]-cum[a]; }).slice(0,8);
+  var picked=sel();
+  if(!picked.length){ s.appendChild(el('div','hint','Valitse veikkaajia suodattimesta nähdäksesi käyrät.')); return s; }
+  var allSel=picked.length===names.length;
+  var top = allSel ? names.slice().sort(function(a,b){ return cum[b]-cum[a]; }).slice(0,8)
+                   : picked.slice().sort(function(a,b){ return cum[b]-cum[a]; });
   var maxY=1; top.forEach(function(n){ if(cum[n]>maxY)maxY=cum[n]; });
   var W=340,H=190,padL=6,padR=6,padT=10,padB=10,xN=events.length;
   function X(i){ return (padL+(xN?i/xN:0)*(W-padL-padR)).toFixed(1); }
   function Y(v){ return (H-padB-(v/maxY)*(H-padT-padB)).toFixed(1); }
-  var pal=['#3ea6ff','#ffd24a','#46c46b','#e2706e','#b98cff','#46c9c0','#ff9d4a','#e36fb0'];
+  var pal=['#3ea6ff','#ffd24a','#46c46b','#e2706e','#b98cff','#46c9c0','#ff9d4a','#e36fb0','#7ec8ff','#caa84a','#8ad28f','#ff8f8f'];
   var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
   svg+='<line x1="'+padL+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#2a2f3a"/>';
   top.forEach(function(n,idx){
@@ -366,7 +370,8 @@ function renderTimeChart(){
   var leg=el('div','legend');
   top.forEach(function(n,idx){ var it=el('div','legi'); var sw=el('span','legsw'); sw.style.background=pal[idx%pal.length]; it.appendChild(sw); it.appendChild(el('span',null,n+' ('+cum[n]+')')); leg.appendChild(it); });
   s.appendChild(leg);
-  s.appendChild(el('div','hint', events.length+' ratkennutta tapahtumaa · top 8 näytetään (maalit mukana lopussa)'));
+  s.appendChild(el('div','hint', events.length+' ratkennutta tapahtumaa · '+
+    (allSel?'top 8 (suodata veikkaajavalinnasta)':picked.length+' valittua veikkaajaa')+' · maalit mukana lopussa'));
   return s;
 }
 function renderAnalytics(){
@@ -444,7 +449,7 @@ function show(v){
   state.view=v;
   document.querySelectorAll('.view').forEach(function(e){ e.classList.toggle('active', e.id==='view-'+v); });
   document.querySelectorAll('nav button').forEach(function(b){ b.classList.toggle('active', b.dataset.v===v); });
-  $('#filterbar').style.display = (v==='predictions') ? '' : 'none';
+  $('#filterbar').style.display = (v==='predictions' || v==='analytics') ? '' : 'none';
   rerender();
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
