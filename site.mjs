@@ -160,7 +160,10 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .blab{font-size:9px;color:var(--muted);text-align:center;letter-spacing:.4px;height:14px;text-transform:uppercase;white-space:nowrap}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px}
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative}
+.bdate{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:9px;color:var(--muted);white-space:nowrap;pointer-events:none}
+@media(min-width:900px){.bdate{display:block}}
 .bcell.bfinal{border-color:var(--gold)}
 .bteam{display:flex;justify-content:space-between;gap:4px;line-height:1.5}
 .bteam .tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -177,6 +180,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   .blab{font-size:11px;height:18px}
   .bcell{font-size:12.5px;padding:4px 7px}
   .bteam{line-height:1.7}
+  .bdate{display:block;font-size:10px}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
@@ -341,6 +345,12 @@ function fiTime(iso){
   if(!iso) return '';
   var p={}; new Intl.DateTimeFormat('fi-FI',{timeZone:'Europe/Helsinki',weekday:'short',day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date(iso)).forEach(function(x){p[x.type]=x.value;});
   return p.weekday.replace('.','')+' '+p.day+'.'+p.month+' klo '+p.hour+':'+p.minute;
+}
+// Lyhyt päiväys kaavion soluihin: "su 28.6."
+function fiDateShort(iso){
+  if(!iso) return '';
+  var p={}; new Intl.DateTimeFormat('fi-FI',{timeZone:'Europe/Helsinki',weekday:'short',day:'numeric',month:'numeric'}).formatToParts(new Date(iso)).forEach(function(x){p[x.type]=x.value;});
+  return p.weekday.replace('.','')+' '+p.day+'.'+p.month+'.';
 }
 function fiDayKey(iso){
   var p={}; new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Helsinki',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(iso)).forEach(function(x){p[x.type]=x.value;});
@@ -599,7 +609,8 @@ function renderBracket(){
       row.appendChild(el('span','bsc', t[1]!=null?t[1]:''));
       c.appendChild(row);
     });
-    if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'');
+    if(m.kickoff) c.appendChild(el('div','bdate',fiDateShort(m.kickoff)));
+    if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'')+(m.kickoff?' · '+fiTime(m.kickoff):'');
     return c;
   }
   var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
