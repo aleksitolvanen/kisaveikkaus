@@ -107,6 +107,18 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .bcol{display:flex;flex-direction:column;flex:1 0 58px;min-width:0}
 .blab{font-size:9px;color:var(--muted);text-align:center;letter-spacing:.4px;height:14px;text-transform:uppercase;white-space:nowrap}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+.bpair{flex:1;display:flex;flex-direction:column;justify-content:space-around;position:relative}
+/* yhdysviivat pareista seuraavaan otteluun: haarukka raon puoliväliin + tulostubi */
+.colL .bpair.duo::after{content:'';position:absolute;right:-4px;top:25%;height:50%;width:4px;
+  border:1px solid var(--line);border-left:none;pointer-events:none}
+.colR .bpair.duo::after{content:'';position:absolute;left:-4px;top:25%;height:50%;width:4px;
+  border:1px solid var(--line);border-right:none;pointer-events:none}
+.colL .bcell.fed::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
+.colR .bcell.fed::before{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
+.colL .bcell.out::after{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
+.colR .bcell.out::after{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
+.bcell.bfinal::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
+.bcell.bfinal::after{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative}
 .bdate{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -737,13 +749,21 @@ function renderBracket(){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
     if(mirror) ds.reverse();
     ds.forEach(function(d){
-      var col=el('div','bcol');
+      var col=el('div','bcol '+(mirror?'colR':'colL'));
       col.appendChild(el('div','blab','1/'+Math.pow(2,d+1)));
       var box=el('div','bcells');
-      cols[d].forEach(function(num,i){
+      var cells=cols[d].map(function(num,i){
         var parent = d===0 ? BRACKET.final : cols[d-1][Math.floor(i/2)];
-        box.appendChild(cell(num,parent));
+        var c=cell(num,parent);
+        if(d<cols.length-1) c.className+=' fed';   // tulostubi edelliseltä kierrokselta
+        if(d===0) c.className+=' out';             // välierästä finaaliin
+        return c;
       });
+      for(var i=0;i<cells.length;i+=2){            // parit omaan kehykseen haarukkaviivaa varten
+        var pair=el('div','bpair'+(cells[i+1]?' duo':''));
+        pair.appendChild(cells[i]); if(cells[i+1]) pair.appendChild(cells[i+1]);
+        box.appendChild(pair);
+      }
       col.appendChild(box); br.appendChild(col);
     });
   }
