@@ -781,11 +781,9 @@ function renderBracket(){
   // avaa finaali keskitettynä (kännykällä puolikkaisiin vieritetään sivuttain)
   if(typeof requestAnimationFrame==='function')
     requestAnimationFrame(function(){ try{ wrap.scrollLeft=(wrap.scrollWidth-wrap.clientWidth)/2; }catch(e){} });
-  var hint=el('div','hint','Vihreä = eteni jatkoon. Kaavio vierii sivusuunnassa. ');
-  if(KV.bracketUrl){ var a=document.createElement('a'); a.className='fifalink';
+  if(KV.bracketUrl){ var hint=el('div','hint'); var a=document.createElement('a'); a.className='fifalink';
     a.href=KV.bracketUrl; a.target='_blank'; a.rel='noopener noreferrer';
-    a.textContent='Virallinen kaavio (FIFA) ↗'; hint.appendChild(a); }
-  s.appendChild(hint);
+    a.textContent='Virallinen kaavio (FIFA) ↗'; hint.appendChild(a); s.appendChild(hint); }
   return s;
 }
 
