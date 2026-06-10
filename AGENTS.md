@@ -47,7 +47,8 @@ site/               generoitu staattinen sivu (CF Pages tarjoilee tämän)
 node site.mjs mm2026          # generoi site/ (avaa site/index.html — toimii myös file://)
 npm test                      # yksikkötestit (scoring)
 
-# Paikallinen testidata (ÄLÄ committaa feikkituloksia tuotantoon):
+# Paikallinen testidata (ÄLÄ committaa feikkidataa tuotantoon — mid/full kirjoittaa
+# myös tournament.json:n knockout-kaavion; palautus: git checkout data/mm2026/):
 node tools/random-results.mjs mm2026 --stage=mid   # group|partial|mid|full [--seed=N]
 node site.mjs mm2026
 
