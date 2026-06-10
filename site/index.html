@@ -120,15 +120,17 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .bsc{color:var(--muted)}.bteam.win .bsc{color:inherit}
 .bchamp{text-align:center;margin:10px 0 2px;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
 .bbz{margin-top:16px}
-/* kännykällä: kaksi kierrosta rinnakkain (snap-pyyhkäisy siirtyy kierroksen kerrallaan) */
+/* kännykällä: kolme kierrosta rinnakkain (snap-pyyhkäisy siirtyy kierroksen
+   kerrallaan); päiväys omalla rivillään parin yläpuolella */
 @media(max-width:560px){
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
-  .bcol{flex:0 0 43vw;scroll-snap-align:start}
+  .bcol{flex:0 0 27vw;scroll-snap-align:start}
   .blab{font-size:11px;height:18px}
-  .bcell{font-size:12.5px;padding:4px 7px}
-  .bteam{line-height:1.7}
-  .bdate{display:block;font-size:10px}
+  .bcell{font-size:12.5px;padding:3px 6px;display:flex;flex-direction:column}
+  .bteam{line-height:1.6}
+  .bdate{display:block;position:static;transform:none;order:-1;text-align:center;
+    font-size:9.5px;line-height:1.4}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
