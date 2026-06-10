@@ -51,7 +51,8 @@ npm test                      # yksikkötestit (scoring)
 node tools/random-results.mjs mm2026 --stage=mid   # group|partial|mid|full [--seed=N]
 node site.mjs mm2026
 
-# Excel → JSON:
+# Excel → JSON (uudelleentuonti turvallista: säilyttää tournament.jsonin
+# FIFA-rikastuksen — kickoffit, fifaId:t, knockoutin, teamNamesit):
 python tools/import-excel.py <xlsx> mm2026 --mode predictions   # tai results / all
 
 # Deploy: committaa + pushaa main → Cloudflare Pages deployaa site/:n automaattisesti.
@@ -96,9 +97,11 @@ tolvanen.dev-infra: `C:\s\r\docs\servers\tolvanen-dev`.
   tuloksia on.**
 - **Ajat**: `kickoff` tallennetaan **UTC**:nä, näytetään aina **Suomen aikaa**
   (`fiTime`/`fiDayKey`, `Europe/Helsinki`).
-- **Joukkuekoodit**: meidän Excel-koodit eroavat FIFA:n virallisista kolmessa:
-  `CUR→CUW` (Curaçao), `ICV→CIV` (Norsunluurannikko), `DRC→COD` (Kongo DR). fetch-fifa
-  hoitaa kartan.
+- **Joukkuekoodit**: JSON-data käyttää aina **FIFA:n virallisia koodeja** (ESP, SUI,
+  CUW, CIV, COD…). Excel-pohja poikkeaa viidessä: `CUR→CUW`, `ICV→CIV`, `DRC→COD`,
+  `SPA→ESP`, `SWI→SUI` — **import-excel.py:n `CODE`-kartta** normalisoi tuonnissa
+  (kaikki koodikentät: ottelut, cup, sikajengi). fetch-fifa ei enää mappaa mitään.
+  Jos tuleva Excel käyttää uutta poikkeavaa koodia, lisää se karttaan.
 - **Git tässä ympäristössä** (Claude Code -shell):
   - Commitit **ilman AI-attribuutiota** (käyttäjän globaali sääntö).
   - Allekirjoitus kulkee 1Password-agentin kautta joka **ei ole tavoitettavissa** →

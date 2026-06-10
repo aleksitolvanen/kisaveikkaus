@@ -21,6 +21,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime, timedelta, timezone
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -37,6 +38,16 @@ SHEET = "Tulokset"
 RESULT_COL = column_index_from_string("C")  # "TULOS" – oikeat tulokset
 FIRST_PRED_COL = column_index_from_string("E")  # ensimmäinen veikkaajan sarake
 MATCH_RE = re.compile(r"^([A-Za-z]{2,4})-([A-Za-z]{2,4})$")
+
+# Excel-pohjan joukkuekoodit -> FIFA:n viralliset koodit. JSON-data käyttää aina
+# FIFA-koodeja; vain Excel poikkeaa. Kartta normalisoi kaikki koodikentät
+# (ottelut, cup-veikkaukset, sikajengi) tuonnissa.
+CODE = {"CUR": "CUW", "ICV": "CIV", "DRC": "COD", "SPA": "ESP", "SWI": "SUI"}
+
+
+def norm(code):
+    c = str(code).strip().upper()
+    return CODE.get(c, c)
 
 # Template "mm-2026": cup-vaiheen rivivälit (inclusive).
 LAYOUT = {
@@ -70,13 +81,19 @@ def find_label_row(ws, needle, maxrow=200):
 
 
 def parse_kickoff(label):
+    # Excelin kellonajat ovat Suomen aikaa; kickoff tallennetaan UTC:nä (Z).
     if not label:
         return None, None
     m = re.search(r"(\d{1,2})\.(\d{1,2})\D+klo\s+(\d{1,2}):(\d{2})", str(label), re.I)
     if not m:
         return str(label), None
     d, mo, h, mi = map(int, m.groups())
-    return str(label), f"2026-{mo:02d}-{d:02d}T{h:02d}:{mi:02d}:00"
+    try:
+        from zoneinfo import ZoneInfo
+        dt = datetime(2026, mo, d, h, mi, tzinfo=ZoneInfo("Europe/Helsinki")).astimezone(timezone.utc)
+    except Exception:  # Windows ilman tzdata-pakettia: kesäturnaus = EEST (UTC+3)
+        dt = datetime(2026, mo, d, h, mi, tzinfo=timezone.utc) - timedelta(hours=3)
+    return str(label), dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def scan_layout(ws):
@@ -93,7 +110,7 @@ def scan_layout(ws):
             group_order.append(cur)
             continue
         if b and MATCH_RE.match(str(b).strip()):
-            home, away = str(b).strip().split("-")
+            home, away = (norm(x) for x in str(b).strip().split("-"))
             gcount += 1
             label, iso = parse_kickoff(a)
             matches.append({"id": f"{cur}{gcount}", "group": cur, "home": home,
@@ -124,7 +141,7 @@ def read_cup(ws, ranges, col):
     for key in ROUND_ORDER:
         r0, r1 = ranges[key]
         picks = [cellval(ws, r, col) for r in range(r0, r1 + 1)]
-        picks = [x for x in picks if x]
+        picks = [norm(x) for x in picks if x]
         out[key] = (picks[0] if picks else None) if key == "champion" else picks
     return out
 
@@ -147,6 +164,32 @@ def build_tournament(tid, matches, groups, group_order):
     }
 
 
+def merge_tournament(new, outdir):
+    """Säilytä fetch-fifa:n rikastamat kentät, jos tournament.json on jo olemassa
+    (UTC-kickoffit, fifaId:t, stadionit, URL:t, teamNames, knockout). Ilman tätä
+    veikkausten uudelleentuonti nollaisi otteluohjelman Excel-tasolle."""
+    p = os.path.join(outdir, "tournament.json")
+    if not os.path.exists(p):
+        return new
+    with open(p, encoding="utf-8") as f:
+        old = json.load(f)
+    oldm = {m["id"]: m for m in old.get("matches", [])}
+    for m in new["matches"]:
+        om = oldm.get(m["id"])
+        if not om or om.get("home") != m["home"] or om.get("away") != m["away"]:
+            continue
+        for k in ("kickoff", "fifaId", "matchNumber", "stadium", "city", "url"):
+            if om.get(k) is not None:
+                m[k] = om[k]
+        if om.get("kickoff"):
+            m.pop("timeLabel", None)
+    new["matches"].sort(key=lambda m: m.get("kickoff") or "")
+    for k in ("teamNames", "knockout"):
+        if old.get(k):
+            new[k] = old[k]
+    return new
+
+
 def build_predictions(ws, matches, rows):
     preds = {}
     for name, c in participant_cols(ws):
@@ -157,7 +200,8 @@ def build_predictions(ws, matches, rows):
             if v:
                 p["matches"][m["id"]] = v
         if rows["sikajengi"]:
-            p["sikajengi"] = cellval(ws, rows["sikajengi"], c)
+            sg = cellval(ws, rows["sikajengi"], c)
+            p["sikajengi"] = norm(sg) if sg else None
         if rows["goalscorer"]:
             p["goalscorer"] = cellval(ws, rows["goalscorer"], c)
         preds[name] = p
@@ -174,7 +218,7 @@ def build_results(ws, matches, rows, existing):
     if rows["sikajengi"]:
         sg = cellval(ws, rows["sikajengi"], RESULT_COL)
         if sg:
-            res["dirtiestTeams"] = [sg]
+            res["dirtiestTeams"] = [norm(sg)]
     res["rounds"] = read_cup(ws, LAYOUT["cup"], RESULT_COL)
     return res
 
@@ -209,7 +253,8 @@ def main():
           f"{len(participant_cols(ws))} osallistujaa")
 
     if args.mode in ("predictions", "all"):
-        write("tournament.json", build_tournament(args.tournamentId, matches, groups, group_order))
+        t = merge_tournament(build_tournament(args.tournamentId, matches, groups, group_order), outdir)
+        write("tournament.json", t)
         write("predictions.json", build_predictions(ws, matches, rows))
     if args.mode in ("results", "all"):
         existing = None
