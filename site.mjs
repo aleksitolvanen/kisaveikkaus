@@ -653,12 +653,17 @@ function renderBracket(){
   // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin) ja
   // jää valituksi. Oletus 1/8: 1/16 ja 1/8 keskittyvät samaan (klampattuun)
   // alkuasentoon, joten 1/8:sta ensimmäinen nuolipainallus liikuttaa näkymää.
-  var labs=[], labCols=[], curLab=0;
-  function selectLab(i){
-    if(!labs.length) return;
-    i=Math.min(labs.length-1, Math.max(0,i)); curLab=i;
+  var labs=[], labCols=[], curLab=0, spyT=null, animUntil=0;
+  function markLab(i){
+    curLab=i;
     labs.forEach(function(l){ l.classList.remove('on'); });
     labs[i].classList.add('on');
+  }
+  function selectLab(i){
+    if(!labs.length) return;
+    i=Math.min(labs.length-1, Math.max(0,i));
+    markLab(i);
+    animUntil=Date.now()+700;   // älä anna spyn sotkea kesken animaation
     var col=labCols[i];
     var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
     var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
@@ -668,6 +673,21 @@ function renderBracket(){
     var i=labs.length; labs.push(lab); labCols.push(col);
     lab.onclick=function(){ selectLab(i); };
   }
+  // scroll-spy: pidä valinta synkassa näkyvän aseman kanssa (käsipyyhkäisy tai
+  // pudonnut smooth-skrolli) → nuoli astuu aina siitä mitä ruudulla näkyy
+  function nearestLab(){
+    var w=wrap.getBoundingClientRect(), cx=w.left+wrap.clientWidth/2, best=0, bd=Infinity;
+    labCols.forEach(function(col,i){ var r=col.getBoundingClientRect();
+      var d=Math.abs(r.left+r.width/2-cx); if(d<bd){ bd=d; best=i; } });
+    return best;
+  }
+  wrap.onscroll=function(){
+    if(spyT) return;
+    spyT=setTimeout(function(){ spyT=null;
+      if(Date.now()<animUntil) return;
+      var i=nearestLab(); if(i!==curLab) markLab(i);
+    },150);
+  };
   function halfCols(cols, mirror){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
     if(mirror) ds.reverse();
