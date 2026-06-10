@@ -653,7 +653,7 @@ function renderBracket(){
   // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin) ja
   // jää valituksi. Oletus 1/8: 1/16 ja 1/8 keskittyvät samaan (klampattuun)
   // alkuasentoon, joten 1/8:sta ensimmäinen nuolipainallus liikuttaa näkymää.
-  var labs=[], labCols=[], curLab=0, spyT=null, animUntil=0;
+  var labs=[], labCols=[], curLab=0, spyT=null, pendingX=null, pendingT=null;
   function markLab(i){
     curLab=i;
     labs.forEach(function(l){ l.classList.remove('on'); });
@@ -663,31 +663,62 @@ function renderBracket(){
     if(!labs.length) return;
     i=Math.min(labs.length-1, Math.max(0,i));
     markLab(i);
-    animUntil=Date.now()+700;   // älä anna spyn sotkea kesken animaation
     var col=labCols[i];
     var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
     var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
-    try{ wrap.scrollTo({left:x,behavior:'smooth'}); }catch(e){ wrap.scrollLeft=x; }
+    x=Math.max(0, Math.min(x, wrap.scrollWidth-wrap.clientWidth));
+    // spy odottaa kunnes tämä maali on saavutettu (varotimeri purkaa jos ei koskaan)
+    pendingX=x;
+    if(pendingT) clearTimeout(pendingT);
+    pendingT=setTimeout(function(){ pendingX=null; pendingT=null; spySync(); },1200);
+    animateTo(x);
+  }
+  // Oma animaatio natiivin smooth-scrollin sijaan: selaimen snap vie keskeytetyn
+  // animaation maalin yli (nopeat klikit hyppäsivät kierroksen). Snap pois päältä
+  // liu'un ajaksi; loppuasema on tarkka sarakekeskitys, joten snap ei korjaa sitä.
+  var animF=null;
+  function animateTo(x){
+    if(typeof requestAnimationFrame!=='function'){ wrap.scrollLeft=x; return; }
+    if(animF) cancelAnimationFrame(animF);
+    var t0=null, x0=wrap.scrollLeft, dx=x-x0;
+    var D=Math.min(450, 220+Math.abs(dx)*0.4);
+    wrap.style.scrollSnapType='none';
+    function stepFn(ts){
+      if(t0==null) t0=ts;
+      var p=Math.min(1,(ts-t0)/D);
+      p = p<0.5 ? 2*p*p : 1-Math.pow(-2*p+2,2)/2;   // easeInOutQuad
+      wrap.scrollLeft=x0+dx*p;
+      if(p<1){ animF=requestAnimationFrame(stepFn); }
+      else { animF=null; wrap.style.scrollSnapType=''; }
+    }
+    animF=requestAnimationFrame(stepFn);
   }
   function wireLab(lab,col){
     var i=labs.length; labs.push(lab); labCols.push(col);
     lab.onclick=function(){ selectLab(i); };
   }
-  // scroll-spy: pidä valinta synkassa näkyvän aseman kanssa (käsipyyhkäisy tai
-  // pudonnut smooth-skrolli) → nuoli astuu aina siitä mitä ruudulla näkyy
+  // scroll-spy: kun vieritys on PYSÄHTYNYT, synkkaa valinta lähimpään
+  // kierrokseen → nuoli astuu aina siitä mitä ruudulla oikeasti näkyy.
+  // Jättävä debounce ei koskaan ammu kesken animaation; scrollend on tarkin.
   function nearestLab(){
     var w=wrap.getBoundingClientRect(), cx=w.left+wrap.clientWidth/2, best=0, bd=Infinity;
     labCols.forEach(function(col,i){ var r=col.getBoundingClientRect();
       var d=Math.abs(r.left+r.width/2-cx); if(d<bd){ bd=d; best=i; } });
     return best;
   }
+  function spySync(){
+    if(spyT){ clearTimeout(spyT); spyT=null; }
+    if(pendingX!=null){
+      if(Math.abs(wrap.scrollLeft-pendingX)>6) return;   // klikin animaatio kesken
+      pendingX=null; if(pendingT){ clearTimeout(pendingT); pendingT=null; }
+    }
+    var i=nearestLab(); if(i!==curLab) markLab(i);
+  }
   wrap.onscroll=function(){
-    if(spyT) return;
-    spyT=setTimeout(function(){ spyT=null;
-      if(Date.now()<animUntil) return;
-      var i=nearestLab(); if(i!==curLab) markLab(i);
-    },150);
+    if(spyT) clearTimeout(spyT);
+    spyT=setTimeout(spySync,200);
   };
+  if('onscrollend' in wrap) wrap.onscrollend=spySync;
   function halfCols(cols, mirror){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
     if(mirror) ds.reverse();
