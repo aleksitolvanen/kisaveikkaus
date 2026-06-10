@@ -85,6 +85,8 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .fifalink:hover{text-decoration:underline}
 .mdetail{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:5px 12px;
   padding:9px 11px;border:1px solid var(--line);border-top:none;border-radius:0 0 10px 10px;background:var(--card2)}
+.mnames{grid-column:1/-1;font-size:12.5px;font-weight:600;color:var(--muted);
+  padding-bottom:4px;border-bottom:1px solid var(--line)}
 .pitem{display:flex;justify-content:space-between;gap:8px;font-size:13px;align-items:center}
 .pname{color:var(--muted);overflow:hidden;text-overflow:ellipsis}
 .pval{font-weight:700;font-variant-numeric:tabular-nums;padding:1px 6px;border-radius:5px;min-width:38px;text-align:center}
@@ -246,6 +248,9 @@ function matchDetail(m){
   var rows=NAMES.map(function(n){ var p=(P[n].matches||{})[m.id]||''; return { n:n, p:p, pts:matchPoints(p,res,T.scoring.group) }; });
   if(has) rows.sort(function(a,b){ return b.pts-a.pts || a.n.localeCompare(b.n,'fi'); });
   var d=el('div','mdetail');
+  // Koko maiden nimet (kännykällä rivin tooltip ei ole käytettävissä).
+  var full=pairTitle(m.home,m.away);
+  if(full!==m.home+' – '+m.away) d.appendChild(el('div','mnames',full));
   rows.forEach(function(r){
     var it=el('div','pitem');
     it.appendChild(el('span','pname',r.n));
