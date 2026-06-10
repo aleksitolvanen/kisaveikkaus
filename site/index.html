@@ -112,22 +112,19 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .bcell.bfinal{border-color:var(--gold)}
 .bteam{display:flex;justify-content:space-between;gap:4px;line-height:1.5}
 .bteam .tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bteam .tn{display:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bteam.tbd .tc{color:var(--muted);font-size:9.5px}
 .bteam.win{color:var(--good);font-weight:700}
 .bsc{color:var(--muted)}.bteam.win .bsc{color:inherit}
 .bchamp{text-align:center;margin:10px 0 2px;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
 .bbz{margin-top:16px}
-/* kännykällä: kierros kerrallaan (snap-pyyhkäisy), koko maannimet — kuten FIFA:n mobiilikaavio */
+/* kännykällä: kaksi kierrosta rinnakkain (snap-pyyhkäisy siirtyy kierroksen kerrallaan) */
 @media(max-width:560px){
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
-  .bcol{flex:0 0 76vw;scroll-snap-align:center}
+  .bcol{flex:0 0 43vw;scroll-snap-align:start}
   .blab{font-size:11px;height:18px}
-  .bcell{font-size:13px;padding:5px 9px}
-  .bteam{line-height:1.8}
-  .bteam.named .tn{display:inline}
-  .bteam.named .tc{display:none}
+  .bcell{font-size:12.5px;padding:4px 7px}
+  .bteam{line-height:1.7}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
@@ -713,10 +710,8 @@ function renderBracket(){
       var inNext = pm ? (pm.home===code||pm.away===code) : false;
       var byScore = m.score && +sc[0]!==+sc[1] ? (j===0 ? +sc[0]>+sc[1] : +sc[1]>+sc[0]) : false;
       var adv = inNext || byScore || (m.round==='final' && champ===code);
-      var nm = m.real ? teamName(code) : null;
-      var row=el('div','bteam'+(m.real?'':' tbd')+(adv?' win':'')+(nm&&nm!==code?' named':''));
+      var row=el('div','bteam'+(m.real?'':' tbd')+(adv?' win':''));
       row.appendChild(el('span','tc',code));
-      if(nm&&nm!==code) row.appendChild(el('span','tn',nm));
       row.appendChild(el('span','bsc', t[1]!=null?t[1]:''));
       c.appendChild(row);
     });
