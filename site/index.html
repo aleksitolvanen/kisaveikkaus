@@ -9,7 +9,7 @@
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
   --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;}
 *{box-sizing:border-box;margin:0;padding:0}
-button,.chip,.ftoggle{touch-action:manipulation}
+button,.chip,.ftoggle,.blab{touch-action:manipulation}
 html{-webkit-text-size-adjust:100%}
 html{height:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -111,7 +111,10 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .bwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 8px}
 .bracket{display:flex;gap:7px;min-width:calc(580px*var(--bz,1))}
 .bcol{display:flex;flex-direction:column;flex:1 0 calc(58px*var(--bz,1));min-width:0}
-.blab{font-size:calc(9px*var(--bz,1));color:var(--muted);text-align:center;letter-spacing:.4px;height:calc(14px*var(--bz,1));text-transform:uppercase;white-space:nowrap}
+.blab{font-size:calc(9px*var(--bz,1));color:var(--muted);text-align:center;letter-spacing:.4px;
+  text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none;
+  background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 0;margin:0 2px 4px}
+.blab:hover{color:var(--fg);border-color:var(--accent)}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .bpair{flex:1;display:flex;flex-direction:column;justify-content:space-around;position:relative}
 /* yhdysviivat pareista seuraavaan otteluun: haarukka raon puoliväliin + tulostubi */
@@ -144,7 +147,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
   .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:center}
-  .blab{font-size:calc(11px*var(--bz,1));height:calc(18px*var(--bz,1))}
+  .blab{font-size:calc(11px*var(--bz,1));padding:3px 0}
   .bcell{font-size:calc(12.5px*var(--bz,1));padding:3px 6px;display:flex;flex-direction:column}
   .bteam{line-height:1.6}
   .bdate{display:block;position:static;transform:none;order:-1;text-align:center;
@@ -766,12 +769,20 @@ function renderBracket(){
   zc.appendChild(zoomBtn('−',-0.15)); zc.appendChild(zoomBtn('+',0.15));
   hd.appendChild(zc); s.appendChild(hd);
   applyZoom();
+  // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin)
+  function wireLab(lab,col){
+    lab.onclick=function(){
+      var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
+      var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
+      try{ wrap.scrollTo({left:x,behavior:'smooth'}); }catch(e){ wrap.scrollLeft=x; }
+    };
+  }
   function halfCols(cols, mirror){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
     if(mirror) ds.reverse();
     ds.forEach(function(d){
       var col=el('div','bcol '+(mirror?'colR':'colL'));
-      col.appendChild(el('div','blab','1/'+Math.pow(2,d+1)));
+      var lab=el('div','blab','1/'+Math.pow(2,d+1)); wireLab(lab,col); col.appendChild(lab);
       var box=el('div','bcells');
       var cells=cols[d].map(function(num,i){
         var parent = d===0 ? BRACKET.final : cols[d-1][Math.floor(i/2)];
@@ -789,13 +800,14 @@ function renderBracket(){
     });
   }
   halfCols(BRACKET.left,false);
-  var center=el('div','bcol'); center.appendChild(el('div','blab','Finaali'));
+  var center=el('div','bcol');
+  var flab=el('div','blab','Finaali'); wireLab(flab,center); center.appendChild(flab);
   var cb=el('div','bcells'); cb.style.justifyContent='center';
   cb.appendChild(cell(BRACKET.final,null,'bfinal'));
   var ch=el('div','bchamp','🏆 '+(champ||'?')); if(champ) ch.title=teamName(champ);
   cb.appendChild(ch);
-  if(BRACKET.bronze){ var bz=el('div','bbz'); bz.appendChild(el('div','blab','Pronssi'));
-    bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
+  if(BRACKET.bronze){ var bz=el('div','bbz'); var blab=el('div','blab','Pronssi'); wireLab(blab,center);
+    bz.appendChild(blab); bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
   center.appendChild(cb); br.appendChild(center);
   halfCols(BRACKET.right,true);
   wrap.appendChild(br); s.appendChild(wrap);
