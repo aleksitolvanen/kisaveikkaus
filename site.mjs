@@ -194,7 +194,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 @media(max-width:560px){
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
-  .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:start}
+  .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:center}
   .blab{font-size:calc(11px*var(--bz,1));height:calc(18px*var(--bz,1))}
   .bcell{font-size:calc(12.5px*var(--bz,1));padding:3px 6px;display:flex;flex-direction:column}
   .bteam{line-height:1.6}
