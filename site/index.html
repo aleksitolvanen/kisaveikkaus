@@ -147,6 +147,8 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
   .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:center}
+  .bwrap.z2{scroll-padding-left:4.5vw}
+  .bwrap.z2 .bcol{scroll-snap-align:start}
   .blab{font-size:calc(11px*var(--bz,1));padding:3px 0}
   .bcell{font-size:calc(12.5px*var(--bz,1));padding:3px 6px;display:flex;flex-direction:column}
   .bteam{line-height:1.6}
@@ -760,14 +762,20 @@ function renderBracket(){
   // otsikko + zoom-napit (kerroin skaalaa sarakeleveydet ja fontit CSS-muuttujalla)
   var hd=el('div','bhead'); hd.appendChild(el('h3',null,'Cup-kaavio'));
   var zc=el('div','bzoom');
-  function applyZoom(){ wrap.style.setProperty('--bz', state.bzoom); }
-  function zoomBtn(label, delta){
+  // kolme tasoa: 0.7 = koko puolisko · 1 = kolme kierrosta (oletus) · 1.45 = kaksi kierrosta
+  var ZL=[0.7,1,1.45];
+  if(ZL.indexOf(state.bzoom)<0){ var nz=ZL[0];
+    ZL.forEach(function(z){ if(Math.abs(z-state.bzoom)<Math.abs(nz-state.bzoom)) nz=z; }); state.bzoom=nz; }
+  // kahden sarakkeen tasolla snap reunaan (z2): kaksi täyttä + symmetriset kurkistukset
+  function applyZoom(){ wrap.style.setProperty('--bz', state.bzoom);
+    wrap.className='bwrap'+(state.bzoom===1.45?' z2':''); }
+  function zoomBtn(label, dir){
     var b=el('button',null,label);
-    b.onclick=function(){ state.bzoom=Math.min(1.6, Math.max(0.7, Math.round((state.bzoom+delta)*100)/100));
-      applyZoom(); saveUI(); };
+    b.onclick=function(){ var i=Math.min(ZL.length-1, Math.max(0, ZL.indexOf(state.bzoom)+dir));
+      state.bzoom=ZL[i]; applyZoom(); saveUI(); };
     return b;
   }
-  zc.appendChild(zoomBtn('−',-0.15)); zc.appendChild(zoomBtn('+',0.15));
+  zc.appendChild(zoomBtn('−',-1)); zc.appendChild(zoomBtn('+',1));
   hd.appendChild(zc); s.appendChild(hd);
   applyZoom();
   // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin)
