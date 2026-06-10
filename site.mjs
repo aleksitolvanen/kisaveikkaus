@@ -155,6 +155,11 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .elim{color:var(--muted);text-decoration:line-through}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
 /* cup-kaavio */
+.bhead{display:flex;align-items:center;justify-content:space-between;margin:0 2px 9px}
+.bhead h3{margin:0}
+.bnav{display:flex;gap:6px}
+.bnav button{width:32px;height:26px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+  color:var(--fg);font-size:16px;line-height:1;cursor:pointer;padding:0 0 2px}
 .bwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 8px}
 .bracket{display:flex;gap:7px;min-width:580px}
 .bcol{display:flex;flex-direction:column;flex:1 0 58px;min-width:0}
@@ -636,20 +641,32 @@ function renderBracket(){
     if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'')+(m.kickoff?' · '+fiTime(m.kickoff):'');
     return c;
   }
-  var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
+  var s=el('div','asec');
   var wrap=el('div','bwrap'), br=el('div','bracket');
-  // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin)
-  // ja jää valituksi; oletuksena vasen 1/16 (alkunäkymä)
-  var labs=[];
+  // otsikko + nuolet: siirtävät valintaa kierroksen kerrallaan
+  var hd=el('div','bhead'); hd.appendChild(el('h3',null,'Cup-kaavio'));
+  var nav=el('div','bnav');
+  var prevB=el('button',null,'‹'), nextB=el('button',null,'›');
+  prevB.onclick=function(){ selectLab(curLab-1); };
+  nextB.onclick=function(){ selectLab(curLab+1); };
+  nav.appendChild(prevB); nav.appendChild(nextB); hd.appendChild(nav); s.appendChild(hd);
+  // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin) ja
+  // jää valituksi. Oletus 1/8: 1/16 ja 1/8 keskittyvät samaan (klampattuun)
+  // alkuasentoon, joten 1/8:sta ensimmäinen nuolipainallus liikuttaa näkymää.
+  var labs=[], labCols=[], curLab=0;
+  function selectLab(i){
+    if(!labs.length) return;
+    i=Math.min(labs.length-1, Math.max(0,i)); curLab=i;
+    labs.forEach(function(l){ l.classList.remove('on'); });
+    labs[i].classList.add('on');
+    var col=labCols[i];
+    var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
+    var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
+    try{ wrap.scrollTo({left:x,behavior:'smooth'}); }catch(e){ wrap.scrollLeft=x; }
+  }
   function wireLab(lab,col){
-    labs.push(lab);
-    lab.onclick=function(){
-      labs.forEach(function(l){ l.classList.remove('on'); });
-      lab.classList.add('on');
-      var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
-      var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
-      try{ wrap.scrollTo({left:x,behavior:'smooth'}); }catch(e){ wrap.scrollLeft=x; }
-    };
+    var i=labs.length; labs.push(lab); labCols.push(col);
+    lab.onclick=function(){ selectLab(i); };
   }
   function halfCols(cols, mirror){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
@@ -687,7 +704,7 @@ function renderBracket(){
   center.appendChild(cb); br.appendChild(center);
   halfCols(BRACKET.right,true);
   wrap.appendChild(br); s.appendChild(wrap);
-  if(labs.length) labs[0].classList.add('on');   // alkunäkymä = vasen 1/16
+  if(labs.length){ curLab=Math.min(1,labs.length-1); labs[curLab].classList.add('on'); }
   if(KV.bracketUrl){ var hint=el('div','hint'); var a=document.createElement('a'); a.className='fifalink';
     a.href=KV.bracketUrl; a.target='_blank'; a.rel='noopener noreferrer';
     a.textContent='Virallinen kaavio (FIFA) ↗'; hint.appendChild(a); s.appendChild(hint); }
