@@ -111,6 +111,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 0;margin:0 2px 4px}
 .blab:hover{color:var(--fg);border-color:var(--accent)}
 .blab.on{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
+.blab.plain,.blab.plain:hover{background:transparent;border-color:transparent;cursor:default;color:var(--muted)}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .bpair{flex:1;display:flex;flex-direction:column;justify-content:space-around;position:relative}
 /* yhdysviivat pareista seuraavaan otteluun: haarukka raon puoliväliin + tulostubi */
@@ -794,13 +795,13 @@ function renderBracket(){
   var flab=el('div','blab','Finaali'); wireLab(flab,center); center.appendChild(flab);
   var cb=el('div','bcells'); cb.style.justifyContent='center';
   var mz=el('div');
-  var mlab=el('div','blab','Kulta'); wireLab(mlab,center);
-  mz.appendChild(mlab);
+  mz.appendChild(el('div','blab plain','Kulta'));
   if(champ){ var ch=el('div','bchamp','🏆 '+champ); ch.title=teamName(champ); mz.appendChild(ch); }
   cb.appendChild(mz);
   cb.appendChild(cell(BRACKET.final,null,'bfinal'));
-  if(BRACKET.bronze){ var bz=el('div','bbz'); var blab=el('div','blab','Pronssi'); wireLab(blab,center);
-    bz.appendChild(blab); bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
+  if(BRACKET.bronze){ var bz=el('div','bbz');
+    bz.appendChild(el('div','blab plain','Pronssi'));
+    bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
   center.appendChild(cb); br.appendChild(center);
   halfCols(BRACKET.right,true);
   wrap.appendChild(br); s.appendChild(wrap);
