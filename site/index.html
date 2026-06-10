@@ -122,10 +122,9 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .colL .bcell.fed::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .colR .bcell.fed::before{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative}
-.bdate{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-size:9px;color:var(--muted);white-space:nowrap;pointer-events:none}
-@media(min-width:900px){.bdate{display:block}.bdate .btime{display:none}}
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative;
+  display:flex;flex-direction:column}
+.bdate{order:-1;text-align:center;font-size:9px;color:var(--muted);white-space:nowrap;line-height:1.4}
 .bcell.bfinal{border-color:var(--gold);
   background:linear-gradient(180deg,rgba(255,210,74,.10),rgba(255,210,74,0) 65%),var(--card2);
   box-shadow:0 0 14px rgba(255,210,74,.30),0 0 4px rgba(255,210,74,.45)}
@@ -143,10 +142,9 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   .bracket{min-width:0}
   .bcol{flex:0 0 27vw;scroll-snap-align:center}
   .blab{font-size:11px;padding:3px 0}
-  .bcell{font-size:12.5px;padding:3px 6px;display:flex;flex-direction:column}
+  .bcell{font-size:12.5px;padding:3px 6px}
   .bteam{line-height:1.6}
-  .bdate{display:block;position:static;transform:none;order:-1;text-align:center;
-    font-size:9.5px;line-height:1.4}
+  .bdate{font-size:9.5px}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
