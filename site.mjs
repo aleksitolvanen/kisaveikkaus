@@ -23,16 +23,17 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const jsonBlob = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
 
-// Cup-kaavion rakenne (puolikkaat + finaali) johdetaan knockout-templateista:
-// "W74" = ottelun 74 voittaja. Rakenne on kiinteä koko turnauksen ajan, joten se
-// lasketaan build-aikana tämän repon snapshotista (jossa placeholderit ovat
-// tallella) ja upotetaan sivuun; client täyttää joukkueet/tulokset live-datasta
-// ottelunumeroilla. Palauttaa null jos puu ei ole täysi → kaavio jää pois.
+// Cup-kaavion rakenne (puolikkaat + finaali): ensisijaisesti knockout-entryjen
+// feedA/feedB-kentistä (ottelunumerot, pysyvät), toissijaisesti "W74"-place-
+// holdereista ("ottelun 74 voittaja" — katoavat kun joukkueet selviävät).
+// Rakenne on kiinteä koko turnauksen ajan, joten se lasketaan build-aikana ja
+// upotetaan sivuun; client täyttää joukkueet/tulokset live-datasta ottelu-
+// numeroilla. Palauttaa null jos puu ei ole täysi → kaavio jää pois.
 function buildBracket(knockout) {
   const final = (knockout || []).find((m) => m.round === "final");
   if (!final) return null;
   const W = (s) => { const m = /^W(\d+)$/.exec(String(s)); return m ? Number(m[1]) : null; };
-  const feed = new Map(knockout.map((m) => [m.matchNumber, [W(m.home), W(m.away)]]));
+  const feed = new Map(knockout.map((m) => [m.matchNumber, [m.feedA ?? W(m.home), m.feedB ?? W(m.away)]]));
   const half = (root) => {
     const cols = [];
     const rec = (num, d) => {
