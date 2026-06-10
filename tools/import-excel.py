@@ -185,7 +185,7 @@ def merge_tournament(new, outdir):
         if om.get("kickoff"):
             m.pop("timeLabel", None)
     new["matches"].sort(key=lambda m: m.get("kickoff") or "")
-    for k in ("teamNames", "knockout"):
+    for k in ("teamNames", "knockout", "bracketUrl"):
         if old.get(k):
             new[k] = old[k]
     return new

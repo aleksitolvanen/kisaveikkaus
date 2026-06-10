@@ -22,7 +22,39 @@ const scoringSrc = readFileSync("scoring.mjs", "utf-8").replace(/^export\s+/gm, 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const jsonBlob = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
-const KV = jsonBlob({ tournament, predictions, results });
+
+// Cup-kaavion rakenne (puolikkaat + finaali) johdetaan knockout-templateista:
+// "W74" = ottelun 74 voittaja. Rakenne on kiinteä koko turnauksen ajan, joten se
+// lasketaan build-aikana tämän repon snapshotista (jossa placeholderit ovat
+// tallella) ja upotetaan sivuun; client täyttää joukkueet/tulokset live-datasta
+// ottelunumeroilla. Palauttaa null jos puu ei ole täysi → kaavio jää pois.
+function buildBracket(knockout) {
+  const final = (knockout || []).find((m) => m.round === "final");
+  if (!final) return null;
+  const W = (s) => { const m = /^W(\d+)$/.exec(String(s)); return m ? Number(m[1]) : null; };
+  const feed = new Map(knockout.map((m) => [m.matchNumber, [W(m.home), W(m.away)]]));
+  const half = (root) => {
+    const cols = [];
+    const rec = (num, d) => {
+      if (num == null || !feed.has(num)) return;
+      (cols[d] = cols[d] || []).push(num);
+      const f = feed.get(num);
+      if (f[0] != null || f[1] != null) { rec(f[0], d + 1); rec(f[1], d + 1); }
+    };
+    rec(root, 0);
+    return cols;
+  };
+  const [fa, fb] = feed.get(final.matchNumber) || [];
+  if (fa == null || fb == null) return null;
+  const left = half(fa), right = half(fb);
+  const full = (c) => c.length > 0 && c.every((col, d) => (col || []).length === 2 ** d);
+  if (left.length !== right.length || !full(left) || !full(right)) return null;
+  const bronze = knockout.find((m) => m.round === "bronze");
+  return { left, right, final: final.matchNumber, bronze: bronze ? bronze.matchNumber : null };
+}
+
+const KV = jsonBlob({ tournament, predictions, results, bracket: buildBracket(tournament.knockout),
+  bracketUrl: tournament.bracketUrl || null });
 
 const CSS = `
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
@@ -120,6 +152,22 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
 .elim{color:var(--muted);text-decoration:line-through}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
+/* cup-kaavio */
+.bwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 8px}
+.bracket{display:flex;gap:7px;min-width:580px}
+.bcol{display:flex;flex-direction:column;flex:1 0 58px;min-width:0}
+.blab{font-size:9px;color:var(--muted);text-align:center;letter-spacing:.4px;height:14px;text-transform:uppercase;white-space:nowrap}
+.bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+.bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px}
+.bcell.bfinal{border-color:var(--gold)}
+.bteam{display:flex;justify-content:space-between;gap:4px;line-height:1.5}
+.bteam .tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bteam.tbd .tc{color:var(--muted);font-size:9.5px}
+.bteam.win{color:var(--good);font-weight:700}
+.bsc{color:var(--muted)}.bteam.win .bsc{color:inherit}
+.bchamp{text-align:center;margin:10px 0 2px;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
+.bbz{margin-top:16px}
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
 .legi{display:flex;align-items:center;gap:6px;font-size:12px}
@@ -135,6 +183,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 const CLIENT = String.raw`
 const KV = JSON.parse(document.getElementById('kv').textContent);
 let T = KV.tournament, R = KV.results; const P = KV.predictions;  // T,R päivittyvät pollauksessa
+const BRACKET = KV.bracket || null;  // cup-kaavion kiinteä rakenne (ottelunumerot)
 const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
@@ -518,12 +567,76 @@ function wildestPredictions(){
   out.sort(function(a,b){ return b.wild-a.wild; });
   return out.slice(0,10);
 }
+/* ---- cup-kaavio: vasen/oikea puolisko, finaali keskellä ---- */
+function renderBracket(){
+  if(!BRACKET) return null;
+  var ix={}; (T.knockout||[]).forEach(function(m){ ix[m.matchNumber]=m; });
+  var champ=(R.rounds&&R.rounds.champion)||null;
+  function cell(num, parentNum, extraCls){
+    var m=ix[num], c=el('div','bcell'+(extraCls?' '+extraCls:''));
+    if(!m){ c.appendChild(el('div','bteam tbd','?')); return c; }
+    var pm=parentNum?ix[parentNum]:null, sc=(m.score||'').split('-');
+    [[m.home,sc[0]],[m.away,sc[1]]].forEach(function(t,j){
+      var code=t[0];
+      // jatkoonpäässyt: joukkue näkyy seuraavassa ottelussa, tai tulos on selvä
+      // (tasatulos ratkeaa rankkareilla → merkataan vasta kun jatkopaikka näkyy),
+      // finaalissa myös mestari-kentästä
+      var inNext = pm ? (pm.home===code||pm.away===code) : false;
+      var byScore = m.score && +sc[0]!==+sc[1] ? (j===0 ? +sc[0]>+sc[1] : +sc[1]>+sc[0]) : false;
+      var adv = inNext || byScore || (m.round==='final' && champ===code);
+      var row=el('div','bteam'+(m.real?'':' tbd')+(adv?' win':''));
+      row.appendChild(el('span','tc',code));
+      row.appendChild(el('span','bsc', t[1]!=null?t[1]:''));
+      c.appendChild(row);
+    });
+    if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'');
+    return c;
+  }
+  var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
+  var wrap=el('div','bwrap'), br=el('div','bracket');
+  function halfCols(cols, mirror){
+    var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
+    if(mirror) ds.reverse();
+    ds.forEach(function(d){
+      var col=el('div','bcol');
+      col.appendChild(el('div','blab','1/'+Math.pow(2,d+1)));
+      var box=el('div','bcells');
+      cols[d].forEach(function(num,i){
+        var parent = d===0 ? BRACKET.final : cols[d-1][Math.floor(i/2)];
+        box.appendChild(cell(num,parent));
+      });
+      col.appendChild(box); br.appendChild(col);
+    });
+  }
+  halfCols(BRACKET.left,false);
+  var center=el('div','bcol'); center.appendChild(el('div','blab','Finaali'));
+  var cb=el('div','bcells'); cb.style.justifyContent='center';
+  cb.appendChild(cell(BRACKET.final,null,'bfinal'));
+  var ch=el('div','bchamp','🏆 '+(champ||'?')); if(champ) ch.title=teamName(champ);
+  cb.appendChild(ch);
+  if(BRACKET.bronze){ var bz=el('div','bbz'); bz.appendChild(el('div','blab','Pronssi'));
+    bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
+  center.appendChild(cb); br.appendChild(center);
+  halfCols(BRACKET.right,true);
+  wrap.appendChild(br); s.appendChild(wrap);
+  // avaa finaali keskitettynä (kännykällä puolikkaisiin vieritetään sivuttain)
+  if(typeof requestAnimationFrame==='function')
+    requestAnimationFrame(function(){ try{ wrap.scrollLeft=(wrap.scrollWidth-wrap.clientWidth)/2; }catch(e){} });
+  var hint=el('div','hint','Vihreä = eteni jatkoon. Kaavio vierii sivusuunnassa. ');
+  if(KV.bracketUrl){ var a=document.createElement('a'); a.className='fifalink';
+    a.href=KV.bracketUrl; a.target='_blank'; a.rel='noopener noreferrer';
+    a.textContent='Virallinen kaavio (FIFA) ↗'; hint.appendChild(a); }
+  s.appendChild(hint);
+  return s;
+}
+
 function renderAnalytics(){
   var box=$('#analytics'); box.innerHTML='';
   var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
   box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
     (cupUnd.length?'cup-vaihe kesken':'cup ratkennut')+(sikaUnd?' · sikajengi auki':'')));
   box.appendChild(renderTimeChart());
+  var bk=renderBracket(); if(bk) box.appendChild(bk);
 
   // 1) Max-pisteet / kuka voi vielä voittaa
   var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
