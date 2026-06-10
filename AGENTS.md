@@ -98,10 +98,10 @@ tolvanen.dev-infra: `C:\s\r\docs\servers\tolvanen-dev`.
 - **Ajat**: `kickoff` tallennetaan **UTC**:nä, näytetään aina **Suomen aikaa**
   (`fiTime`/`fiDayKey`, `Europe/Helsinki`).
 - **Joukkuekoodit**: JSON-data käyttää aina **FIFA:n virallisia koodeja** (ESP, SUI,
-  CUW, CIV, COD…). Excel-pohja poikkeaa viidessä: `CUR→CUW`, `ICV→CIV`, `DRC→COD`,
-  `SPA→ESP`, `SWI→SUI` — **import-excel.py:n `CODE`-kartta** normalisoi tuonnissa
-  (kaikki koodikentät: ottelut, cup, sikajengi). fetch-fifa ei enää mappaa mitään.
-  Jos tuleva Excel käyttää uutta poikkeavaa koodia, lisää se karttaan.
+  CUW, CIV, COD…). Excel-pohjan tunnetut poikkeamat: `CUR→CUW`, `ICV→CIV`, `DRC→COD`,
+  `SPA→ESP`, `SWI→SUI`, `SER→SRB`, `ROM→ROU` — **import-excel.py:n `CODE`-kartta**
+  normalisoi tuonnissa (kaikki koodikentät: ottelut, cup, sikajengi). fetch-fifa ei
+  enää mappaa mitään. Jos tuleva Excel käyttää uutta poikkeavaa koodia, lisää se karttaan.
 - **Git tässä ympäristössä** (Claude Code -shell):
   - Commitit **ilman AI-attribuutiota** (käyttäjän globaali sääntö).
   - Allekirjoitus kulkee 1Password-agentin kautta joka **ei ole tavoitettavissa** →

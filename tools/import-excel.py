@@ -42,7 +42,8 @@ MATCH_RE = re.compile(r"^([A-Za-z]{2,4})-([A-Za-z]{2,4})$")
 # Excel-pohjan joukkuekoodit -> FIFA:n viralliset koodit. JSON-data käyttää aina
 # FIFA-koodeja; vain Excel poikkeaa. Kartta normalisoi kaikki koodikentät
 # (ottelut, cup-veikkaukset, sikajengi) tuonnissa.
-CODE = {"CUR": "CUW", "ICV": "CIV", "DRC": "COD", "SPA": "ESP", "SWI": "SUI"}
+CODE = {"CUR": "CUW", "ICV": "CIV", "DRC": "COD", "SPA": "ESP", "SWI": "SUI",
+        "SER": "SRB", "ROM": "ROU"}
 
 
 def norm(code):
