@@ -154,16 +154,11 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
 .elim{color:var(--muted);text-decoration:line-through}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
-/* cup-kaavio (--bz = zoom-kerroin, asetetaan .bwrap-elementtiin napeista) */
-.bhead{display:flex;align-items:center;justify-content:space-between;margin:0 2px 9px}
-.bhead h3{margin:0}
-.bzoom{display:flex;gap:6px}
-.bzoom button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--card);
-  color:var(--fg);font-size:16px;line-height:1;cursor:pointer;padding:0}
+/* cup-kaavio */
 .bwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 8px}
-.bracket{display:flex;gap:7px;min-width:calc(580px*var(--bz,1))}
-.bcol{display:flex;flex-direction:column;flex:1 0 calc(58px*var(--bz,1));min-width:0}
-.blab{font-size:calc(9px*var(--bz,1));color:var(--muted);text-align:center;letter-spacing:.4px;
+.bracket{display:flex;gap:7px;min-width:580px}
+.bcol{display:flex;flex-direction:column;flex:1 0 58px;min-width:0}
+.blab{font-size:9px;color:var(--muted);text-align:center;letter-spacing:.4px;
   text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none;
   background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 0;margin:0 2px 4px}
 .blab:hover{color:var(--fg);border-color:var(--accent)}
@@ -176,36 +171,37 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   border:1px solid var(--line);border-right:none;pointer-events:none}
 .colL .bcell.fed::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .colR .bcell.fed::before{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
-.colL .bcell.out::after{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
-.colR .bcell.out::after{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
-.bcell.bfinal::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
-.bcell.bfinal::after{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:calc(10.5px*var(--bz,1));position:relative}
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative}
 .bdate{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-size:calc(9px*var(--bz,1));color:var(--muted);white-space:nowrap;pointer-events:none}
+  font-size:9px;color:var(--muted);white-space:nowrap;pointer-events:none}
 @media(min-width:900px){.bdate{display:block}}
-.bcell.bfinal{border-color:var(--gold)}
+.bcell.bfinal{border-color:var(--gold);
+  background:linear-gradient(180deg,rgba(255,210,74,.10),rgba(255,210,74,0) 65%),var(--card2);
+  box-shadow:0 0 14px rgba(255,210,74,.30),0 0 4px rgba(255,210,74,.45)}
+@media(prefers-reduced-motion:no-preference){
+  @keyframes fglow{0%,100%{box-shadow:0 0 10px rgba(255,210,74,.22),0 0 3px rgba(255,210,74,.40)}
+    50%{box-shadow:0 0 20px rgba(255,210,74,.48),0 0 6px rgba(255,210,74,.60)}}
+  .bcell.bfinal{animation:fglow 3s ease-in-out infinite}
+}
 .bteam{display:flex;justify-content:space-between;gap:4px;line-height:1.5}
 .bteam .tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bteam.tbd .tc{color:var(--muted);font-size:calc(9.5px*var(--bz,1))}
+.bteam.tbd .tc{color:var(--muted);font-size:9.5px}
 .bteam.win{color:var(--good);font-weight:700}
 .bsc{color:var(--muted)}.bteam.win .bsc{color:inherit}
-.bchamp{text-align:center;margin:10px 0 2px;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
-.bbz{margin-top:16px}
+.bchamp{text-align:center;margin:2px 0;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
+.bbz{margin-top:14px}
 /* kännykällä: kolme kierrosta rinnakkain (snap-pyyhkäisy siirtyy kierroksen
    kerrallaan); päiväys omalla rivillään parin yläpuolella */
 @media(max-width:560px){
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
-  .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:center}
-  .bwrap.z2{scroll-padding-left:4.5vw}
-  .bwrap.z2 .bcol{scroll-snap-align:start}
-  .blab{font-size:calc(11px*var(--bz,1));padding:3px 0}
-  .bcell{font-size:calc(12.5px*var(--bz,1));padding:3px 6px;display:flex;flex-direction:column}
+  .bcol{flex:0 0 27vw;scroll-snap-align:center}
+  .blab{font-size:11px;padding:3px 0}
+  .bcell{font-size:12.5px;padding:3px 6px;display:flex;flex-direction:column}
   .bteam{line-height:1.6}
   .bdate{display:block;position:static;transform:none;order:-1;text-align:center;
-    font-size:calc(9.5px*var(--bz,1));line-height:1.4}
+    font-size:9.5px;line-height:1.4}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
@@ -235,7 +231,6 @@ const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
   dayFilter: savedUI.dayFilter || 'all', predMode: savedUI.predMode || 'lohko',
   cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null,
-  bzoom: savedUI.bzoom || 1,
   scroll: savedUI.scroll || {} };
 
 const $ = (s) => document.querySelector(s);
@@ -263,8 +258,7 @@ function persistSel(){
 /* muiden valintojen + skrollikohdan pysyvyys (localStorage 'kv-ui') */
 function loadUI(){ try{ return JSON.parse(localStorage.getItem('kv-ui')||'{}')||{}; }catch(e){ return {}; } }
 function saveUI(){ try{ localStorage.setItem('kv-ui', JSON.stringify({ view:state.view, predMode:state.predMode,
-  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB,
-  bzoom:state.bzoom, scroll:state.scroll })); }catch(e){} }
+  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB, scroll:state.scroll })); }catch(e){} }
 var uiTimer=null;
 function saveUISoon(){ if(uiTimer) return; uiTimer=setTimeout(function(){ uiTimer=null; saveUI(); }, 400); }
 function trackScroll(elem, key){
@@ -641,27 +635,8 @@ function renderBracket(){
     if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'')+(m.kickoff?' · '+fiTime(m.kickoff):'');
     return c;
   }
-  var s=el('div','asec');
+  var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
   var wrap=el('div','bwrap'), br=el('div','bracket');
-  // otsikko + zoom-napit (kerroin skaalaa sarakeleveydet ja fontit CSS-muuttujalla)
-  var hd=el('div','bhead'); hd.appendChild(el('h3',null,'Cup-kaavio'));
-  var zc=el('div','bzoom');
-  // kolme tasoa: 0.7 = koko puolisko · 1 = kolme kierrosta (oletus) · 1.45 = kaksi kierrosta
-  var ZL=[0.7,1,1.45];
-  if(ZL.indexOf(state.bzoom)<0){ var nz=ZL[0];
-    ZL.forEach(function(z){ if(Math.abs(z-state.bzoom)<Math.abs(nz-state.bzoom)) nz=z; }); state.bzoom=nz; }
-  // kahden sarakkeen tasolla snap reunaan (z2): kaksi täyttä + symmetriset kurkistukset
-  function applyZoom(){ wrap.style.setProperty('--bz', state.bzoom);
-    wrap.className='bwrap'+(state.bzoom===1.45?' z2':''); }
-  function zoomBtn(label, dir){
-    var b=el('button',null,label);
-    b.onclick=function(){ var i=Math.min(ZL.length-1, Math.max(0, ZL.indexOf(state.bzoom)+dir));
-      state.bzoom=ZL[i]; applyZoom(); saveUI(); };
-    return b;
-  }
-  zc.appendChild(zoomBtn('−',-1)); zc.appendChild(zoomBtn('+',1));
-  hd.appendChild(zc); s.appendChild(hd);
-  applyZoom();
   // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin)
   function wireLab(lab,col){
     lab.onclick=function(){
@@ -681,7 +656,6 @@ function renderBracket(){
         var parent = d===0 ? BRACKET.final : cols[d-1][Math.floor(i/2)];
         var c=cell(num,parent);
         if(d<cols.length-1) c.className+=' fed';   // tulostubi edelliseltä kierrokselta
-        if(d===0) c.className+=' out';             // välierästä finaaliin
         return c;
       });
       for(var i=0;i<cells.length;i+=2){            // parit omaan kehykseen haarukkaviivaa varten
@@ -697,8 +671,10 @@ function renderBracket(){
   var flab=el('div','blab','Finaali'); wireLab(flab,center); center.appendChild(flab);
   var cb=el('div','bcells'); cb.style.justifyContent='center';
   cb.appendChild(cell(BRACKET.final,null,'bfinal'));
-  var ch=el('div','bchamp','🏆 '+(champ||'?')); if(champ) ch.title=teamName(champ);
-  cb.appendChild(ch);
+  var mz=el('div','bbz'); var mlab=el('div','blab','Mestari'); wireLab(mlab,center);
+  mz.appendChild(mlab);
+  var ch=el('div','bchamp', champ ? '🏆 '+champ : '–'); if(champ) ch.title=teamName(champ);
+  mz.appendChild(ch); cb.appendChild(mz);
   if(BRACKET.bronze){ var bz=el('div','bbz'); var blab=el('div','blab','Pronssi'); wireLab(blab,center);
     bz.appendChild(blab); bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
   center.appendChild(cb); br.appendChild(center);
