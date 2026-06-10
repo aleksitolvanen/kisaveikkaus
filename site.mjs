@@ -670,11 +670,12 @@ function renderBracket(){
   var center=el('div','bcol');
   var flab=el('div','blab','Finaali'); wireLab(flab,center); center.appendChild(flab);
   var cb=el('div','bcells'); cb.style.justifyContent='center';
-  cb.appendChild(cell(BRACKET.final,null,'bfinal'));
-  var mz=el('div','bbz'); var mlab=el('div','blab','Mestari'); wireLab(mlab,center);
+  var mz=el('div'); mz.style.marginBottom='14px';
+  var mlab=el('div','blab','Kulta'); wireLab(mlab,center);
   mz.appendChild(mlab);
   var ch=el('div','bchamp', champ ? '🏆 '+champ : '–'); if(champ) ch.title=teamName(champ);
   mz.appendChild(ch); cb.appendChild(mz);
+  cb.appendChild(cell(BRACKET.final,null,'bfinal'));
   if(BRACKET.bronze){ var bz=el('div','bbz'); var blab=el('div','blab','Pronssi'); wireLab(blab,center);
     bz.appendChild(blab); bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
   center.appendChild(cb); br.appendChild(center);
