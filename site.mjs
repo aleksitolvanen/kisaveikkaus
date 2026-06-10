@@ -153,11 +153,16 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
 .elim{color:var(--muted);text-decoration:line-through}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
-/* cup-kaavio */
+/* cup-kaavio (--bz = zoom-kerroin, asetetaan .bwrap-elementtiin napeista) */
+.bhead{display:flex;align-items:center;justify-content:space-between;margin:0 2px 9px}
+.bhead h3{margin:0}
+.bzoom{display:flex;gap:6px}
+.bzoom button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+  color:var(--fg);font-size:16px;line-height:1;cursor:pointer;padding:0}
 .bwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 8px}
-.bracket{display:flex;gap:7px;min-width:580px}
-.bcol{display:flex;flex-direction:column;flex:1 0 58px;min-width:0}
-.blab{font-size:9px;color:var(--muted);text-align:center;letter-spacing:.4px;height:14px;text-transform:uppercase;white-space:nowrap}
+.bracket{display:flex;gap:7px;min-width:calc(580px*var(--bz,1))}
+.bcol{display:flex;flex-direction:column;flex:1 0 calc(58px*var(--bz,1));min-width:0}
+.blab{font-size:calc(9px*var(--bz,1));color:var(--muted);text-align:center;letter-spacing:.4px;height:calc(14px*var(--bz,1));text-transform:uppercase;white-space:nowrap}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .bpair{flex:1;display:flex;flex-direction:column;justify-content:space-around;position:relative}
 /* yhdysviivat pareista seuraavaan otteluun: haarukka raon puoliväliin + tulostubi */
@@ -172,14 +177,14 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .bcell.bfinal::before{content:'';position:absolute;left:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .bcell.bfinal::after{content:'';position:absolute;right:-4px;top:50%;width:4px;border-top:1px solid var(--line)}
 .bcell{border:1px solid var(--line);border-radius:6px;background:var(--card2);padding:2px 5px;margin:2px 0;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;position:relative}
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:calc(10.5px*var(--bz,1));position:relative}
 .bdate{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font-size:9px;color:var(--muted);white-space:nowrap;pointer-events:none}
+  font-size:calc(9px*var(--bz,1));color:var(--muted);white-space:nowrap;pointer-events:none}
 @media(min-width:900px){.bdate{display:block}}
 .bcell.bfinal{border-color:var(--gold)}
 .bteam{display:flex;justify-content:space-between;gap:4px;line-height:1.5}
 .bteam .tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bteam.tbd .tc{color:var(--muted);font-size:9.5px}
+.bteam.tbd .tc{color:var(--muted);font-size:calc(9.5px*var(--bz,1))}
 .bteam.win{color:var(--good);font-weight:700}
 .bsc{color:var(--muted)}.bteam.win .bsc{color:inherit}
 .bchamp{text-align:center;margin:10px 0 2px;font-weight:800;color:var(--gold);font-size:13px;white-space:nowrap}
@@ -189,12 +194,12 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 @media(max-width:560px){
   .bwrap{scroll-snap-type:x mandatory}
   .bracket{min-width:0}
-  .bcol{flex:0 0 27vw;scroll-snap-align:start}
-  .blab{font-size:11px;height:18px}
-  .bcell{font-size:12.5px;padding:3px 6px;display:flex;flex-direction:column}
+  .bcol{flex:0 0 calc(27vw*var(--bz,1));scroll-snap-align:start}
+  .blab{font-size:calc(11px*var(--bz,1));height:calc(18px*var(--bz,1))}
+  .bcell{font-size:calc(12.5px*var(--bz,1));padding:3px 6px;display:flex;flex-direction:column}
   .bteam{line-height:1.6}
   .bdate{display:block;position:static;transform:none;order:-1;text-align:center;
-    font-size:9.5px;line-height:1.4}
+    font-size:calc(9.5px*var(--bz,1));line-height:1.4}
 }
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
@@ -224,6 +229,7 @@ const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
   dayFilter: savedUI.dayFilter || 'all', predMode: savedUI.predMode || 'lohko',
   cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null,
+  bzoom: savedUI.bzoom || 1,
   scroll: savedUI.scroll || {} };
 
 const $ = (s) => document.querySelector(s);
@@ -251,7 +257,8 @@ function persistSel(){
 /* muiden valintojen + skrollikohdan pysyvyys (localStorage 'kv-ui') */
 function loadUI(){ try{ return JSON.parse(localStorage.getItem('kv-ui')||'{}')||{}; }catch(e){ return {}; } }
 function saveUI(){ try{ localStorage.setItem('kv-ui', JSON.stringify({ view:state.view, predMode:state.predMode,
-  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB, scroll:state.scroll })); }catch(e){} }
+  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB,
+  bzoom:state.bzoom, scroll:state.scroll })); }catch(e){} }
 var uiTimer=null;
 function saveUISoon(){ if(uiTimer) return; uiTimer=setTimeout(function(){ uiTimer=null; saveUI(); }, 400); }
 function trackScroll(elem, key){
@@ -627,8 +634,21 @@ function renderBracket(){
     if(m.real) c.title=pairTitle(m.home,m.away)+(m.score?' · '+m.score:'')+(m.kickoff?' · '+fiTime(m.kickoff):'');
     return c;
   }
-  var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
+  var s=el('div','asec');
   var wrap=el('div','bwrap'), br=el('div','bracket');
+  // otsikko + zoom-napit (kerroin skaalaa sarakeleveydet ja fontit CSS-muuttujalla)
+  var hd=el('div','bhead'); hd.appendChild(el('h3',null,'Cup-kaavio'));
+  var zc=el('div','bzoom');
+  function applyZoom(){ wrap.style.setProperty('--bz', state.bzoom); }
+  function zoomBtn(label, delta){
+    var b=el('button',null,label);
+    b.onclick=function(){ state.bzoom=Math.min(1.6, Math.max(0.7, Math.round((state.bzoom+delta)*100)/100));
+      applyZoom(); saveUI(); };
+    return b;
+  }
+  zc.appendChild(zoomBtn('−',-0.15)); zc.appendChild(zoomBtn('+',0.15));
+  hd.appendChild(zc); s.appendChild(hd);
+  applyZoom();
   function halfCols(cols, mirror){
     var ds=[]; for(var d=cols.length-1;d>=0;d--) ds.push(d);
     if(mirror) ds.reverse();
