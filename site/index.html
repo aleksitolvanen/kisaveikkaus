@@ -110,6 +110,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none;
   background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 0;margin:0 2px 4px}
 .blab:hover{color:var(--fg);border-color:var(--accent)}
+.blab.on{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
 .bcells{flex:1;display:flex;flex-direction:column;justify-content:space-around}
 .bpair{flex:1;display:flex;flex-direction:column;justify-content:space-around;position:relative}
 /* yhdysviivat pareista seuraavaan otteluun: haarukka raon puoliväliin + tulostubi */
@@ -754,8 +755,13 @@ function renderBracket(){
   var s=el('div','asec'); s.appendChild(el('h3',null,'Cup-kaavio'));
   var wrap=el('div','bwrap'), br=el('div','bracket');
   // kierrosotsikko toimii nappina: keskittää oman sarakkeensa (FIFA-tyyliin)
+  // ja jää valituksi; oletuksena vasen 1/16 (alkunäkymä)
+  var labs=[];
   function wireLab(lab,col){
+    labs.push(lab);
     lab.onclick=function(){
+      labs.forEach(function(l){ l.classList.remove('on'); });
+      lab.classList.add('on');
       var r=col.getBoundingClientRect(), w=wrap.getBoundingClientRect();
       var x=wrap.scrollLeft+(r.left-w.left)+r.width/2-wrap.clientWidth/2;
       try{ wrap.scrollTo({left:x,behavior:'smooth'}); }catch(e){ wrap.scrollLeft=x; }
@@ -789,17 +795,15 @@ function renderBracket(){
   var mz=el('div'); mz.style.marginBottom='14px';
   var mlab=el('div','blab','Kulta'); wireLab(mlab,center);
   mz.appendChild(mlab);
-  var ch=el('div','bchamp', champ ? '🏆 '+champ : '–'); if(champ) ch.title=teamName(champ);
-  mz.appendChild(ch); cb.appendChild(mz);
+  if(champ){ var ch=el('div','bchamp','🏆 '+champ); ch.title=teamName(champ); mz.appendChild(ch); }
+  cb.appendChild(mz);
   cb.appendChild(cell(BRACKET.final,null,'bfinal'));
   if(BRACKET.bronze){ var bz=el('div','bbz'); var blab=el('div','blab','Pronssi'); wireLab(blab,center);
     bz.appendChild(blab); bz.appendChild(cell(BRACKET.bronze,null)); cb.appendChild(bz); }
   center.appendChild(cb); br.appendChild(center);
   halfCols(BRACKET.right,true);
   wrap.appendChild(br); s.appendChild(wrap);
-  // avaa finaali keskitettynä (kännykällä puolikkaisiin vieritetään sivuttain)
-  if(typeof requestAnimationFrame==='function')
-    requestAnimationFrame(function(){ try{ wrap.scrollLeft=(wrap.scrollWidth-wrap.clientWidth)/2; }catch(e){} });
+  if(labs.length) labs[0].classList.add('on');   // alkunäkymä = vasen 1/16
   if(KV.bracketUrl){ var hint=el('div','hint'); var a=document.createElement('a'); a.className='fifalink';
     a.href=KV.bracketUrl; a.target='_blank'; a.rel='noopener noreferrer';
     a.textContent='Virallinen kaavio (FIFA) ↗'; hint.appendChild(a); s.appendChild(hint); }
