@@ -139,6 +139,32 @@ test("remainingMax: vain ratkaisemattomat kohteet, maalintekijä pois", () => {
   assert.equal(remainingMax(pred, results, TOURNAMENT), 46);
 });
 
+test("remainingMax: osittain ratkennut cup-kierros", () => {
+  const pred = {
+    matches: {},
+    cup: { r16: ["GER", "FRA", "ESP", "BRA"], qf: [], sf: [], final: [], champion: null },
+    sikajengi: null, goalscorer: null,
+  };
+  // r16: 4/16 paikkaa selvillä; GER ja FRA jo jatkossa, ESP ja BRA voivat vielä mahtua
+  const results = {
+    matches: { A1: "1-0", A2: "1-0", A3: "1-0" },
+    dirtiestTeams: ["GER"],
+    rounds: { r16: ["GER", "ARG", "FRA", "ITA"], qf: [], sf: [], final: [], champion: "X" },
+  };
+  // vain ESP+BRA avoimiin paikkoihin: 2 × 2p = 4
+  assert.equal(remainingMax(pred, results, TOURNAMENT), 4);
+});
+
+test("remainingMax: täysi kierros ei tuo lisää vaikka veikkauksia on ohi", () => {
+  const pred = { matches: {}, cup: { r16: ["GER", "XXX"], qf: [], sf: [], final: [], champion: null },
+    sikajengi: null, goalscorer: null };
+  const full = Array.from({ length: 16 }, (_, i) => "T" + i);
+  const results = { matches: { A1: "1-0", A2: "1-0", A3: "1-0" }, dirtiestTeams: ["GER"],
+    rounds: { r16: full, qf: [], sf: [], final: [], champion: "X" } };
+  // r16 täynnä (16/16) → 0; qf/sf/final auki mutta ei veikkauksia → 0
+  assert.equal(remainingMax(pred, results, TOURNAMENT), 0);
+});
+
 test("remainingMax: ratkaistut eivät tuo lisää", () => {
   const pred = { matches: { A1: "2-1" }, cup: {}, sikajengi: "GER", goalscorer: null };
   const results = { matches: { A1: "2-1", A2: "0-0", A3: "1-0" }, dirtiestTeams: ["GER"],

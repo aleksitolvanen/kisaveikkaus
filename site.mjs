@@ -117,11 +117,6 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .cmpsel select{flex:1;padding:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:9px;font-size:14px}
 .pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
 .elim{color:var(--muted);text-decoration:line-through}
-.oddrow{display:grid;grid-template-columns:92px 1fr 48px;gap:8px;align-items:center;margin-bottom:5px;font-size:13px}
-.oddrow .name{font-weight:600;overflow:hidden;text-overflow:ellipsis}
-.oddbar{position:relative;background:var(--card2);border-radius:6px;height:20px;overflow:hidden}
-.oddbar>span{position:absolute;left:0;top:0;bottom:0;background:var(--accent);opacity:.4}
-.oddrow .ov{text-align:right;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
 .chartbox svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
@@ -149,7 +144,7 @@ const savedUI = loadUI();
 const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
   dayFilter: savedUI.dayFilter || 'all', predMode: savedUI.predMode || 'lohko',
-  cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null, odds: null,
+  cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null,
   scroll: savedUI.scroll || {} };
 
 const $ = (s) => document.querySelector(s);
@@ -161,7 +156,8 @@ function loadSel(){
   try{
     var q=new URLSearchParams(location.search);
     var raw = q.has('p') ? q.get('p') : localStorage.getItem('kv-players');
-    if(!raw) return new Set(NAMES);
+    if(raw==null) return new Set(NAMES);
+    if(raw==='') return new Set();   // tyhjennetty valinta säilyy tyhjänä
     var ns=raw.split(',').filter(function(n){ return NAMES.indexOf(n)>=0; });
     return ns.length ? new Set(ns) : new Set(NAMES);
   }catch(e){ return new Set(NAMES); }
@@ -372,19 +368,21 @@ function renderCupInto(box, players){
     var slots = rd.slots || 1;
     var actual = rd.key==='champion' ? ((R.rounds&&R.rounds.champion)?[R.rounds.champion]:[]) : ((R.rounds&&R.rounds[rd.key])||[]);
     var actualSet={}; actual.forEach(function(t){ actualSet[t]=1; });
-    var resolved = actual.length>0;
+    // Osuma (vihreä) näytetään heti; ohilyönti (harmaa) vasta kun kierroksen
+    // kaikki paikat on täytetty — sitä ennen veikkaus voi vielä toteutua.
+    var complete = actual.length>=slots;
     var actualSorted = actual.slice().sort();
     for(var i=0;i<slots;i++){
       (function(key, i){
         rows.push({ label:String(i+1), mono:true,
-          actual: actualSorted[i] || (resolved?'':'–'),
+          actual: actualSorted[i] || '–',
           actualTitle: actualSorted[i] ? teamName(actualSorted[i]) : null,
           cellFor:function(n){
             var v=P[n].cup&&P[n].cup[key];
             var arr = key==='champion' ? (v?[v]:[]) : (v||[]);
             var pick=arr[i];
             if(!pick) return { txt:'', cls:'mono' };
-            return { txt:pick, title:teamName(pick), cls:'mono '+(resolved?(actualSet[pick]?'c3':'c0'):'') };
+            return { txt:pick, title:teamName(pick), cls:'mono '+(actualSet[pick]?'c3':(complete?'c0':'')) };
           }
         });
       })(rd.key, i);
@@ -392,7 +390,7 @@ function renderCupInto(box, players){
   });
   var w=buildMatrix(players, null, rows); w.style.flex='1 1 auto'; w.style.minHeight='0';
   box.appendChild(w); freezeOffsets(w); trackScroll(w,'pred:cup');
-  box.appendChild(el('div','hint','Kuten Excelissä: sarake = veikkaajan jatkoonpääsijät, Tulos = oikeat joukkueet. Vihreä = oikein, harmaa = väärin (kun ratkennut).'));
+  box.appendChild(el('div','hint','Kuten Excelissä: sarake = veikkaajan jatkoonpääsijät, Tulos = oikeat joukkueet. Vihreä = oikein, harmaa = väärin (kun koko kierros on ratkennut).'));
 }
 function renderPredictions(){
   var box=$('#predictions'); box.innerHTML='';
@@ -443,26 +441,10 @@ function mkSelect(opts, val, onCh){
   opts.forEach(function(o){ var op=document.createElement('option'); op.value=o; op.textContent=o; if(o===val)op.selected=true; s.appendChild(op); });
   s.onchange=function(){ onCh(s.value); }; return s;
 }
-function rscore(){ return Math.floor(Math.random()*4)+'-'+Math.floor(Math.random()*4); }
-function rpick(a){ return a[Math.floor(Math.random()*a.length)]; }
-function rsample(a,n){ var c=a.slice(); for(var i=c.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=c[i]; c[i]=c[j]; c[j]=t; } return c.slice(0,n); }
-function cupPool(key){ var s={}; for(var n in P){ var v=P[n].cup&&P[n].cup[key]; if(Array.isArray(v)) v.forEach(function(t){ if(t)s[t]=1; }); else if(v) s[v]=1; } var a=Object.keys(s); return a.length?a:T.teams; }
 function undecidedMatches(){ return T.matches.filter(function(m){ return !matchDecided(R,m.id); }); }
-function undecidedCup(){ return T.cupRounds.filter(function(rd){ var a=R.rounds&&R.rounds[rd.key]; return rd.key==='champion'? !a : !(a&&a.length); }); }
-function simulateOdds(N){
-  var und=undecidedMatches(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length), cupUnd=undecidedCup();
-  var pools={}; cupUnd.forEach(function(rd){ pools[rd.key]=cupPool(rd.key); });
-  var wins={}; for(var n in P) wins[n]=0;
-  for(var s=0;s<N;s++){
-    var res={ matches:Object.assign({},R.matches), dirtiestTeams:R.dirtiestTeams, rounds:Object.assign({},R.rounds), goals:R.goals };
-    und.forEach(function(m){ res.matches[m.id]=rscore(); });
-    if(sikaUnd) res.dirtiestTeams=[rpick(T.teams)];
-    cupUnd.forEach(function(rd){ res.rounds[rd.key]= rd.key==='champion'? rpick(pools[rd.key]) : rsample(pools[rd.key], rd.slots); });
-    var rows=scoreAll(P,res,T), top=rows[0].total, w=rows.filter(function(r){ return r.total===top; });
-    w.forEach(function(x){ wins[x.name]+=1/w.length; });
-  }
-  return Object.keys(P).map(function(n){ return { name:n, odds:wins[n]/N }; }).sort(function(a,b){ return b.odds-a.odds; });
-}
+// Kierros on auki kunnes kaikki paikat on täytetty (jatkoonpääsijät selviävät yksitellen).
+function undecidedCup(){ return T.cupRounds.filter(function(rd){ var a=R.rounds&&R.rounds[rd.key];
+  return rd.key==='champion' ? !a : !(a&&a.length>=(rd.slots||1)); }); }
 // Aikajana: ratkenneet pisteytystapahtumat loogisessa järjestyksessä +
 // per-veikkaaja pistedelta. Lohko-ottelut kickoff-järjestyksessä, sitten
 // sikajengi, cup-kierrokset ja lopuksi maalit.
@@ -556,9 +538,10 @@ function renderAnalytics(){
   s1.appendChild(el('div','hint','Yliviivatut eivät voi enää saavuttaa johtajan nykypisteitä ('+leadNow+'). Maalintekijä ei mukana (avoin).'));
   box.appendChild(s1);
 
-  // 2) Pelaajavertailu
+  // 2) Pelaajavertailu (localStoragen nimi voi olla vanhentunut → validoi)
   var names=ALLROWS.map(function(r){ return r.name; });
-  if(state.cmpA==null){ state.cmpA=names[0]; state.cmpB=names[1]||names[0]; }
+  if(names.indexOf(state.cmpA)<0) state.cmpA=names[0];
+  if(names.indexOf(state.cmpB)<0) state.cmpB=names[1]||names[0];
   var s2=el('div','asec'); s2.appendChild(el('h3',null,'Pelaajavertailu'));
   var sr=el('div','cmpsel');
   sr.appendChild(mkSelect(names,state.cmpA,function(v){ state.cmpA=v; renderAnalytics(); saveUI(); }));
@@ -578,22 +561,7 @@ function renderAnalytics(){
   });
   t2.appendChild(b2); s2.appendChild(t2); box.appendChild(s2);
 
-  // 3) Voittotodennäköisyys (Monte Carlo)
-  var s3=el('div','asec'); s3.appendChild(el('h3',null,'Voittotodennäköisyys'));
-  if(state.odds==null) state.odds=simulateOdds(1000);
-  var top=state.odds.length?state.odds[0].odds:0;
-  var shown=state.odds.filter(function(o){ return o.odds>0; });
-  if(!shown.length){ s3.appendChild(el('div','hint','Ei ratkaisemattomia kohteita – tilanne on jo lukittu.')); }
-  shown.slice(0,12).forEach(function(o){
-    var row=el('div','oddrow'); row.appendChild(el('div','name',o.name));
-    var bar=el('div','oddbar'), fill=el('span'); fill.style.width=(top?Math.round(o.odds/top*100):0)+'%'; bar.appendChild(fill); row.appendChild(bar);
-    row.appendChild(el('div','ov',(o.odds*100).toFixed(o.odds<0.095?1:0)+'%'));
-    s3.appendChild(row);
-  });
-  s3.appendChild(el('div','hint','1000 simulaatiota: ratkaisemattomat ottelut, sikajengi ja cup-polut arvottu satunnaisesti.'));
-  box.appendChild(s3);
-
-  // 4) Villeimmät veikkaukset
+  // 3) Villeimmät veikkaukset
   var sw=el('div','asec'); sw.appendChild(el('h3',null,'Villeimmät veikkaukset'));
   wildestPredictions().forEach(function(w){
     var row=el('div','wildrow'), l=el('div','wleft'), line1=el('div');
@@ -632,7 +600,8 @@ function hasResults(){
   if(r.matches && Object.keys(r.matches).length) return true;
   if(r.dirtiestTeams && r.dirtiestTeams.length) return true;
   if(r.goals && Object.keys(r.goals).length) return true;
-  if(r.rounds){ if(r.rounds.champion) return true; var ks=['r16','qf','sf','final']; for(var i=0;i<ks.length;i++){ if((r.rounds[ks[i]]||[]).length) return true; } }
+  if(r.rounds){ for(var i=0;i<T.cupRounds.length;i++){ var k=T.cupRounds[i].key, v=r.rounds[k];
+    if(k==='champion' ? v : (v&&v.length)) return true; } }
   return false;
 }
 function updateAnalyticsTab(){
@@ -654,7 +623,7 @@ function refreshFromServer(){
     if(JSON.stringify(d.results)===JSON.stringify(R)
        && JSON.stringify(d.tournament.matches)===JSON.stringify(T.matches)
        && JSON.stringify(d.tournament.knockout||[])===JSON.stringify(T.knockout||[])) return;
-    T=d.tournament; R=d.results; ALLROWS=scoreAll(P,R,T); state.odds=null;
+    T=d.tournament; R=d.results; ALLROWS=scoreAll(P,R,T);
     renderSchedule(); rerender(); updateAnalyticsTab();
   }).catch(function(){});
 }

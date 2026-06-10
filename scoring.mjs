@@ -116,10 +116,16 @@ export function remainingMax(pred, results, tournament) {
     const actual = res.rounds && res.rounds[rd.key];
     if (rd.key === "champion") {
       if (!actual && pred.cup && pred.cup.champion) r += rd.pointsPerTeam;
-    } else if (!(actual && actual.length)) {
+    } else {
+      // Kierros voi olla osittain ratkennut (jatkoonpääsijät selviävät yksitellen):
+      // vapaita paikkoja voi vielä täyttyä veikatuilla joukkueilla.
+      const have = actual || [];
+      const set = new Set(have);
       const picks = (pred.cup && pred.cup[rd.key]) || [];
       const slots = rd.slots || picks.length;
-      r += rd.pointsPerTeam * Math.min(picks.length, slots);
+      const open = Math.max(0, slots - have.length);
+      const missed = picks.filter((t) => !set.has(t)).length;
+      r += rd.pointsPerTeam * Math.min(missed, open);
     }
   }
   return r;

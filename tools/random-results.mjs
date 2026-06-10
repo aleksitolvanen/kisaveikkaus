@@ -2,7 +2,7 @@
 // rakenteellisesti validi ja pisteytystä kuormittava (cup-joukkueet poimitaan
 // osallistujien omista cup-veikkauksista, jotta osumia syntyy ja pistetilanne elää).
 //
-// Käyttö:  node tools/random-results.mjs [tid] [--stage=group|full] [--seed=N]
+// Käyttö:  node tools/random-results.mjs [tid] [--stage=group|partial|mid|full] [--seed=N]
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
