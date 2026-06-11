@@ -189,9 +189,10 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
 .pcard.roastcard .pchead{color:#e2706e}
 .pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px;cursor:zoom-in}
-.lightbox{position:fixed;inset:0;background:rgba(8,10,14,.96);z-index:100;display:flex;align-items:center;justify-content:center}
-.lightbox img{max-width:100vw;max-height:100vh;object-fit:contain;transition:transform .25s ease}
-.lightbox img.rot{transform:rotate(90deg);max-width:100vh;max-height:100vw}
+.lightbox{position:fixed;inset:0;background:rgba(8,10,14,.96);z-index:100;display:flex;align-items:center;justify-content:center;
+  touch-action:none;overscroll-behavior:contain}
+.lightbox img{max-width:100vw;max-height:100vh;object-fit:contain;will-change:transform}
+.lightbox img.rot{max-width:100vh;max-height:100vw}
 .lbbtn{position:fixed;top:12px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
   background:var(--card);color:var(--fg);font-size:20px;line-height:1;z-index:101;
   display:flex;align-items:center;justify-content:center;touch-action:manipulation;cursor:pointer}
@@ -1097,21 +1098,75 @@ function renderDigests(box){
   draw();
   box.appendChild(s);
 }
-// Kuvan koko ruudun katselu: tausta/×-nappi sulkee, ⟳ kääntää 90 astetta
-// (puhelimen kääntäminen vaakaan toimii myös suoraan — kuva sovittuu ruutuun).
+// Kuvan koko ruudun katselu: nipistyszoomi + raahaus + tuplanapautuszoomi
+// kohdistuvat kuvaan (ei sivuun — touch-action:none estää sivu-zoomin joka
+// jättäisi sivun jumiin). ⟳ kääntää 90 astetta, tausta/×/ESC sulkee.
 function openLightbox(src, alt){
   var lb=el('div','lightbox');
   var img=document.createElement('img');
-  img.src=src; img.alt=alt||'';
+  img.src=src; img.alt=alt||''; img.draggable=false;
   lb.appendChild(img);
   var rot=el('button','lbbtn rotate','⟳'); rot.title='Käännä';
   var cls=el('button','lbbtn close','×'); cls.title='Sulje';
   lb.appendChild(rot); lb.appendChild(cls);
-  function close(){ lb.remove(); document.removeEventListener('keydown', onKey); }
+
+  var scale=1, tx=0, ty=0, rotated=false;
+  function apply(){
+    img.style.transform='translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px) scale('+scale.toFixed(3)+')'+(rotated?' rotate(90deg)':'');
+  }
+  function reset(){ scale=1; tx=0; ty=0; apply(); }
+
+  // Pointer-eleet: 1 sormi = raahaus, 2 sormea = nipistyszoomi
+  var pts={}, lastDist=0, moved=0, tapAt=0;
+  function pcount(){ return Object.keys(pts).length; }
+  function mid(){ var k=Object.keys(pts); return { x:(pts[k[0]].x+pts[k[1]].x)/2, y:(pts[k[0]].y+pts[k[1]].y)/2 }; }
+  function dist(){ var k=Object.keys(pts); var dx=pts[k[0]].x-pts[k[1]].x, dy=pts[k[0]].y-pts[k[1]].y; return Math.sqrt(dx*dx+dy*dy); }
+  lb.addEventListener('pointerdown', function(e){
+    if(e.target===rot||e.target===cls) return;
+    pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    lb.setPointerCapture(e.pointerId);
+    if(pcount()===2) lastDist=dist();
+    moved=0;
+    e.preventDefault();
+  });
+  lb.addEventListener('pointermove', function(e){
+    if(!pts[e.pointerId]) return;
+    if(pcount()===1){
+      var dx=e.clientX-pts[e.pointerId].x, dy=e.clientY-pts[e.pointerId].y;
+      tx+=dx; ty+=dy; moved+=Math.abs(dx)+Math.abs(dy);
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      apply();
+    } else if(pcount()===2){
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var d=dist();
+      if(lastDist>0){ scale=Math.min(5, Math.max(1, scale*d/lastDist)); if(scale===1){ tx=0; ty=0; } apply(); }
+      lastDist=d; moved=99;
+    }
+  });
+  function lift(e){
+    if(!pts[e.pointerId]) return;
+    delete pts[e.pointerId];
+    lastDist=0;
+    if(moved<8){
+      var now=Date.now();
+      if(now-tapAt<320){ // tuplanapautus: zoomaa sisään/ulos
+        if(scale>1) reset(); else { scale=2.5; apply(); }
+        tapAt=0;
+      } else {
+        tapAt=now;
+        setTimeout(function(){ // yksi napautus zoomaamattomana sulkee
+          if(tapAt&&Date.now()-tapAt>=300&&scale===1&&pcount()===0) close();
+        }, 320);
+      }
+    }
+  }
+  lb.addEventListener('pointerup', lift);
+  lb.addEventListener('pointercancel', lift);
+
+  function close(){ tapAt=0; lb.remove(); document.removeEventListener('keydown', onKey); }
   function onKey(e){ if(e.key==='Escape') close(); }
-  rot.onclick=function(e){ e.stopPropagation(); img.classList.toggle('rot'); };
+  rot.onclick=function(e){ e.stopPropagation(); rotated=!rotated; img.classList.toggle('rot'); reset(); };
   cls.onclick=function(e){ e.stopPropagation(); close(); };
-  lb.onclick=function(e){ if(e.target===lb||e.target===img) close(); };
   document.addEventListener('keydown', onKey);
   document.body.appendChild(lb);
 }
