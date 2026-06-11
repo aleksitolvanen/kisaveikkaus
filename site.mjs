@@ -127,6 +127,11 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .match .teams{font-weight:600}.match .time{color:var(--muted);font-size:12px}
 .match .res{font-weight:800;background:var(--card2);padding:3px 9px;border-radius:7px;min-width:46px;text-align:center}
 .match .res.none{color:var(--muted);font-weight:500}
+.match .res.islive{color:var(--good)}
+.match .res.islive::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--good);margin-right:5px;vertical-align:1px;animation:kvpulse 1.3s ease-in-out infinite}
+@keyframes kvpulse{50%{opacity:.25}}
+.matrix td.actual.islive{font-style:italic;color:var(--good)}
 .fifalink{justify-self:center;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap;font-weight:600}
 .fifalink:hover{text-decoration:underline}
 .mdetail{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:5px 12px;
@@ -244,6 +249,8 @@ const CARDS = (KV.playercards && KV.playercards.cards) || null;  // pelaajakorti
 const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
+// Käynnissä olevan ottelun juokseva tulos (results.live); pisteytys ei käytä tätä.
+function liveScore(id){ return (R.live||{})[id] || null; }
 let ALLROWS = scoreAll(P, R, T);                 // globaali pistetilanne (päivittyy pollauksessa)
 // Mistä tuore data haetaan ilman sivun reloadia. Oletus: sama origin ('data.json').
 // Voi osoittaa erilliseen lähteeseen (R2/data-repo) → sivua ei tarvitse deployata datan muuttuessa.
@@ -353,7 +360,7 @@ function renderStandings(){
 
 /* ---- otteluohjelma + matsia klikkaamalla kaikkien veikkaukset ---- */
 function matchDetail(m){
-  var res=(R.matches||{})[m.id], has=!!res;
+  var res=(R.matches||{})[m.id]||liveScore(m.id), has=!!res;
   var rows=NAMES.map(function(n){ var p=(P[n].matches||{})[m.id]||''; return { n:n, p:p, pts:matchPoints(p,res,T.scoring.group) }; });
   if(has) rows.sort(function(a,b){ return b.pts-a.pts || a.n.localeCompare(b.n,'fi'); });
   var d=el('div','mdetail');
@@ -387,8 +394,12 @@ function matchCell(m, ko){
   if(m.url){ var a=document.createElement('a'); a.className='fifalink'; a.textContent='FIFA ↗';
     a.href=m.url; a.target='_blank'; a.rel='noopener noreferrer'; a.onclick=function(e){ e.stopPropagation(); }; row.appendChild(a); }
   else row.appendChild(el('span'));
-  var res = ko ? m.score : (R.matches||{})[m.id];
-  row.appendChild(el('div','res'+(res?'':' none'), res||'–'));
+  var fin = ko ? m.score : (R.matches||{})[m.id];
+  var lv = ko ? (m.liveScore||null) : liveScore(m.id);
+  var res = fin || lv;
+  var pill = el('div','res'+(res?'':' none')+(lv&&!fin?' islive':''), res||'–');
+  if(lv&&!fin) pill.title='Käynnissä';
+  row.appendChild(pill);
   if(ko){ cell.appendChild(row); return cell; }          // pudotuspelit eivät laajene (ei per-matsi-veikkauksia)
   var det=matchDetail(m); det.style.display='none';
   row.onclick=function(){ var open=det.style.display==='none'; det.style.display=open?'':'none'; row.classList.toggle('open',open); };
@@ -471,7 +482,7 @@ function buildMatrix(players, maxH, specs){
       var f=el('td','gfill',''); f.colSpan=players.length+1; tr.appendChild(f); tb.appendChild(tr); return; }
     var tr=el('tr');
     var lc=el('td','mcol'+(s.mono?' mono':''),s.label); if(s.title) lc.title=s.title; tr.appendChild(lc);
-    var ac=el('td','actual tcol'+(s.mono?' mono':''), s.actual==null?'–':s.actual); if(s.actualTitle) ac.title=s.actualTitle; tr.appendChild(ac);
+    var ac=el('td','actual tcol'+(s.mono?' mono':'')+(s.actualCls?' '+s.actualCls:''), s.actual==null?'–':s.actual); if(s.actualTitle) ac.title=s.actualTitle; tr.appendChild(ac);
     players.forEach(function(n){ var c=s.cellFor(n); var td=el('td',c.cls,c.txt==null?'':c.txt); if(c.title) td.title=c.title; tr.appendChild(td); });
     tb.appendChild(tr);
   });
@@ -538,8 +549,9 @@ function renderPredictions(){
   Object.keys(by).forEach(function(g){
     rows.push({group:'LOHKO '+g});
     by[g].forEach(function(m){
-      var res=(R.matches||{})[m.id], has=!!res;
-      rows.push({ label:m.home+'–'+m.away, mono:true, title:pairTitle(m.home,m.away), actual:res, cellFor:function(n){
+      var fin=(R.matches||{})[m.id], lv=liveScore(m.id), res=fin||lv, has=!!res;
+      rows.push({ label:m.home+'–'+m.away, mono:true, title:pairTitle(m.home,m.away),
+        actual:res, actualCls:(lv&&!fin)?'islive':null, cellFor:function(n){
         var pred=(P[n].matches||{})[m.id];
         return { txt:pred||'', cls:cellClass(matchPoints(pred,res,T.scoring.group), has) };
       }});
@@ -610,7 +622,7 @@ function renderTimeChart(){
                    : picked.slice().sort(function(a,b){ return cum[b]-cum[a]; });
   var scaleSet = allSel ? names : top;   // skaala kattaa myös harmaat taustaviivat
   var maxY=1; scaleSet.forEach(function(n){ if(cum[n]>maxY)maxY=cum[n]; });
-  var W=340,H=190,padL=6,padR=6,padT=10,padB=10,xN=events.length;
+  var W=340,H=190,padL=6,padR=22,padT=10,padB=10,xN=events.length;
   function X(i){ return (padL+(xN?i/xN:0)*(W-padL-padR)).toFixed(1); }
   function Y(v){ return (H-padB-(v/maxY)*(H-padT-padB)).toFixed(1); }
   var pal=['#3ea6ff','#ffd24a','#46c46b','#e2706e','#b98cff','#46c9c0','#ff9d4a','#e36fb0','#7ec8ff','#caa84a','#8ad28f','#ff8f8f'];
@@ -618,9 +630,30 @@ function renderTimeChart(){
   svg+='<line x1="'+padL+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#2a2f3a"/>';
   if(allSel){ names.forEach(function(n){ var pts=series[n].map(function(v,i){ return X(i)+','+Y(v); }).join(' ');
     svg+='<polyline points="'+pts+'" fill="none" stroke="#39414f" stroke-width="1" vector-effect="non-scaling-stroke" opacity="0.5"/>'; }); }
+  // Identtiset sarjat viuhkaksi: ryhmän keskikohta on tarkalleen oikea viiva,
+  // säikeet ±~3px sen ympärillä — muuten päällekkäisistä näkyisi vain päällimmäinen.
+  var gSize={}, gIx={};
+  top.forEach(function(n){ var sig=series[n].join(',');
+    if(gSize[sig]==null) gSize[sig]=0;
+    gIx[n]=gSize[sig]++; });
+  function fanDy(n){
+    var g=gSize[series[n].join(',')];
+    if(g<2) return 0;
+    var step=Math.min(1.2, 6/(g-1));
+    return (gIx[n]-(g-1)/2)*step;
+  }
   top.forEach(function(n,idx){
-    var pts=series[n].map(function(v,i){ return X(i)+','+Y(v); }).join(' ');
+    var dy=fanDy(n);
+    var pts=series[n].map(function(v,i){ return X(i)+','+(+Y(v)+dy).toFixed(1); }).join(' ');
     svg+='<polyline points="'+pts+'" fill="none" stroke="'+pal[idx%pal.length]+'" stroke-width="1.8" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>';
+  });
+  // montako veikkaajaa samalla viivalla (ryhmille >= 3)
+  top.forEach(function(n){
+    var sig=series[n].join(','), g=gSize[sig];
+    if(g>=3 && gIx[n]===0){
+      var last=series[n][series[n].length-1];
+      svg+='<text x="'+(W-padR+4)+'" y="'+(+Y(last)+3).toFixed(1)+'" fill="#8b93a7" font-size="9">×'+g+'</text>';
+    }
   });
   svg+='</svg>';
   var cb=el('div','chartbox'); cb.innerHTML=svg; s.appendChild(cb);
@@ -807,25 +840,7 @@ function renderAnalytics(){
   var bk=renderBracket(); if(bk) box.appendChild(bk);
   if(!hasResults()){ renderAnalyticsPre(box); return; }
 
-  // 1) Max-pisteet / kuka voi vielä voittaa
-  var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
-  var leadNow=Math.max.apply(null, mx.map(function(x){ return x.now; }));
-  mx.sort(function(a,b){ return b.max-a.max || b.now-a.now; });
-  var s1=el('div','asec'); s1.appendChild(el('h3',null,'Kuka voi vielä voittaa?'));
-  var t1=el('table','rank-t'), h1=el('thead'), hr1=el('tr');
-  ['Veikkaaja','Nyt','+Max','=Max'].forEach(function(h){ hr1.appendChild(el('th',null,h)); });
-  h1.appendChild(hr1); t1.appendChild(h1); var b1=el('tbody');
-  mx.forEach(function(x){ var tr=el('tr');
-    tr.appendChild(el('td','name'+(x.max>=leadNow?'':' elim'),x.name));
-    tr.appendChild(el('td','dim',x.now));
-    tr.appendChild(el('td','dim','+'+x.rem));
-    tr.appendChild(el('td','tot',x.max));
-    b1.appendChild(tr); });
-  t1.appendChild(b1); s1.appendChild(t1);
-  s1.appendChild(el('div','hint','Yliviivatut eivät voi enää saavuttaa johtajan nykypisteitä ('+leadNow+'). Maalintekijä ei mukana (avoin).'));
-  box.appendChild(s1);
-
-  // 2) Pelaajavertailu (localStoragen nimi voi olla vanhentunut → validoi)
+  // 1) Pelaajavertailu (localStoragen nimi voi olla vanhentunut → validoi)
   var names=ALLROWS.map(function(r){ return r.name; });
   if(names.indexOf(state.cmpA)<0) state.cmpA=names[0];
   if(names.indexOf(state.cmpB)<0) state.cmpB=names[1]||names[0];
@@ -848,10 +863,27 @@ function renderAnalytics(){
   });
   t2.appendChild(b2); s2.appendChild(t2); box.appendChild(s2);
 
-  // 3) Villeimmät veikkaukset
+  // 2) Villeimmät veikkaukset
   renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset.');
-  // 4) Pelaajakortit
+  // 3) Pelaajakortit
   renderPlayerCards(box);
+  // 4) Max-pisteet / kuka voi vielä voittaa (lopussa — alkuvaiheessa vähiten kiinnostava)
+  var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
+  var leadNow=Math.max.apply(null, mx.map(function(x){ return x.now; }));
+  mx.sort(function(a,b){ return b.max-a.max || b.now-a.now; });
+  var s1=el('div','asec'); s1.appendChild(el('h3',null,'Kuka voi vielä voittaa?'));
+  var t1=el('table','rank-t'), h1=el('thead'), hr1=el('tr');
+  ['Veikkaaja','Nyt','+Max','=Max'].forEach(function(h){ hr1.appendChild(el('th',null,h)); });
+  h1.appendChild(hr1); t1.appendChild(h1); var b1=el('tbody');
+  mx.forEach(function(x){ var tr=el('tr');
+    tr.appendChild(el('td','name'+(x.max>=leadNow?'':' elim'),x.name));
+    tr.appendChild(el('td','dim',x.now));
+    tr.appendChild(el('td','dim','+'+x.rem));
+    tr.appendChild(el('td','tot',x.max));
+    b1.appendChild(tr); });
+  t1.appendChild(b1); s1.appendChild(t1);
+  s1.appendChild(el('div','hint','Yliviivatut eivät voi enää saavuttaa johtajan nykypisteitä ('+leadNow+'). Maalintekijä ei mukana (avoin).'));
+  box.appendChild(s1);
   trackScroll($('#view-analytics'),'analytics');
 }
 function renderWildest(box, hintText){
@@ -950,7 +982,11 @@ function refreshFromServer(){
     renderSchedule(); rerender();
   }).catch(function(){});
 }
-if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:') setInterval(refreshFromServer, 60000);
+if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:'){
+  refreshFromServer();                          // heti latauksessa (baked-data voi olla vanhaa)
+  setInterval(refreshFromServer, 60000);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) refreshFromServer(); });
+}
 `;
 
 const html = `<!doctype html>
