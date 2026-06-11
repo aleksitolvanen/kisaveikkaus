@@ -212,6 +212,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
 .legi{display:flex;align-items:center;gap:6px;font-size:12px}
 .legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
+.aigen{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;font-size:11px;margin-left:8px}
 .pcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin-top:4px}
 .pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
 .pctext{font-size:13.5px;line-height:1.55;white-space:pre-line}
@@ -865,7 +866,9 @@ function renderPlayerCards(box){
     .sort(function(a,b){ return a.localeCompare(b,'fi'); });
   if(!names.length) return;
   if(state.cardPlayer && names.indexOf(state.cardPlayer)<0) state.cardPlayer='';
-  var s=el('div','asec'); s.appendChild(el('h3',null,'Pelaajakortit'));
+  var s=el('div','asec');
+  var h=el('h3',null,'Pelaajakortit'); h.appendChild(el('span','aigen','AI-generoitu'));
+  s.appendChild(h);
   var sr=el('div','cmpsel');
   var sel=document.createElement('select');
   var ph=document.createElement('option'); ph.value=''; ph.textContent='Valitse veikkaaja…'; sel.appendChild(ph);
