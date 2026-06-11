@@ -246,6 +246,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pcard.roastcard{margin-top:10px;border-color:#5a3038;
   background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
 .pcard.roastcard .pchead{color:#e2706e}
+.pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px}
 .pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
 .pctext{font-size:13.5px;line-height:1.55;white-space:pre-line}
 .wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
@@ -954,6 +955,12 @@ function renderDigests(box){
       var r=el('div','pcard roastcard');
       r.appendChild(el('div','pchead','🔥 Päivän roast'));
       r.appendChild(el('div','pctext',d.roast));
+      if(d.image){
+        var im=document.createElement('img');
+        im.className='dimg'; im.src=d.image; im.loading='lazy';
+        im.alt='Päivän roast-kuvitus (AI-generoitu)';
+        r.appendChild(im);
+      }
       holder.appendChild(r);
     }
   }
