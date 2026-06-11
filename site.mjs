@@ -54,8 +54,12 @@ function buildBracket(knockout) {
   return { left, right, final: final.matchNumber, bronze: bronze ? bronze.matchNumber : null };
 }
 
+// Pelaajakortit (AI-syväanalyysit) jos generoitu — staattista sisältöä, upotetaan buildissa.
+let playercards = null;
+try { playercards = JSON.parse(readFileSync(path.join(dir, "playercards.json"), "utf-8")); } catch {}
+
 const KV = jsonBlob({ tournament, predictions, results, bracket: buildBracket(tournament.knockout),
-  bracketUrl: tournament.bracketUrl || null });
+  bracketUrl: tournament.bracketUrl || null, playercards });
 
 const CSS = `
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
@@ -208,6 +212,9 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .legend{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 2px 0}
 .legi{display:flex;align-items:center;gap:6px;font-size:12px}
 .legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
+.pcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin-top:4px}
+.pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
+.pctext{font-size:13.5px;line-height:1.55}
 .wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
 .wmatch{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
 .wname{color:var(--muted)}
@@ -220,6 +227,7 @@ const CLIENT = String.raw`
 const KV = JSON.parse(document.getElementById('kv').textContent);
 let T = KV.tournament, R = KV.results; const P = KV.predictions;  // T,R päivittyvät pollauksessa
 const BRACKET = KV.bracket || null;  // cup-kaavion kiinteä rakenne (ottelunumerot)
+const CARDS = (KV.playercards && KV.playercards.cards) || null;  // pelaajakortit (staattiset)
 const NAMES = Object.keys(P);
 function teamName(c){ return (T.teamNames && T.teamNames[c]) || c; }
 function pairTitle(h, a){ return teamName(h) + ' – ' + teamName(a); }
@@ -232,6 +240,7 @@ const state = { players: loadSel(),
   view: savedUI.view || 'predictions', filterOpen: !!savedUI.filterOpen,
   dayFilter: savedUI.dayFilter || 'all', predMode: savedUI.predMode || 'lohko',
   cmpA: savedUI.cmpA || null, cmpB: savedUI.cmpB || null,
+  cardPlayer: savedUI.cardPlayer || '',
   scroll: savedUI.scroll || {} };
 
 const $ = (s) => document.querySelector(s);
@@ -259,7 +268,8 @@ function persistSel(){
 /* muiden valintojen + skrollikohdan pysyvyys (localStorage 'kv-ui') */
 function loadUI(){ try{ return JSON.parse(localStorage.getItem('kv-ui')||'{}')||{}; }catch(e){ return {}; } }
 function saveUI(){ try{ localStorage.setItem('kv-ui', JSON.stringify({ view:state.view, predMode:state.predMode,
-  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB, scroll:state.scroll })); }catch(e){} }
+  dayFilter:state.dayFilter, filterOpen:state.filterOpen, cmpA:state.cmpA, cmpB:state.cmpB,
+  cardPlayer:state.cardPlayer, scroll:state.scroll })); }catch(e){} }
 var uiTimer=null;
 function saveUISoon(){ if(uiTimer) return; uiTimer=setTimeout(function(){ uiTimer=null; saveUI(); }, 400); }
 function trackScroll(elem, key){
@@ -823,6 +833,8 @@ function renderAnalytics(){
 
   // 3) Villeimmät veikkaukset
   renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset.');
+  // 4) Pelaajakortit
+  renderPlayerCards(box);
   trackScroll($('#view-analytics'),'analytics');
 }
 function renderWildest(box, hintText){
@@ -843,7 +855,36 @@ function renderWildest(box, hintText){
 // veikkaukset); pistetaulukot ja vertailut ilmestyvät kun jotain on ratkennut.
 function renderAnalyticsPre(box){
   renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset. Lisää analytiikkaa ilmestyy kun tuloksia alkaa kertyä.');
+  renderPlayerCards(box);
   trackScroll($('#view-analytics'),'analytics');
+}
+// Pelaajakortit: dropdownista valitaan veikkaaja, kortti sen alle.
+function renderPlayerCards(box){
+  if(!CARDS) return;
+  var names=Object.keys(CARDS).filter(function(n){ return NAMES.indexOf(n)>=0; })
+    .sort(function(a,b){ return a.localeCompare(b,'fi'); });
+  if(!names.length) return;
+  if(state.cardPlayer && names.indexOf(state.cardPlayer)<0) state.cardPlayer='';
+  var s=el('div','asec'); s.appendChild(el('h3',null,'Pelaajakortit'));
+  var sr=el('div','cmpsel');
+  var sel=document.createElement('select');
+  var ph=document.createElement('option'); ph.value=''; ph.textContent='Valitse veikkaaja…'; sel.appendChild(ph);
+  names.forEach(function(n){ var o=document.createElement('option'); o.value=n; o.textContent=n;
+    if(n===state.cardPlayer) o.selected=true; sel.appendChild(o); });
+  var holder=el('div');
+  function draw(){
+    holder.innerHTML='';
+    var c=CARDS[state.cardPlayer];
+    if(!c) return;
+    var d=el('div','pcard');
+    d.appendChild(el('div','pchead',c.headline));
+    d.appendChild(el('div','pctext',c.card));
+    holder.appendChild(d);
+  }
+  sel.onchange=function(){ state.cardPlayer=sel.value; saveUI(); draw(); };
+  sr.appendChild(sel); s.appendChild(sr); s.appendChild(holder);
+  draw();
+  box.appendChild(s);
 }
 
 /* ---- näkymät ---- */
