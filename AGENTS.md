@@ -39,7 +39,9 @@ site/               generoitu staattinen sivu (CF Pages tarjoilee tämän)
 - **Lohko-ottelu**: oikea tulos 3p · oikea lopputulos (voittaja/tasapeli) 1p · muuten 0
 - **Sikajengi** (eniten kortteja lohkovaiheessa): oikein 8p, tasatilanteessa 4p
 - **Cup-vaihe**: jatkoonpääsijät — 16 joukkoon 2p · puolivälierä 4p · välierä 8p · finaali 15p · mestari 30p (per joukkue, kumuloituu)
-- **Maalintekijä**: 1p per veikatun pelaajan maali (käsin)
+- **Maalintekijä**: 2p per veikatun pelaajan maali, pl. rankkarikisat (käsin).
+  Pistemäärä luetaan importissa Excel-labelista ("Maalintekijä 2p per maali …"),
+  samoin sikajengin pisteet ("Sikajengi (8p)") — säännöt voivat elää per turnaus.
 
 ## Miten tehdä asioita
 

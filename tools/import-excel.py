@@ -43,7 +43,11 @@ MATCH_RE = re.compile(r"^([A-Za-z]{2,4})-([A-Za-z]{2,4})$")
 # FIFA-koodeja; vain Excel poikkeaa. Kartta normalisoi kaikki koodikentät
 # (ottelut, cup-veikkaukset, sikajengi) tuonnissa.
 CODE = {"CUR": "CUW", "ICV": "CIV", "DRC": "COD", "SPA": "ESP", "SWI": "SUI",
-        "SER": "SRB", "ROM": "ROU"}
+        "SER": "SRB", "ROM": "ROU", "KOL": "COL"}
+
+# Maalintekijänimet yhtenäisiksi: pisteytys vertaa results.goals-avaimia
+# täsmälleen, joten sama pelaaja tarvitsee saman kirjoitusasun kaikilla.
+GOALSCORER_FIX = {"MBappe": "Mbappe", "Kai Havertzin": "Havertz"}
 
 
 def norm(code):
@@ -120,9 +124,25 @@ def scan_layout(ws):
             for t in (home, away):
                 if t not in groups[cur]:
                     groups[cur].append(t)
+    sika_row = find_label_row(ws, "Sikajengi")
+    gs_row = find_label_row(ws, "Maalintekij")
+
+    # Pisteet luetaan labelista ("Sikajengi (8p)", "Maalintekijä 2p per maali ...")
+    # — säännöt voivat muuttua turnausten välillä ilman skriptimuutosta.
+    def label_pts(row, pattern, default):
+        if not row:
+            return default
+        m = re.search(pattern, str(ws.cell(row=row, column=1).value or ""))
+        return int(m.group(1)) if m else default
+
+    scoring = {
+        "sikajengi": label_pts(sika_row, r"\((\d+)\s*p\)", 8),
+        "goalscorer": label_pts(gs_row, r"(\d+)\s*p\s+per\s+maali", 1),
+    }
     return matches, groups, group_order, {
-        "sikajengi": find_label_row(ws, "Sikajengi"),
-        "goalscorer": find_label_row(ws, "Maalintekij"),
+        "sikajengi": sika_row,
+        "goalscorer": gs_row,
+        "scoring": scoring,
     }
 
 
@@ -147,8 +167,9 @@ def read_cup(ws, ranges, col):
     return out
 
 
-def build_tournament(tid, matches, groups, group_order):
+def build_tournament(tid, matches, groups, group_order, rows):
     teams = sorted({t for ts in groups.values() for t in ts})
+    sika = rows["scoring"]["sikajengi"]
     return {
         "id": tid, "name": tid.upper(), "type": "worldcup",
         "year": 2026, "startDate": "2026-06-11",
@@ -160,8 +181,8 @@ def build_tournament(tid, matches, groups, group_order):
                        "slots": LAYOUT["cup"][k][1] - LAYOUT["cup"][k][0] + 1}
                       for k in ROUND_ORDER],
         "scoring": {"group": {"exact": 3, "outcome": 1, "miss": 0},
-                    "sikajengi": {"points": 8, "tiePoints": 4},
-                    "goalscorer": {"perGoal": 1}},
+                    "sikajengi": {"points": sika, "tiePoints": sika // 2},
+                    "goalscorer": {"perGoal": rows["scoring"]["goalscorer"]}},
     }
 
 
@@ -204,7 +225,8 @@ def build_predictions(ws, matches, rows):
             sg = cellval(ws, rows["sikajengi"], c)
             p["sikajengi"] = norm(sg) if sg else None
         if rows["goalscorer"]:
-            p["goalscorer"] = cellval(ws, rows["goalscorer"], c)
+            gs = cellval(ws, rows["goalscorer"], c)
+            p["goalscorer"] = GOALSCORER_FIX.get(gs, gs) if gs else None
         preds[name] = p
     return preds
 
@@ -254,7 +276,7 @@ def main():
           f"{len(participant_cols(ws))} osallistujaa")
 
     if args.mode in ("predictions", "all"):
-        t = merge_tournament(build_tournament(args.tournamentId, matches, groups, group_order), outdir)
+        t = merge_tournament(build_tournament(args.tournamentId, matches, groups, group_order, rows), outdir)
         write("tournament.json", t)
         write("predictions.json", build_predictions(ws, matches, rows))
     if args.mode in ("results", "all"):
