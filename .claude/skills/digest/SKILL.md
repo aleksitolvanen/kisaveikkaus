@@ -12,17 +12,23 @@ Prosessi on kolmivaiheinen: **faktat → luonnos käyttäjälle → julkaisu vas
 ## 1. Faktapaketti (deterministinen — AI ei keksi lukuja)
 
 ```bash
-node tools/day-facts.mjs mm2026 <futispäivä>   # esim. 2026-06-12
+node tools/day-facts.mjs mm2026                # PENDING-MODE (oletus, käytä tätä):
+                                               # kaikki ratkenneet ottelut joita
+                                               # aiemmat digestit eivät kata
+node tools/day-facts.mjs mm2026 2026-06-12     # tai tietty futispäivä
 ```
 
-- Futispäivä = Suomen aika, raja klo 08 (yön matsit kuuluvat edelliseen iltaan).
+- **Käytä pending-modea**: se lukee aiempien digestien `covers`-listat
+  digests.json:sta ja palauttaa vain käsittelemättömät ratkenneet ottelut.
+  Näin ei haittaa, ajetaanko digest heti illan matsin jälkeen vai vasta
+  seuraavana päivänä — yön matsit tulevat automaattisesti seuraavaan ajoon.
+  Paketin `covers`-kenttä kopioidaan julkaisussa digestin `covers`-kenttään.
+- Jos `liveNow` ei ole tyhjä, jokin matsi on kesken — mainitse käyttäjälle ja
+  ehdota odottamista tai matsin jättämistä seuraavaan digestiin.
 - Paketti sisältää: ottelut tuloksineen, täysosumat/suunnat/nollat per matsi,
   päivän huonoin veikkaus (worstPick), maalit ja kortit FIFA-timelinesta,
   sarjataulukon (kokonaispisteet, päivän pisteet, sijoitussiirrot),
   maalintekijäosumat (2p/maali!) ja sikaveikkaukset kontekstiksi.
-- **Kattavuus**: lue ensin `data/mm2026/digests.json` ja varmista mitkä ottelut
-  edellinen digest jo käsitteli — yön matsi voi kuulua edelliseen futispäivään
-  mutta olla käsittelemättä. Kata kaikki käsittelemättömät päättyneet ottelut.
 - Korttipisteet sikajengiin: keltainen 1, toinen keltainen → punainen 2, suora punainen 3.
 
 ## 2. Uutiset
@@ -73,8 +79,11 @@ Näytä molemmat tekstit (+ mahdolliset lisäehdotukset) käyttäjälle chatissa
 
 1. Lisää päivä `data/mm2026/digests.json` → `days`-objektiin:
    ```json
-   "2026-06-12": { "label": "pe 12.6.", "katsaus": "...", "roast": "..." }
+   "2026-06-12": { "label": "pe 12.6.", "covers": ["A2", "B1"],
+                   "katsaus": "...", "roast": "..." }
    ```
+   **`covers` on pakollinen**: faktapaketin `covers`-lista sellaisenaan — sen
+   varassa seuraava ajo tietää mitkä ottelut on jo käsitelty.
    Label-muoto: `"to 11.6. · avauspäivä"` (lisämääre vain erikoispäivinä).
    Kappalejaot `\n\n`:llä; ei markdownia (renderöidään pre-line-tekstinä).
 2. `node site.mjs mm2026`

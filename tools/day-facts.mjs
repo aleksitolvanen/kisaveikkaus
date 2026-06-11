@@ -1,7 +1,10 @@
 // Päivän faktapaketti digestiä (katsaus + roast) varten — pelkkää deterministisesti
 // laskettua faktaa, AI ei keksi lukuja itse.
 //
-//   node tools/day-facts.mjs [tid] <futispäivä>     esim. 2026-06-11
+//   node tools/day-facts.mjs [tid]                  pending: kaikki ratkenneet
+//                                                   ottelut joita aiemmat digestit
+//                                                   eivät kata (digests.json covers)
+//   node tools/day-facts.mjs [tid] <futispäivä>     tietyn päivän ottelut (2026-06-11)
 //
 // Futispäivä = päivä johon ottelu kuuluu Suomen ajassa, kun raja on klo 08
 // (yön matsit kuuluvat edelliseen iltaan — sama logiikka kuin sivulla).
@@ -14,7 +17,6 @@ import { matchPoints, scoreAll, parseScore, sign } from "../scoring.mjs";
 
 const tid = process.argv.find((a, i) => i >= 2 && !/^\d{4}-/.test(a)) || "mm2026";
 const day = process.argv.find((a) => /^\d{4}-\d{2}-\d{2}$/.test(a));
-if (!day) { console.error("Anna futispäivä: node tools/day-facts.mjs mm2026 2026-06-12"); process.exit(1); }
 
 const DATA_URL = "https://raw.githubusercontent.com/aleksitolvanen/kisaveikkaus-mm2026/main/data.json";
 const curl = (u) => JSON.parse(execFileSync("curl",
@@ -33,9 +35,21 @@ const R = curl(DATA_URL).results;
 const names = Object.keys(P);
 const tn = (c) => (T.teamNames && T.teamNames[c]) || c;
 
-// --- päivän ottelut (lohko + mahdolliset pudotuspelit)
-const dayGroup = T.matches.filter((m) => m.kickoff && fDay(m.kickoff) === day);
-const dayKo = (T.knockout || []).filter((m) => m.kickoff && fDay(m.kickoff) === day);
+// --- käsiteltävät ottelut: tietty futispäivä TAI pending-mode (ratkenneet
+// joita aiemmat digestit eivät kata — kattavuus digests.json "covers"-listoista,
+// jolloin ei haittaa ajetaanko digest heti illalla vai vasta seuraavana päivänä)
+let dayGroup, dayKo, covered = [];
+if (day) {
+  dayGroup = T.matches.filter((m) => m.kickoff && fDay(m.kickoff) === day);
+  dayKo = (T.knockout || []).filter((m) => m.kickoff && fDay(m.kickoff) === day);
+} else {
+  try {
+    const dg = JSON.parse(await readFile(path.join(dir, "digests.json"), "utf-8")).days || {};
+    covered = Object.values(dg).flatMap((d) => d.covers || []);
+  } catch {}
+  dayGroup = T.matches.filter((m) => (R.matches || {})[m.id] && !covered.includes(m.id));
+  dayKo = (T.knockout || []).filter((m) => m.score && !covered.includes(m.id));
+}
 
 // --- per ottelu: tulos, pisteet per veikkaaja, timeline (maalit + kortit)
 const matches = [];
@@ -103,5 +117,10 @@ for (const n of names) {
 const sikaPicks = {};
 for (const n of names) { const s = P[n].sikajengi; if (s) (sikaPicks[s] = sikaPicks[s] || []).push(n); }
 
-console.log(JSON.stringify({ day, matches, standings, goalscorerHits: gsHits,
-  sikaPicks, decidedTotal: Object.keys(R.matches || {}).length }, null, 2));
+console.log(JSON.stringify({
+  mode: day ? "day" : "pending",
+  day: day || fDay(new Date().toISOString()),
+  covers: matches.filter((m) => m.result).map((m) => m.id),   // -> digestin covers-kenttään
+  liveNow: Object.keys(R.live || {}),
+  matches, standings, goalscorerHits: gsHits, sikaPicks,
+  decidedTotal: Object.keys(R.matches || {}).length }, null, 2));
