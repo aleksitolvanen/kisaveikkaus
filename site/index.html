@@ -556,12 +556,18 @@ function renderSchedule(){
   box.appendChild(el('div','hint','Ottelua klikkaamalla näet kaikkien veikkaukset.'));
   var list=el('div'); box.appendChild(list);
   var df=state.dayFilter, now=new Date();
-  var todayK=fiDayKey(now.toISOString()), tmrK=fiDayKey(new Date(Date.now()+86400000).toISOString());
-  function keep(m){ if(df==='all') return true; if(!m.kickoff) return false;
-    if(df==='today') return fiDayKey(m.kickoff)===todayK;
-    if(df==='tomorrow') return fiDayKey(m.kickoff)===tmrK;
-    return new Date(m.kickoff)>now; }  // upcoming
-  var ms = T.matches.filter(keep), ko = (T.knockout||[]).filter(keep);
+  // "Futispäivä": yön matsit (Suomen aikaa ennen klo 08) kuuluvat vielä
+  // edelliseen päivään — pe 05:00 on "torstain peli".
+  function fDay(iso){ return fiDayKey(new Date(new Date(iso).getTime()-8*3600000).toISOString()); }
+  var todayK=fDay(now.toISOString()), tmrK=fDay(new Date(Date.now()+86400000).toISOString());
+  function keep(m, finished){ if(df==='all') return true; if(!m.kickoff) return false;
+    if(df==='today') return fDay(m.kickoff)===todayK;
+    if(df==='tomorrow') return fDay(m.kickoff)===tmrK;
+    // tulevat: alkamattomat + käynnissä olevat (pudotetaan kun lopputulos kirjautuu)
+    var kt=new Date(m.kickoff).getTime();
+    return kt>now.getTime() || (now.getTime()-kt < 170*60000 && !finished); }
+  var ms = T.matches.filter(function(m){ return keep(m, !!(R.matches||{})[m.id]); });
+  var ko = (T.knockout||[]).filter(function(m){ return keep(m, !!m.score); });
   if(!ms.length && !ko.length){ list.appendChild(el('div','hint',
     df==='today'?'Ei otteluita tänään.':df==='tomorrow'?'Ei otteluita huomenna.':df==='upcoming'?'Ei tulevia otteluita.':'Ei otteluita.'));
     trackScroll($('#view-schedule'),'schedule:'+state.dayFilter); return; }
