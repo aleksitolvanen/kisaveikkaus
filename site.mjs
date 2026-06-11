@@ -214,7 +214,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
 .pcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin-top:4px}
 .pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
-.pctext{font-size:13.5px;line-height:1.55}
+.pctext{font-size:13.5px;line-height:1.55;white-space:pre-line}
 .wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
 .wmatch{font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
 .wname{color:var(--muted)}
