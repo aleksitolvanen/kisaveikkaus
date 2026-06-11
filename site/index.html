@@ -1065,18 +1065,16 @@ function renderDigests(box){
       holder.appendChild(r);
     }
   }
-  if(days.length>1){
-    var sr=el('div','cmpsel');
-    var sel=document.createElement('select');
-    days.slice().reverse().forEach(function(day){
-      var o=document.createElement('option'); o.value=day;
-      o.textContent=(dg[day].label||day);
-      if(day===state.digestDay) o.selected=true;
-      sel.appendChild(o);
-    });
-    sel.onchange=function(){ state.digestDay=sel.value; draw(); };
-    sr.appendChild(sel); s.appendChild(sr);
-  }
+  var sr=el('div','cmpsel');
+  var sel=document.createElement('select');
+  days.slice().reverse().forEach(function(day){
+    var o=document.createElement('option'); o.value=day;
+    o.textContent=(dg[day].label||day);
+    if(day===state.digestDay) o.selected=true;
+    sel.appendChild(o);
+  });
+  sel.onchange=function(){ state.digestDay=sel.value; draw(); };
+  sr.appendChild(sel); s.appendChild(sr);
   s.appendChild(holder);
   draw();
   box.appendChild(s);
