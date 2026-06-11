@@ -1,0 +1,86 @@
+{
+ "generated": "2026-06-12",
+ "note": "Pelaajakortit: AI-syväanalyysi veikkaushistoriasta (faktat tools/player-facts.mjs -paketista, ei keksittyjä lukuja). Vain lempinimiä.",
+ "cards": {
+  "Aki": {
+   "headline": "MM2014-hopea ja 13 soolon mies",
+   "card": "Akin uran huippu on MM2014-hopea, jonka todistusaineisto on kadonnut — vain hall of fame muistaa. Dokumentoidulla kaudella suunta on ollut etelään: 11. (2018) ja 18. (2021). MM2018:ssa Aki veikkasi 13 tulosta joita kukaan muu ei keksinyt, mikä kertoo joko visionääristä tai siitä ettei kuponkia näytetty kenellekään ennen palautusta. Maaliodotus on porukan yläpäätä (3,02/matsi 2018), eli Aki tilaa viihdettä. 2026: mestariksi FRA, finaali FRA–ESP, maalintekijänä Mbappe — paperilla järkevin kuponki vuosiin, mikä Akin tapauksessa voi olla huono merkki."
+  },
+  "AleksiTo": {
+   "headline": "Ranska-uskovainen, jonka kupongin täyttää nykyään kone",
+   "card": "EM2012-mestari (jaettu) ja MM2014-pronssi (jaettu) — sitten alkoi dokumentoitu aika, ja sen myötä sijat 7, 6 ja 7. Tasaisuus on hämmästyttävää, samoin uskollisuus: Ranska on ollut mestariveikkaus kaikissa neljässä tunnetussa kupongissa (2016, 2021, 2024, 2026). Ranska voitti arvokisan täsmälleen kerran tällä jaksolla — vuonna 2018, jolloin AleksiTo ei osallistunut. Vuonna 2024 koko kuponki ulkoistettiin ChatGPT:lle (tulos: 7., eli ihmistason suoritus), ja 2026 tekoäly täytti lomakkeen taas, nyt isännän nimellä. Mbappe on maalintekijävalinta kolmatta kisaa putkeen. Jos Ranska–Argentiina-finaali toteutuu, kone lunastaa; jos ei, sija 6–7 odottaa kuin vanha ystävä."
+  },
+  "Hannu": {
+   "headline": "Englanti-optimisti jo kolmatta kisaa",
+   "card": "MM2006-hopeamitalisti, jonka moderni kausi on tasaista yläkeskikastia: 8., 14., 8. Hannu on veikannut Englantia mestariksi kolme kisaa putkeen (2021, 2024, 2026) — strategia, joka on tuottanut tasan nolla osumaa mutta jonka pitää vain kerran onnistua niin kaikki on anteeksi annettu. Erikoisuutena 2018: sikajengi PAN osui täydellisesti (Panama, 11 korttia, harvoja koko porukassa). 2026-kupongissa on rohkea sisäinen ristiriita: mestariksi ENG mutta finaaliparina BRA–ESP — eli Englanti voittaa finaalin johon se ei Hannun mukaan pääse. Sikajengi HAI ja maalintekijä Kane täydentävät paketin, jossa on enemmän persoonaa kuin logiikkaa."
+  },
+  "JaakkoN": {
+   "headline": "Tulokas ilman painolastia",
+   "card": "Porukan ainoa täysin puhdas pelikirja: ei historiaa, ei traumoja, ei tilastoja joilla roastata — vielä. JaakkoN astuu kehään kupongilla, joka istuu valtavirtaan (mestari ESP kuten puolella porukasta, Kane maalintekijänä), mutta tasuriprosentti 11 on rohkean matala ja finaalipari ENG–ESP eroaa massasta. Tulokkaalla on tilastollinen etu: kukaan ei tiedä hänen heikkouksiaan, eikä hän itsekään. Ensimmäinen arvokisa ratkaisee, kirjataanko hänet historiaan löytönä vai liittyykö hän pitkään perinteeseen, jossa debytantti opettelee nöyryyttä sijalta 15."
+  },
+  "JermuP": {
+   "headline": "Saksa-dynastian viimeinen uskollinen",
+   "card": "JermuP on veikannut Saksaa mestariksi viidessä kisassa putkeen (2016–2026). Saksa on tällä ajanjaksolla voittanut: ei mitään. Tämä on jo ohittanut strategian ja muuttunut identiteetiksi — ja 2026-kuponki syventää suhdetta entisestään: finaali GER–FRA ja maalintekijänä Havertz. Uran kaari on dramaattinen: EM2016-hopea tasurikuninkaana (56 % tasureita, koko datan ennätys), sitten hidas liukuma kohti vuoden 2024 jumbosijaa, jolta JermuP nousee nyt puolustamaan kunniaansa 'hallitseva jumbo' -tittelin kanssa. Müller oli maalintekijävalinta kolmesti — uskollisuus näkyy kaikessa, paitsi tuloksissa. Jos Saksa joskus voittaa, tämä kuponki kehystetään."
+  },
+  "JukkaM": {
+   "headline": "EM2021-mestari, joka ei veikkaa samaa maata kahdesti",
+   "card": "Hall of famen aateli: EM2004-hopea ja EM2021-mestaruus (78p), jonka kruununa oikea mestariveikkaus ITA. JukkaM on JermuP:n täydellinen vastakohta: viisi kisaa, viisi eri mestariveikkausta (ENG, BRA, ITA, FRA, ESP) — ja juuri se ainoa osui. Tyyli elää samalla tavalla: tasurit 8–28 %, maalit 1,6–2,6. 2026-kupongissa on porukan erikoisin finaalipari: ESP–MEX, eli isäntämaa finaaliin — sooloveto jota kukaan muu ei uskaltanut. Maalintekijäksi Oyarzabal (toinen sooloilu) ja sikajengiksi KSA. Mestari ei pelaa varman päälle, ja juuri siksi hänellä on se mestaruus."
+  },
+  "Jype": {
+   "headline": "EM2016-mestari, joka kielsi tasapelit 2024",
+   "card": "EM2016 oli mestariteos: 75 pistettä, kauden 8 täysosumaa ja porukan ainoa oikea maalintekijäveikkaus (Griezmann). Sen jälkeen käyrä: 7. → 17. → 16. Ja sitten se kuuluisa käänne: vuonna 2024 Jype lakkasi uskomasta tasapeleihin. EM2024: 36 ottelua, 0 tasuria — turnauksessa joka päättyi 14 tasuriin (38,9 %, historian ennätys). MM2026 jatkaa linjaa: 72 ottelua, 0 tasuria, ja 61 veikkausta muotoa 2-0 tai 0-2. Tämä ei ole enää strategia vaan elämänkatsomus, jonka hinta on noin 19 ennalta hylättyä ottelua jos kisa osuu tasurikeskiarvoon. Mestariveikkaus ESP on valtavirtaa, Kane-valinta turvallinen. Paluu kärkeen vaatii 2016-vuoden taikaa — tai turnauksen ilman X-merkkiä."
+  },
+  "Kapa": {
+   "headline": "Pohjakerroksen vakioasukas, sopimus voimassa",
+   "card": "Kapan moderni sijoitushistoria: 16., 20., 18. Keskiarvo 18 — porukan tasaisin suoritus, valitettavasti väärässä päässä taulukkoa. Ja kuitenkin: EM2008-hopea todistaa, että joskus kaikki meni toisin. MM2018:ssa Kapa sooloili 8 veikkauksella, EM2021:ssä kuudella — omaperäisyys on säilynyt vaikka pisteet eivät. Sikajengiveikkaus SER kahdesti (ei osumaa kummallakaan). 2026-kuponki on yllättävän eloisa: maaliodotus 2,65/matsi on hänen uransa korkein, mestari ESP, finaali ARG–ESP ja maalintekijäsoolona Julian Alvarez — ainoana porukassa. Jos Alvarez ottaa pichichin, Kapa nousee kellarista suoraan parrasvaloihin. Historia ehdottaa nöyryyttä, kuponki ei."
+  },
+  "Karri": {
+   "headline": "Hallitseva mestari ja porukan suurin vuoristorata",
+   "card": "Karrin sijoitukset: 11. → 3. → 22. (jumbo, 37 pistettä — selvästi irti muista) → 1. (83 pistettä, kaikkien aikojen piste-ennätys). Kukaan ei ole liikkunut taulukossa näin: jumbosijalta suoraan mestariksi. Salaisuus voi olla sooloilu — 2016: 25 soolovetoa, 2021: 21 — Karri pelaa omaa peliään ja tulos on joko katastrofi tai kruunu. Mestariveikkauksissa sama linja: GER, FRA, UKR (!), ESP — joista ESP ja FRA osuivat (2024 ✓, 2018 ✓). Puolustus alkaa kupongilla: mestari FRA, finaali FRA–ARG, maalintekijänä Yamal ja matala 13 % tasuriprosentti. Tilastojen valossa odotettavissa on joko uusinta tai sija 22 — Karrin kohdalla mikään siltä väliltä ei olisi uskottavaa."
+  },
+  "KimmoK": {
+   "headline": "Ikuinen kärkikuusikko, jolta puuttuu vain kruunu",
+   "card": "KimmoK:n keskisija on 6 — paras koko porukassa ilman mestaruutta. Kaksi hopeaa (2006, 2018) ja tasainen kärkituntuma, mutta kruunu kiertää: tämä on porukan Raymond Poulidor. Tyyli on tunnistettava: porukan matalin maaliodotus (1,19–1,4/matsi) eli KimmoK veikkaa jalkapalloa jossa kukaan ei uskalla hyökätä. 2026: 22 kappaletta 1-0-veikkauksia ja maaliodotus 1,63 — usko puolustamiseen elää. Historian hauskin yksityiskohta: vuoden 2024 maalintekijäveikkaus kirjattiin nimellä 'Mbabbe', joka ei valitettavasti ole pelaaja — tänä vuonna oikeinkirjoitus on kunnossa ja Mbappe kelpaa. Mestariksi ESP, finaali ESP–FRA. Jos järjestys joskus palkitaan, kruunu on tilastollisesti myöhässä."
+  },
+  "LEKA": {
+   "headline": "Paluu sijalta 21 — suunta voi olla vain ylös",
+   "card": "LEKAn arvokisahistoria on lyhyt ja armoton: EM2021, sija 21/22, yksi täysosuma koko kisassa. Nyt mies palaa, ja matematiikka on hänen puolellaan — odotusarvo voi käytännössä vain parantua. 2026-kuponki on kiinnostavampi kuin maine antaisi odottaa: mestariveikkaus ARG on porukan harvinaisuus (vain kaksi valitsi), finaali ESP–ARG, ja 16 kappaletta 1-1-veikkauksia kertoo miehestä joka on tehnyt rauhan tasapelien kanssa — toisin kuin eräät mestarit. Sikajengiksi TUR ja maalintekijäksi Mbappe. Jos Messi ja kumppanit kantavat, vuoden 2021 haamut haudataan kerralla."
+  },
+  "Lonnmark": {
+   "headline": "Hiljainen eliitti kolmella nimellä",
+   "card": "Lonnmark on kulkenut läpi historian nimillä KimmoL ja Lönkka, ja tulokset ovat olleet hiljaisen kovia: 5., 8., 3. — keskisija 5,3, porukan toiseksi paras. EM2024-pronssi tuli seitsemällä täysosumalla, eikä kukaan tainnut huomata. Tämä on veikkaaja joka ei selittele, ei sooloile (1–2 sooloa per kisa, porukan varovaisin) ja kerää pisteet kun muut keräävät huomiota. Mestariveikkaukset kiertävät (BEL, FRA, ENG, nyt ESP) eli dogmeja ei ole. 2026: finaali ESP–ARG, maalintekijänä Mbappe, ja sikajengivalintana QAT — ainoa eksoottinen veto koko kupongissa. Jos joku nousee podiumille kenenkään huomaamatta, se on taas tämä mies."
+  },
+  "Martti": {
+   "headline": "Metronomi: 5-4-5 ilman mitalia",
+   "card": "Martin kolme kisaa: sijat 5, 4 ja 5. Ei mitaleita — podium on kolmen kokoinen ja Martti on neljäs-viides kuin junan aikataulu. Tämä on porukan julmin tilasto: tasaisen kova taso ilman ainuttakaan palkintokaapin esinettä. Tyyli on kurinalainen (tasurit 6–19 %, ei rönsyjä, sooloja 1–4) ja sikajengiveikkaus TUR jo kolmatta kertaa putkeen — uskollisuus, joka ei ole vielä palkinnut mutta ei myöskään hävettänyt. 2026: mestari ESP, finaali ESP–ENG, maalintekijänä Kane toista kisaa peräkkäin. Kuponki on jälleen järkevä, hallittu ja todennäköisesti sijan 4–6 arvoinen. Jonain päivänä varianssi osuu kohdalleen, ja silloin Martti voittaa koko potin selittämättä mitään."
+  },
+  "Pele": {
+   "headline": "Dynastia: viisi mitalia, nyt ilman tasureita",
+   "card": "Porukan palkintokaappi: mestaruudet 2006 ja 2014, pronssit 2008, 2021 ja 2024 — viisi mitalia on enemmän kuin kenelläkään. Pele on pelannut koko uransa minimalistista peliä (maaliodotus 1,4–1,7/matsi, kauden suosikkitulos 1-0), ja se on toiminut vuosikymmenet. Mutta 2026-kuponki sisältää shokin: 0 tasuria. Mies, joka veikkasi 39 % tasureita vielä 2024 (ja otti pronssia), on kääntynyt yhdessä yössä Jypen koulukuntaan — 23 kappaletta 1-0:aa ja loput voittoja. Mestariksi FRA, finaali FRA–ENG, maalintekijänä Mbappe. Joko mestari on nähnyt jotain mitä muut eivät, tai dynastian ensimmäinen halkeama on tässä. Tilastot sanovat jälkimmäistä; saavutukset käskevät olla hiljaa."
+  },
+  "Pietari": {
+   "headline": "Mies joka veikkasi Ranskan sikajengiksi",
+   "card": "Pietarin historia (2021 parivaljakkona 'Pietu ja Luka') tarjosi heti klassikon: sikajengiveikkaukseksi valikoitui FRA — siis maailmanmestari Ranska, lohkovaiheen likaisimmaksi joukkueeksi. Veto ei osunut, mutta rohkeudesta ei jäänyt epäselvyyttä. Sija 18/22 oli debyytiltä rehellinen. Nyt Pietari pelaa yksin ja kuponki on siistiytynyt: mestariksi FRA (toista kertaa — uskollisuus alkaa muodostua), finaali ENG–FRA, sikajengiksi tällä kertaa ihan oikeaoppinen URU ja maalintekijäksi Kane. Tasuriprosentti 13 on edelleen uhkarohkea. Debytantin virheet on tehty; nyt nähdään oliko niistä opittu mitään."
+  },
+  "Saku": {
+   "headline": "EM2016-pronssi ja porukan eksoottisin sikahistoria",
+   "card": "Sakun ura alkoi vahvasti (EM2016-pronssi, 6 täysosumaa ja 13 soolovetoa — rohkea ja oikeassa), mutta jatko on ollut vuoristorataa: 19., 10., 13. Erikoisala on sikajengiveikkaus, jossa Saku ei ikinä valitse ilmeistä: UKR, NIG, MAC, GEO ja nyt ALG — viisi kisaa, viisi eri eksotiikkaa, nolla osumaa. Vuonna 2021 mestariveikkaus kirjattiin muodossa 'BELGIA' kun koodi ei riittänyt — intohimoa ei voi kieltää. 2026-kuponki: mestari FRA, finaalipari FRA–POR (Portugali-soolo!) ja maalintekijänä Haaland, jonka Norja on kisoissa ensimmäistä kertaa miesmuistiin — jos veto osuu, se on porukan tyylikkäin. Sakussa on aina ollut sitä 2016-rohkeutta; kysymys on vain osuuko se enää kohdalleen."
+  },
+  "Sampo": {
+   "headline": "Tasurien ystävä matkalla ylös (toivottavasti)",
+   "card": "Sampo on porukan tasuriusko: 36 %, 36 % ja 33 % — kolme kisaa peräkkäin kolmannes kupongista X:ää, ja nyt 2026 'vain' 24 %, mikä on hänelle suorastaan hyökkäävää. Strategia ei ole valitettavasti palkinnut: sijat 10, 15 ja 16, eikä mitaleita (2018 jäi väliin — viisaasti, sanoo tilasto). EM2024:ssä vain yksi täysosuma mutta 11 soolovetoa, eli omaperäisyys ja osuvuus eivät asu samassa kupongissa. 2026: mestari ESP, finaali ESP–FRA, sika URU, maalintekijä Mbappe — kaikin puolin valtavirtaa, paitsi se 17 kappaleen 1-1-patteristo. Jos tämä turnaus tasailee kuten EM2024 (38,9 %), Sampo korjaa potin jota hän on tilannut kolme kisaa."
+  },
+  "Tarhonen": {
+   "headline": "Kaksinkertainen mestari vaihtoi leiriä",
+   "card": "Kaksi kultaa (2008 ja 2018 — jälkimmäinen oikealla FRA-mestariveikkauksella kuorrutettuna) tekevät Tarhosesta porukan menestyneimpiä, ja keskisija 6 viideltä kisalta vahvistaa ettei kyse ole tuurista. Ranska oli mestariveikkaus kolmesti putkeen (2016–2021), mutta nyt tapahtui jotain: 2026-kupongissa lukee ESP, finaali tosin FRA–ESP eli vanha rakkaus pääsee hopealle. Mbappe maalintekijänä toista kisaa putkeen. Tyyli on maltillistunut nuoruuden 8 % tasureista nykyiseen 19 %:iin — mestari on oppinut kunnioittamaan X:ää. Edellisestä kullasta on kahdeksan vuotta, eli dynastioiden logiikalla seuraava on juuri nyt erääntymässä. Taulukon yläpää on varoitettu."
+  },
+  "TommiT": {
+   "headline": "Vuoden 2008 pronssi ja pitkä paluumatka",
+   "card": "TommiT:n (alias Torsolainen vuoden 2006 kirjanpidossa) uran kirkkain hetki on EM2008-pronssi, jaettu neljän veikkaajan kesken — siitä on 18 vuotta, ja moderni kausi (16. ja 11.) ei ole vielä tarjonnut uutta kehystettävää. Mestariveikkaukset kiertävät omintakeista rataa: BEL, NED ja nyt FRA — aina yksi sykli muodista jäljessä tai edellä, vaikea sanoa kumpaa. 2026-kuponki on tasapainoinen: 22 % tasureita, finaali FRA–ENG, maalintekijänä Kane ja sikajenginä KSA, joka on tänä vuonna suosittu valinta (kolme veikkaajaa). Mikään ei ole räikeästi pielessä eikä mikään erityisen rohkeaa — mikä TommiT:n sijoitushistorialla voi olla juuri se oikea resepti nousta hiljaa takaisin kärkipuoliskolle."
+  },
+  "Willari": {
+   "headline": "Neljä nimeä, koko historia, yksi Mbappe-vakio",
+   "card": "Willari on porukan ainoa, joka löytyy jokaisesta säilyneestä kupongista — tosin eri nimillä: Willarineste (2016, 2018), willari (2021), Neste (2024) ja nyt Willari. Henkilöllisyys vaihtuu, kohtalo ei: EM2012-mestaruus (jaettu AleksiTon kanssa) ja MM2014-pronssi edustavat kulta-aikaa, jonka jälkeen on nähty myös pohja — MM2018-jumbosija. Siitä on noustu tasaisesti (12., 10.), ja suunta on oikea. Maalintekijävalinta on ollut Mbappe kolme kisaa putkeen ilman palkintoa, ja sikajengi on aina tuore yritys (ROM✓ 2016 — ainoa osuma — sitten SER, HUN, POL, nyt CRO). 2026: mestari ESP ja rohkea finaalipari BRA–ESP. Jos historia on opettanut jotain, niin sen että tätä miestä ei kannata koskaan laskea ulos — eikä koskaan tunnistaa ensi yrittämällä."
+  }
+ }
+}

@@ -1,0 +1,4387 @@
+{
+ "generated": "2026-06-12",
+ "note": "Per-pelaaja-faktat veikkaushistoriasta (tools/player-facts.mjs). Vain lempinimiä.",
+ "players": {
+  "Aki": {
+   "name": "Aki",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 11,
+     "of": 20,
+     "points": 61,
+     "hits": {
+      "exact": 4,
+      "outcome": 23,
+      "miss": 21
+     },
+     "soloPicks": 13,
+     "style": {
+      "matches": 48,
+      "drawsPct": 27,
+      "goalsPerMatch": 3.02,
+      "homeWinsPct": 42,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 8
+       },
+       {
+        "score": "2-2",
+        "count": 8
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ARG",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MEX",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Müller",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 18,
+     "of": 22,
+     "points": 48,
+     "hits": {
+      "exact": 0,
+      "outcome": 20,
+      "miss": 16
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 2.61,
+      "homeWinsPct": 47,
+      "awayWinsPct": 42,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 8
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       },
+       {
+        "score": "2-1",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "RUS",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Ronaldo",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 17,
+     "goalsPerMatch": 2.42,
+     "homeWinsPct": 51,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 16
+      },
+      {
+       "score": "1-1",
+       "count": 12
+      },
+      {
+       "score": "2-1",
+       "count": 10
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "ESP"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "ARG"
+    ],
+    "sikajengi": "URU",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [
+     "mm2014"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ARG": 1,
+     "GER": 1,
+     "FRA": 1
+    },
+    "sikaPicks": {
+     "MEX": 1,
+     "RUS": 1,
+     "URU": 1
+    },
+    "goalscorerPicks": {
+     "muller": 1,
+     "ronaldo": 1,
+     "mbappe": 1
+    },
+    "avgRank": 14.5,
+    "bestRank": 11,
+    "worstRank": 18,
+    "participations": 3
+   }
+  },
+  "Hannu": {
+   "name": "Hannu",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 8,
+     "of": 20,
+     "points": 63,
+     "hits": {
+      "exact": 4,
+      "outcome": 20,
+      "miss": 24
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 48,
+      "drawsPct": 27,
+      "goalsPerMatch": 1.94,
+      "homeWinsPct": 44,
+      "awayWinsPct": 29,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 9
+       },
+       {
+        "score": "1-1",
+        "count": 8
+       },
+       {
+        "score": "2-0",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BRA",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "PAN",
+      "actual": [
+       "PAN"
+      ],
+      "correct": true
+     },
+     "goalscorer": {
+      "pick": "Neymar",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 14,
+     "of": 22,
+     "points": 56,
+     "hits": {
+      "exact": 4,
+      "outcome": 13,
+      "miss": 19
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 31,
+      "goalsPerMatch": 1.83,
+      "homeWinsPct": 44,
+      "awayWinsPct": 25,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "0-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "HUN",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 8,
+     "of": 20,
+     "points": 64,
+     "hits": {
+      "exact": 3,
+      "outcome": 13,
+      "miss": 20
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 36,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.28,
+      "homeWinsPct": 39,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 7
+       },
+       {
+        "score": "2-0",
+        "count": 5
+       },
+       {
+        "score": "2-1",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "GEO",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Cristiano Ronaldo",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 14,
+     "goalsPerMatch": 2.4,
+     "homeWinsPct": 50,
+     "awayWinsPct": 36,
+     "favScorelines": [
+      {
+       "score": "2-1",
+       "count": 13
+      },
+      {
+       "score": "0-1",
+       "count": 10
+      },
+      {
+       "score": "2-0",
+       "count": 9
+      }
+     ]
+    },
+    "champion": "ENG",
+    "final": [
+     "BRA",
+     "ESP"
+    ],
+    "semifinals": [
+     "FRA",
+     "ENG",
+     "ESP",
+     "ARG"
+    ],
+    "sikajengi": "HAI",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [
+     "mm2006"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "BRA": 1,
+     "ENG": 3
+    },
+    "sikaPicks": {
+     "PAN": 1,
+     "HUN": 1,
+     "GEO": 1,
+     "HAI": 1
+    },
+    "goalscorerPicks": {
+     "neymar": 1,
+     "mbappe": 1,
+     "cristiano ronaldo": 1,
+     "kane": 1
+    },
+    "avgRank": 10,
+    "bestRank": 8,
+    "worstRank": 14,
+    "participations": 4
+   }
+  },
+  "JaakkoN": {
+   "name": "JaakkoN",
+   "tournaments": [],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 11,
+     "goalsPerMatch": 2.68,
+     "homeWinsPct": 53,
+     "awayWinsPct": 36,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 11
+      },
+      {
+       "score": "2-1",
+       "count": 10
+      },
+      {
+       "score": "1-1",
+       "count": 8
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ENG",
+     "ESP"
+    ],
+    "semifinals": [
+     "ENG",
+     "ESP",
+     "FRA",
+     "ARG"
+    ],
+    "sikajengi": "TUR",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "TUR": 1
+    },
+    "goalscorerPicks": {
+     "kane": 1
+    },
+    "avgRank": null,
+    "bestRank": null,
+    "worstRank": null,
+    "participations": 1
+   }
+  },
+  "JermuP": {
+   "name": "JermuP",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 2,
+     "of": 14,
+     "points": 73,
+     "hits": {
+      "exact": 7,
+      "outcome": 11,
+      "miss": 18
+     },
+     "soloPicks": 5,
+     "style": {
+      "matches": 36,
+      "drawsPct": 56,
+      "goalsPerMatch": 2.25,
+      "homeWinsPct": 28,
+      "awayWinsPct": 17,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 18
+       },
+       {
+        "score": "2-1",
+        "count": 3
+       },
+       {
+        "score": "2-0",
+        "count": 3
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "ROM",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": true
+     },
+     "goalscorer": {
+      "pick": "MULLER",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 18,
+     "of": 20,
+     "points": 55,
+     "hits": {
+      "exact": 4,
+      "outcome": 19,
+      "miss": 25
+     },
+     "soloPicks": 6,
+     "style": {
+      "matches": 48,
+      "drawsPct": 21,
+      "goalsPerMatch": 2.13,
+      "homeWinsPct": 42,
+      "awayWinsPct": 38,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "0-1",
+        "count": 8
+       },
+       {
+        "score": "1-0",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "EGY",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Muller",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 8,
+     "of": 22,
+     "points": 63,
+     "hits": {
+      "exact": 5,
+      "outcome": 14,
+      "miss": 17
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 31,
+      "goalsPerMatch": 2.17,
+      "homeWinsPct": 33,
+      "awayWinsPct": 36,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "1-0",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Muller",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 20,
+     "of": 20,
+     "points": 51,
+     "hits": {
+      "exact": 3,
+      "outcome": 12,
+      "miss": 21
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 31,
+      "goalsPerMatch": 2.69,
+      "homeWinsPct": 31,
+      "awayWinsPct": 39,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 11
+       },
+       {
+        "score": "1-2",
+        "count": 9
+       },
+       {
+        "score": "2-1",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 22,
+     "goalsPerMatch": 2.08,
+     "homeWinsPct": 50,
+     "awayWinsPct": 28,
+     "favScorelines": [
+      {
+       "score": "1-1",
+       "count": 16
+      },
+      {
+       "score": "1-0",
+       "count": 12
+      },
+      {
+       "score": "2-0",
+       "count": 10
+      }
+     ]
+    },
+    "champion": "GER",
+    "final": [
+     "GER",
+     "FRA"
+    ],
+    "semifinals": [
+     "GER",
+     "BRA",
+     "ARG",
+     "FRA"
+    ],
+    "sikajengi": "KSA",
+    "goalscorer": "Havertz"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [
+     "em2016"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "GER": 5
+    },
+    "sikaPicks": {
+     "ROM": 1,
+     "EGY": 1,
+     "TUR": 2,
+     "KSA": 1
+    },
+    "goalscorerPicks": {
+     "muller": 3,
+     "mbappe": 1,
+     "havertz": 1
+    },
+    "avgRank": 12,
+    "bestRank": 2,
+    "worstRank": 20,
+    "participations": 5
+   }
+  },
+  "JukkaM": {
+   "name": "JukkaM",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 8,
+     "of": 14,
+     "points": 58,
+     "hits": {
+      "exact": 3,
+      "outcome": 14,
+      "miss": 19
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 1.61,
+      "homeWinsPct": 42,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "0-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UNK",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "LEWANDOWSKI",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 14,
+     "of": 20,
+     "points": 60,
+     "hits": {
+      "exact": 7,
+      "outcome": 20,
+      "miss": 21
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 48,
+      "drawsPct": 8,
+      "goalsPerMatch": 2.56,
+      "homeWinsPct": 48,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 14
+       },
+       {
+        "score": "2-1",
+        "count": 8
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BRA",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Messi",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 1,
+     "of": 22,
+     "points": 78,
+     "hits": {
+      "exact": 6,
+      "outcome": 17,
+      "miss": 13
+     },
+     "soloPicks": 5,
+     "style": {
+      "matches": 36,
+      "drawsPct": 19,
+      "goalsPerMatch": 2.61,
+      "homeWinsPct": 53,
+      "awayWinsPct": 28,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 11
+       },
+       {
+        "score": "0-2",
+        "count": 5
+       },
+       {
+        "score": "1-1",
+        "count": 3
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ITA",
+      "actual": "ITA",
+      "correct": true
+     },
+     "sikajengi": {
+      "pick": "ESP",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Belotti",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 13,
+     "of": 20,
+     "points": 60,
+     "hits": {
+      "exact": 6,
+      "outcome": 10,
+      "miss": 20
+     },
+     "soloPicks": 5,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.53,
+      "homeWinsPct": 39,
+      "awayWinsPct": 36,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 7
+       },
+       {
+        "score": "2-1",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "NED",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 19,
+     "goalsPerMatch": 2.5,
+     "homeWinsPct": 47,
+     "awayWinsPct": 33,
+     "favScorelines": [
+      {
+       "score": "2-1",
+       "count": 12
+      },
+      {
+       "score": "1-2",
+       "count": 8
+      },
+      {
+       "score": "1-0",
+       "count": 7
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "MEX"
+    ],
+    "semifinals": [
+     "BRA",
+     "ESP",
+     "MEX",
+     "ARG"
+    ],
+    "sikajengi": "KSA",
+    "goalscorer": "Oyarzabal"
+   },
+   "medals": {
+    "gold": [
+     "em2021"
+    ],
+    "silver": [
+     "em2004"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ENG": 1,
+     "BRA": 1,
+     "ITA": 1,
+     "FRA": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "UNK": 1,
+     "SER": 1,
+     "ESP": 1,
+     "NED": 1,
+     "KSA": 1
+    },
+    "goalscorerPicks": {
+     "lewandowski": 1,
+     "messi": 1,
+     "belotti": 1,
+     "mbappe": 1,
+     "oyarzabal": 1
+    },
+    "avgRank": 9,
+    "bestRank": 1,
+    "worstRank": 14,
+    "participations": 5
+   }
+  },
+  "Jype": {
+   "name": "Jype",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 1,
+     "of": 14,
+     "points": 75,
+     "hits": {
+      "exact": 8,
+      "outcome": 12,
+      "miss": 16
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 14,
+      "goalsPerMatch": 2,
+      "homeWinsPct": 61,
+      "awayWinsPct": 25,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 9
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       },
+       {
+        "score": "0-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "GRIEZMANN",
+      "actual": "GRIEZMANN",
+      "correct": true
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 7,
+     "of": 20,
+     "points": 64,
+     "hits": {
+      "exact": 2,
+      "outcome": 23,
+      "miss": 23
+     },
+     "soloPicks": 6,
+     "style": {
+      "matches": 48,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.69,
+      "homeWinsPct": 48,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 7
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "FRA",
+      "correct": true
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Lukaku",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 17,
+     "of": 22,
+     "points": 50,
+     "hits": {
+      "exact": 2,
+      "outcome": 18,
+      "miss": 16
+     },
+     "soloPicks": 0,
+     "style": {
+      "matches": 36,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.47,
+      "homeWinsPct": 56,
+      "awayWinsPct": 28,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 14
+       },
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BEL",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "HUN",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Lukaku",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 16,
+     "of": 20,
+     "points": 58,
+     "hits": {
+      "exact": 3,
+      "outcome": 13,
+      "miss": 20
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 0,
+      "goalsPerMatch": 3.06,
+      "homeWinsPct": 50,
+      "awayWinsPct": 50,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 11
+       },
+       {
+        "score": "2-1",
+        "count": 8
+       },
+       {
+        "score": "3-1",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 0,
+     "goalsPerMatch": 1.99,
+     "homeWinsPct": 61,
+     "awayWinsPct": 39,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 35
+      },
+      {
+       "score": "0-2",
+       "count": 26
+      },
+      {
+       "score": "1-0",
+       "count": 5
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "ARG"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "ARG"
+    ],
+    "sikajengi": "BIH",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [
+     "em2016"
+    ],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ENG": 1,
+     "FRA": 2,
+     "BEL": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "TUR": 2,
+     "SER": 1,
+     "HUN": 1,
+     "BIH": 1
+    },
+    "goalscorerPicks": {
+     "griezmann": 1,
+     "lukaku": 2,
+     "mbappe": 1,
+     "kane": 1
+    },
+    "avgRank": 10.3,
+    "bestRank": 1,
+    "worstRank": 17,
+    "participations": 5
+   }
+  },
+  "Kapa": {
+   "name": "Kapa",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 16,
+     "of": 20,
+     "points": 58,
+     "hits": {
+      "exact": 5,
+      "outcome": 18,
+      "miss": 25
+     },
+     "soloPicks": 8,
+     "style": {
+      "matches": 48,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.17,
+      "homeWinsPct": 46,
+      "awayWinsPct": 29,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 7
+       },
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "0-0",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ESP",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Neymar",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 20,
+     "of": 22,
+     "points": 47,
+     "hits": {
+      "exact": 4,
+      "outcome": 13,
+      "miss": 19
+     },
+     "soloPicks": 6,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 1.89,
+      "homeWinsPct": 47,
+      "awayWinsPct": 25,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 9
+       },
+       {
+        "score": "0-0",
+        "count": 5
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "HUN",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 18,
+     "of": 20,
+     "points": 57,
+     "hits": {
+      "exact": 2,
+      "outcome": 16,
+      "miss": 18
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.33,
+      "homeWinsPct": 31,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 7
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       },
+       {
+        "score": "1-1",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 21,
+     "goalsPerMatch": 2.65,
+     "homeWinsPct": 47,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 10
+      },
+      {
+       "score": "2-1",
+       "count": 10
+      },
+      {
+       "score": "0-2",
+       "count": 7
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ARG",
+     "ESP"
+    ],
+    "semifinals": [
+     "ARG",
+     "MAR",
+     "ESP",
+     "COL"
+    ],
+    "sikajengi": "PAR",
+    "goalscorer": "Julian Alvarez"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [
+     "em2008"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ESP": 2,
+     "FRA": 2
+    },
+    "sikaPicks": {
+     "SER": 2,
+     "HUN": 1,
+     "PAR": 1
+    },
+    "goalscorerPicks": {
+     "neymar": 1,
+     "mbappe": 2,
+     "julian alvarez": 1
+    },
+    "avgRank": 18,
+    "bestRank": 16,
+    "worstRank": 20,
+    "participations": 4
+   }
+  },
+  "Karri": {
+   "name": "Karri",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 11,
+     "of": 14,
+     "points": 55,
+     "hits": {
+      "exact": 2,
+      "outcome": 6,
+      "miss": 28
+     },
+     "soloPicks": 25,
+     "style": {
+      "matches": 36,
+      "drawsPct": 22,
+      "goalsPerMatch": 3.08,
+      "homeWinsPct": 33,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 5
+       },
+       {
+        "score": "0-3",
+        "count": 5
+       },
+       {
+        "score": "1-3",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "RONALDO",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 3,
+     "of": 20,
+     "points": 68,
+     "hits": {
+      "exact": 5,
+      "outcome": 17,
+      "miss": 26
+     },
+     "soloPicks": 9,
+     "style": {
+      "matches": 48,
+      "drawsPct": 27,
+      "goalsPerMatch": 1.98,
+      "homeWinsPct": 38,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 10
+       },
+       {
+        "score": "0-1",
+        "count": 8
+       },
+       {
+        "score": "1-0",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "FRA",
+      "correct": true
+     },
+     "sikajengi": {
+      "pick": "MEX",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Werner",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 22,
+     "of": 22,
+     "points": 37,
+     "hits": {
+      "exact": 4,
+      "outcome": 9,
+      "miss": 23
+     },
+     "soloPicks": 21,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 2.36,
+      "homeWinsPct": 56,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 7
+       },
+       {
+        "score": "0-1",
+        "count": 5
+       },
+       {
+        "score": "2-0",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "UKR",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "ITA",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Pukki",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 1,
+     "of": 20,
+     "points": 83,
+     "hits": {
+      "exact": 2,
+      "outcome": 14,
+      "miss": 20
+     },
+     "soloPicks": 10,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 3.06,
+      "homeWinsPct": 31,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "2-2",
+        "count": 6
+       },
+       {
+        "score": "3-1",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ESP",
+      "actual": "ESP",
+      "correct": true
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 13,
+     "goalsPerMatch": 2.44,
+     "homeWinsPct": 56,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 13
+      },
+      {
+       "score": "2-1",
+       "count": 12
+      },
+      {
+       "score": "1-1",
+       "count": 9
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "ARG"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "ARG"
+    ],
+    "sikajengi": "URU",
+    "goalscorer": "Yamal"
+   },
+   "medals": {
+    "gold": [
+     "em2024"
+    ],
+    "silver": [],
+    "bronze": [
+     "mm2018"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "GER": 1,
+     "FRA": 2,
+     "UKR": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "TUR": 1,
+     "MEX": 1,
+     "ITA": 1,
+     "SER": 1,
+     "URU": 1
+    },
+    "goalscorerPicks": {
+     "ronaldo": 1,
+     "werner": 1,
+     "pukki": 1,
+     "kane": 1,
+     "yamal": 1
+    },
+    "avgRank": 9.3,
+    "bestRank": 1,
+    "worstRank": 22,
+    "participations": 5
+   }
+  },
+  "KimmoK": {
+   "name": "KimmoK",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 2,
+     "of": 20,
+     "points": 70,
+     "hits": {
+      "exact": 7,
+      "outcome": 16,
+      "miss": 25
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 48,
+      "drawsPct": 21,
+      "goalsPerMatch": 1.4,
+      "homeWinsPct": 44,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 11
+       },
+       {
+        "score": "0-1",
+        "count": 10
+       },
+       {
+        "score": "1-0",
+        "count": 10
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ARG",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Messi",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 11,
+     "of": 22,
+     "points": 60,
+     "hits": {
+      "exact": 5,
+      "outcome": 14,
+      "miss": 17
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 1.28,
+      "homeWinsPct": 58,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 14
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       },
+       {
+        "score": "0-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "WAL",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 5,
+     "of": 20,
+     "points": 68,
+     "hits": {
+      "exact": 4,
+      "outcome": 13,
+      "miss": 19
+     },
+     "soloPicks": 5,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 1.19,
+      "homeWinsPct": 33,
+      "awayWinsPct": 39,
+      "favScorelines": [
+       {
+        "score": "0-1",
+        "count": 11
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       },
+       {
+        "score": "0-0",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "ALB",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbabbe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 13,
+     "goalsPerMatch": 1.63,
+     "homeWinsPct": 51,
+     "awayWinsPct": 36,
+     "favScorelines": [
+      {
+       "score": "1-0",
+       "count": 22
+      },
+      {
+       "score": "0-1",
+       "count": 13
+      },
+      {
+       "score": "0-2",
+       "count": 11
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "FRA"
+    ],
+    "semifinals": [
+     "GER",
+     "ESP",
+     "ARG",
+     "FRA"
+    ],
+    "sikajengi": "ALG",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [
+     "mm2018"
+    ],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ARG": 1,
+     "FRA": 2,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "SER": 1,
+     "WAL": 1,
+     "ALB": 1,
+     "ALG": 1
+    },
+    "goalscorerPicks": {
+     "messi": 1,
+     "kane": 1,
+     "mbabbe": 1,
+     "mbappe": 1
+    },
+    "avgRank": 6,
+    "bestRank": 2,
+    "worstRank": 11,
+    "participations": 4
+   }
+  },
+  "LEKA": {
+   "name": "LEKA",
+   "tournaments": [
+    {
+     "id": "em2021",
+     "rank": 21,
+     "of": 22,
+     "points": 45,
+     "hits": {
+      "exact": 1,
+      "outcome": 13,
+      "miss": 22
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.06,
+      "homeWinsPct": 42,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 9
+       },
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "0-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "ENG",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Benzema",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 22,
+     "goalsPerMatch": 2.26,
+     "homeWinsPct": 46,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "1-1",
+       "count": 16
+      },
+      {
+       "score": "1-0",
+       "count": 11
+      },
+      {
+       "score": "2-0",
+       "count": 10
+      }
+     ]
+    },
+    "champion": "ARG",
+    "final": [
+     "ESP",
+     "ARG"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "BRA",
+     "ARG"
+    ],
+    "sikajengi": "TUR",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "FRA": 1,
+     "ARG": 1
+    },
+    "sikaPicks": {
+     "ENG": 1,
+     "TUR": 1
+    },
+    "goalscorerPicks": {
+     "benzema": 1,
+     "mbappe": 1
+    },
+    "avgRank": 21,
+    "bestRank": 21,
+    "worstRank": 21,
+    "participations": 2
+   }
+  },
+  "Lonnmark": {
+   "name": "Lonnmark",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 5,
+     "of": 20,
+     "points": 65,
+     "hits": {
+      "exact": 6,
+      "outcome": 19,
+      "miss": 23
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 48,
+      "drawsPct": 23,
+      "goalsPerMatch": 1.58,
+      "homeWinsPct": 42,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 12
+       },
+       {
+        "score": "0-1",
+        "count": 11
+       },
+       {
+        "score": "1-1",
+        "count": 8
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BEL",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "BRA",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Neymar",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 8,
+     "of": 22,
+     "points": 63,
+     "hits": {
+      "exact": 2,
+      "outcome": 19,
+      "miss": 15
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 1.89,
+      "homeWinsPct": 56,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 11
+       },
+       {
+        "score": "2-1",
+        "count": 7
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAC",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 3,
+     "of": 20,
+     "points": 70,
+     "hits": {
+      "exact": 7,
+      "outcome": 9,
+      "miss": 20
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.5,
+      "homeWinsPct": 39,
+      "awayWinsPct": 44,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 11
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 18,
+     "goalsPerMatch": 2.1,
+     "homeWinsPct": 53,
+     "awayWinsPct": 29,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 16
+      },
+      {
+       "score": "0-2",
+       "count": 14
+      },
+      {
+       "score": "1-1",
+       "count": 12
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "ARG"
+    ],
+    "semifinals": [
+     "ESP",
+     "FRA",
+     "ARG",
+     "BRA"
+    ],
+    "sikajengi": "QAT",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": [
+     "em2024"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "BEL": 1,
+     "FRA": 1,
+     "ENG": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "BRA": 1,
+     "MAC": 1,
+     "SER": 1,
+     "QAT": 1
+    },
+    "goalscorerPicks": {
+     "neymar": 1,
+     "mbappe": 2,
+     "kane": 1
+    },
+    "avgRank": 5.3,
+    "bestRank": 3,
+    "worstRank": 8,
+    "participations": 4
+   }
+  },
+  "Pietari": {
+   "name": "Pietari",
+   "tournaments": [
+    {
+     "id": "em2021",
+     "rank": 18,
+     "of": 22,
+     "points": 48,
+     "hits": {
+      "exact": 2,
+      "outcome": 17,
+      "miss": 17
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 8,
+      "goalsPerMatch": 2.53,
+      "homeWinsPct": 58,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 11
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       },
+       {
+        "score": "0-3",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "FRA",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Benzema",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 13,
+     "goalsPerMatch": 2.31,
+     "homeWinsPct": 53,
+     "awayWinsPct": 35,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 13
+      },
+      {
+       "score": "2-1",
+       "count": 10
+      },
+      {
+       "score": "0-1",
+       "count": 8
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "ENG",
+     "FRA"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "ARG"
+    ],
+    "sikajengi": "URU",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "FRA": 2
+    },
+    "sikaPicks": {
+     "FRA": 1,
+     "URU": 1
+    },
+    "goalscorerPicks": {
+     "benzema": 1,
+     "kane": 1
+    },
+    "avgRank": 18,
+    "bestRank": 18,
+    "worstRank": 18,
+    "participations": 2
+   }
+  },
+  "Martti": {
+   "name": "Martti",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 5,
+     "of": 20,
+     "points": 65,
+     "hits": {
+      "exact": 5,
+      "outcome": 22,
+      "miss": 21
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 48,
+      "drawsPct": 19,
+      "goalsPerMatch": 2.56,
+      "homeWinsPct": 44,
+      "awayWinsPct": 38,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "1-2",
+        "count": 9
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BEL",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAR",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Neymar",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 4,
+     "of": 22,
+     "points": 67,
+     "hits": {
+      "exact": 3,
+      "outcome": 17,
+      "miss": 16
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 6,
+      "goalsPerMatch": 2.5,
+      "homeWinsPct": 61,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 10
+       },
+       {
+        "score": "2-0",
+        "count": 8
+       },
+       {
+        "score": "1-2",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 5,
+     "of": 20,
+     "points": 68,
+     "hits": {
+      "exact": 5,
+      "outcome": 11,
+      "miss": 20
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 8,
+      "goalsPerMatch": 2.67,
+      "homeWinsPct": 50,
+      "awayWinsPct": 42,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 8
+       },
+       {
+        "score": "1-2",
+        "count": 6
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 14,
+     "goalsPerMatch": 2.57,
+     "homeWinsPct": 54,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "2-1",
+       "count": 16
+      },
+      {
+       "score": "2-0",
+       "count": 13
+      },
+      {
+       "score": "1-2",
+       "count": 9
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "ENG"
+    ],
+    "semifinals": [
+     "BRA",
+     "ESP",
+     "ENG",
+     "URU"
+    ],
+    "sikajengi": "TUR",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "BEL": 1,
+     "GER": 1,
+     "FRA": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "MAR": 1,
+     "TUR": 3
+    },
+    "goalscorerPicks": {
+     "neymar": 1,
+     "kane": 2,
+     "mbappe": 1
+    },
+    "avgRank": 4.7,
+    "bestRank": 4,
+    "worstRank": 5,
+    "participations": 4
+   }
+  },
+  "Willari": {
+   "name": "Willari",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 4,
+     "of": 14,
+     "points": 67,
+     "hits": {
+      "exact": 5,
+      "outcome": 12,
+      "miss": 19
+     },
+     "soloPicks": 7,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 2.33,
+      "homeWinsPct": 50,
+      "awayWinsPct": 22,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "2-0",
+        "count": 5
+       },
+       {
+        "score": "2-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "ROM",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": true
+     },
+     "goalscorer": {
+      "pick": "GIROUD",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 20,
+     "of": 20,
+     "points": 53,
+     "hits": {
+      "exact": 3,
+      "outcome": 21,
+      "miss": 24
+     },
+     "soloPicks": 8,
+     "style": {
+      "matches": 48,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.58,
+      "homeWinsPct": 46,
+      "awayWinsPct": 29,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 12
+       },
+       {
+        "score": "3-0",
+        "count": 8
+       },
+       {
+        "score": "2-1",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "SER",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Messi",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 12,
+     "of": 22,
+     "points": 57,
+     "hits": {
+      "exact": 3,
+      "outcome": 20,
+      "miss": 13
+     },
+     "soloPicks": 3,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 2.22,
+      "homeWinsPct": 47,
+      "awayWinsPct": 25,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 8
+       },
+       {
+        "score": "2-1",
+        "count": 7
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "HUN",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MBappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 10,
+     "of": 20,
+     "points": 62,
+     "hits": {
+      "exact": 6,
+      "outcome": 11,
+      "miss": 19
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 2.47,
+      "homeWinsPct": 36,
+      "awayWinsPct": 36,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 10
+       },
+       {
+        "score": "2-0",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "POL",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 14,
+     "goalsPerMatch": 2.5,
+     "homeWinsPct": 57,
+     "awayWinsPct": 29,
+     "favScorelines": [
+      {
+       "score": "2-1",
+       "count": 12
+      },
+      {
+       "score": "2-0",
+       "count": 11
+      },
+      {
+       "score": "1-1",
+       "count": 9
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "BRA",
+     "ESP"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ARG",
+     "BRA"
+    ],
+    "sikajengi": "CRO",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [
+     "em2012"
+    ],
+    "silver": [],
+    "bronze": [
+     "mm2014"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "GER": 2,
+     "FRA": 2,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "ROM": 1,
+     "SER": 1,
+     "HUN": 1,
+     "POL": 1,
+     "CRO": 1
+    },
+    "goalscorerPicks": {
+     "giroud": 1,
+     "messi": 1,
+     "mbappe": 3
+    },
+    "avgRank": 11.5,
+    "bestRank": 4,
+    "worstRank": 20,
+    "participations": 5
+   }
+  },
+  "Pele": {
+   "name": "Pele",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 6,
+     "of": 14,
+     "points": 62,
+     "hits": {
+      "exact": 5,
+      "outcome": 11,
+      "miss": 20
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 19,
+      "goalsPerMatch": 1.42,
+      "homeWinsPct": 50,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 9
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       },
+       {
+        "score": "0-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ESP",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UNK",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MULLER",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 9,
+     "of": 20,
+     "points": 62,
+     "hits": {
+      "exact": 7,
+      "outcome": 15,
+      "miss": 26
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 48,
+      "drawsPct": 27,
+      "goalsPerMatch": 1.6,
+      "homeWinsPct": 42,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 12
+       },
+       {
+        "score": "1-1",
+        "count": 11
+       },
+       {
+        "score": "0-1",
+        "count": 9
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BRA",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "COS",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Messi",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 3,
+     "of": 22,
+     "points": 71,
+     "hits": {
+      "exact": 6,
+      "outcome": 15,
+      "miss": 15
+     },
+     "soloPicks": 0,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 1.72,
+      "homeWinsPct": 53,
+      "awayWinsPct": 36,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 9
+       },
+       {
+        "score": "1-0",
+        "count": 8
+       },
+       {
+        "score": "0-1",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAC",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 3,
+     "of": 20,
+     "points": 70,
+     "hits": {
+      "exact": 6,
+      "outcome": 13,
+      "miss": 17
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 39,
+      "goalsPerMatch": 1.72,
+      "homeWinsPct": 31,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 14
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       },
+       {
+        "score": "0-1",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbabbe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 0,
+     "goalsPerMatch": 1.64,
+     "homeWinsPct": 63,
+     "awayWinsPct": 38,
+     "favScorelines": [
+      {
+       "score": "1-0",
+       "count": 23
+      },
+      {
+       "score": "0-1",
+       "count": 14
+      },
+      {
+       "score": "0-2",
+       "count": 12
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "ENG"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "ARG"
+    ],
+    "sikajengi": "KSA",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [
+     "mm2006",
+     "mm2014"
+    ],
+    "silver": [],
+    "bronze": [
+     "em2008",
+     "em2021",
+     "em2024"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "ESP": 1,
+     "BRA": 1,
+     "FRA": 2,
+     "ENG": 1
+    },
+    "sikaPicks": {
+     "UNK": 1,
+     "COS": 1,
+     "MAC": 1,
+     "TUR": 1,
+     "KSA": 1
+    },
+    "goalscorerPicks": {
+     "muller": 1,
+     "messi": 1,
+     "kane": 1,
+     "mbabbe": 1,
+     "mbappe": 1
+    },
+    "avgRank": 5.3,
+    "bestRank": 3,
+    "worstRank": 9,
+    "participations": 5
+   }
+  },
+  "Saku": {
+   "name": "Saku",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 3,
+     "of": 14,
+     "points": 68,
+     "hits": {
+      "exact": 6,
+      "outcome": 17,
+      "miss": 13
+     },
+     "soloPicks": 13,
+     "style": {
+      "matches": 36,
+      "drawsPct": 36,
+      "goalsPerMatch": 2.44,
+      "homeWinsPct": 33,
+      "awayWinsPct": 31,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       },
+       {
+        "score": "2-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "GER",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UKR",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "LEWANDOWSKI",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 19,
+     "of": 20,
+     "points": 54,
+     "hits": {
+      "exact": 4,
+      "outcome": 20,
+      "miss": 24
+     },
+     "soloPicks": 8,
+     "style": {
+      "matches": 48,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.44,
+      "homeWinsPct": 48,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 8
+       },
+       {
+        "score": "2-1",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ESP",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "NIG",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mitrovic",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 10,
+     "of": 22,
+     "points": 62,
+     "hits": {
+      "exact": 4,
+      "outcome": 15,
+      "miss": 17
+     },
+     "soloPicks": 7,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 2.19,
+      "homeWinsPct": 50,
+      "awayWinsPct": 22,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 6
+       },
+       {
+        "score": "1-0",
+        "count": 6
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BELGIA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAC",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Lukaku",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 13,
+     "of": 20,
+     "points": 60,
+     "hits": {
+      "exact": 3,
+      "outcome": 19,
+      "miss": 14
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 28,
+      "goalsPerMatch": 2.22,
+      "homeWinsPct": 33,
+      "awayWinsPct": 39,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 6
+       },
+       {
+        "score": "0-1",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "GEO",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 14,
+     "goalsPerMatch": 2.36,
+     "homeWinsPct": 54,
+     "awayWinsPct": 32,
+     "favScorelines": [
+      {
+       "score": "1-0",
+       "count": 13
+      },
+      {
+       "score": "1-1",
+       "count": 9
+      },
+      {
+       "score": "2-1",
+       "count": 9
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "POR"
+    ],
+    "semifinals": [
+     "FRA",
+     "ESP",
+     "ENG",
+     "POR"
+    ],
+    "sikajengi": "ALG",
+    "goalscorer": "Haaland"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": [
+     "em2016"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "GER": 1,
+     "ESP": 1,
+     "BELGIA": 1,
+     "FRA": 2
+    },
+    "sikaPicks": {
+     "UKR": 1,
+     "NIG": 1,
+     "MAC": 1,
+     "GEO": 1,
+     "ALG": 1
+    },
+    "goalscorerPicks": {
+     "lewandowski": 1,
+     "mitrovic": 1,
+     "lukaku": 1,
+     "mbappe": 1,
+     "haaland": 1
+    },
+    "avgRank": 11.3,
+    "bestRank": 3,
+    "worstRank": 19,
+    "participations": 5
+   }
+  },
+  "Sampo": {
+   "name": "Sampo",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 10,
+     "of": 14,
+     "points": 56,
+     "hits": {
+      "exact": 7,
+      "outcome": 10,
+      "miss": 19
+     },
+     "soloPicks": 6,
+     "style": {
+      "matches": 36,
+      "drawsPct": 36,
+      "goalsPerMatch": 2.33,
+      "homeWinsPct": 42,
+      "awayWinsPct": 22,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 10
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       },
+       {
+        "score": "2-1",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ITA",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "KRO",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MORATA",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 15,
+     "of": 22,
+     "points": 52,
+     "hits": {
+      "exact": 2,
+      "outcome": 12,
+      "miss": 22
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 36,
+      "goalsPerMatch": 2.47,
+      "homeWinsPct": 39,
+      "awayWinsPct": 25,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 11
+       },
+       {
+        "score": "2-0",
+        "count": 5
+       },
+       {
+        "score": "1-2",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAC",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 16,
+     "of": 20,
+     "points": 58,
+     "hits": {
+      "exact": 1,
+      "outcome": 15,
+      "miss": 20
+     },
+     "soloPicks": 11,
+     "style": {
+      "matches": 36,
+      "drawsPct": 33,
+      "goalsPerMatch": 2.69,
+      "homeWinsPct": 33,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 7
+       },
+       {
+        "score": "2-2",
+        "count": 5
+       },
+       {
+        "score": "1-0",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "GEO",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 24,
+     "goalsPerMatch": 2.19,
+     "homeWinsPct": 49,
+     "awayWinsPct": 28,
+     "favScorelines": [
+      {
+       "score": "1-1",
+       "count": 17
+      },
+      {
+       "score": "2-0",
+       "count": 15
+      },
+      {
+       "score": "0-2",
+       "count": 10
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "ESP",
+     "FRA"
+    ],
+    "semifinals": [
+     "ESP",
+     "FRA",
+     "ARG",
+     "COL"
+    ],
+    "sikajengi": "URU",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "ITA": 1,
+     "FRA": 1,
+     "ENG": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "KRO": 1,
+     "MAC": 1,
+     "GEO": 1,
+     "URU": 1
+    },
+    "goalscorerPicks": {
+     "morata": 1,
+     "kane": 2,
+     "mbappe": 1
+    },
+    "avgRank": 13.7,
+    "bestRank": 10,
+    "worstRank": 16,
+    "participations": 4
+   }
+  },
+  "Tarhonen": {
+   "name": "Tarhonen",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 8,
+     "of": 14,
+     "points": 58,
+     "hits": {
+      "exact": 5,
+      "outcome": 10,
+      "miss": 21
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 8,
+      "goalsPerMatch": 1.75,
+      "homeWinsPct": 56,
+      "awayWinsPct": 36,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 9
+       },
+       {
+        "score": "1-0",
+        "count": 8
+       },
+       {
+        "score": "0-1",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UNK",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MULLER",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "mm2018",
+     "rank": 1,
+     "of": 20,
+     "points": 71,
+     "hits": {
+      "exact": 5,
+      "outcome": 22,
+      "miss": 21
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 48,
+      "drawsPct": 13,
+      "goalsPerMatch": 2.73,
+      "homeWinsPct": 52,
+      "awayWinsPct": 35,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 11
+       },
+       {
+        "score": "1-2",
+        "count": 10
+       },
+       {
+        "score": "2-0",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "FRA",
+      "correct": true
+     },
+     "sikajengi": {
+      "pick": "AUS",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Messi",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 4,
+     "of": 22,
+     "points": 67,
+     "hits": {
+      "exact": 4,
+      "outcome": 13,
+      "miss": 19
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.28,
+      "homeWinsPct": 47,
+      "awayWinsPct": 28,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 9
+       },
+       {
+        "score": "2-1",
+        "count": 7
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAC",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Kane",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 11,
+     "of": 20,
+     "points": 61,
+     "hits": {
+      "exact": 3,
+      "outcome": 13,
+      "miss": 20
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 25,
+      "goalsPerMatch": 3.06,
+      "homeWinsPct": 33,
+      "awayWinsPct": 42,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 8
+       },
+       {
+        "score": "2-1",
+        "count": 5
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "ENG",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UKR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 19,
+     "goalsPerMatch": 2.49,
+     "homeWinsPct": 51,
+     "awayWinsPct": 29,
+     "favScorelines": [
+      {
+       "score": "2-1",
+       "count": 14
+      },
+      {
+       "score": "1-1",
+       "count": 13
+      },
+      {
+       "score": "2-0",
+       "count": 12
+      }
+     ]
+    },
+    "champion": "ESP",
+    "final": [
+     "FRA",
+     "ESP"
+    ],
+    "semifinals": [
+     "BRA",
+     "ESP",
+     "FRA",
+     "NED"
+    ],
+    "sikajengi": "TUR",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [
+     "em2008",
+     "mm2018"
+    ],
+    "silver": [],
+    "bronze": []
+   },
+   "tendencies": {
+    "championPicks": {
+     "FRA": 3,
+     "ENG": 1,
+     "ESP": 1
+    },
+    "sikaPicks": {
+     "UNK": 1,
+     "AUS": 1,
+     "MAC": 1,
+     "UKR": 1,
+     "TUR": 1
+    },
+    "goalscorerPicks": {
+     "muller": 1,
+     "messi": 1,
+     "kane": 1,
+     "mbappe": 2
+    },
+    "avgRank": 6,
+    "bestRank": 1,
+    "worstRank": 11,
+    "participations": 5
+   }
+  },
+  "AleksiTo": {
+   "name": "AleksiTo",
+   "tournaments": [
+    {
+     "id": "em2016",
+     "rank": 7,
+     "of": 14,
+     "points": 60,
+     "hits": {
+      "exact": 4,
+      "outcome": 12,
+      "miss": 20
+     },
+     "soloPicks": 5,
+     "style": {
+      "matches": 36,
+      "drawsPct": 22,
+      "goalsPerMatch": 1.97,
+      "homeWinsPct": 50,
+      "awayWinsPct": 28,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 8
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       },
+       {
+        "score": "3-0",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "POR",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UKR",
+      "actual": [
+       "ROM",
+       "ALB"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MULLER",
+      "actual": "GRIEZMANN",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2021",
+     "rank": 6,
+     "of": 22,
+     "points": 65,
+     "hits": {
+      "exact": 6,
+      "outcome": 13,
+      "miss": 17
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 17,
+      "goalsPerMatch": 1.33,
+      "homeWinsPct": 50,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "1-0",
+        "count": 15
+       },
+       {
+        "score": "0-1",
+        "count": 7
+       },
+       {
+        "score": "1-1",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "UKR",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 7,
+     "of": 20,
+     "points": 66,
+     "hits": {
+      "exact": 7,
+      "outcome": 12,
+      "miss": 17
+     },
+     "soloPicks": 1,
+     "style": {
+      "matches": 36,
+      "drawsPct": 11,
+      "goalsPerMatch": 2.89,
+      "homeWinsPct": 42,
+      "awayWinsPct": 47,
+      "favScorelines": [
+       {
+        "score": "1-2",
+        "count": 12
+       },
+       {
+        "score": "3-1",
+        "count": 4
+       },
+       {
+        "score": "2-0",
+        "count": 4
+       }
+      ]
+     },
+     "champion": {
+      "pick": "FRA",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappé",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 21,
+     "goalsPerMatch": 2.29,
+     "homeWinsPct": 50,
+     "awayWinsPct": 29,
+     "favScorelines": [
+      {
+       "score": "2-0",
+       "count": 16
+      },
+      {
+       "score": "1-1",
+       "count": 15
+      },
+      {
+       "score": "2-1",
+       "count": 13
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "ARG"
+    ],
+    "semifinals": [
+     "ESP",
+     "ARG",
+     "FRA",
+     "BRA"
+    ],
+    "sikajengi": "KSA",
+    "goalscorer": "Mbappe"
+   },
+   "medals": {
+    "gold": [
+     "em2012"
+    ],
+    "silver": [],
+    "bronze": [
+     "mm2014"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "FRA": 4
+    },
+    "sikaPicks": {
+     "UKR": 2,
+     "TUR": 1,
+     "KSA": 1
+    },
+    "goalscorerPicks": {
+     "muller": 1,
+     "mbappe": 3
+    },
+    "avgRank": 6.7,
+    "bestRank": 6,
+    "worstRank": 7,
+    "participations": 4
+   }
+  },
+  "TommiT": {
+   "name": "TommiT",
+   "tournaments": [
+    {
+     "id": "mm2018",
+     "rank": 16,
+     "of": 20,
+     "points": 58,
+     "hits": {
+      "exact": 4,
+      "outcome": 19,
+      "miss": 25
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 48,
+      "drawsPct": 25,
+      "goalsPerMatch": 2.33,
+      "homeWinsPct": 42,
+      "awayWinsPct": 33,
+      "favScorelines": [
+       {
+        "score": "1-1",
+        "count": 7
+       },
+       {
+        "score": "1-2",
+        "count": 7
+       },
+       {
+        "score": "2-1",
+        "count": 6
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BEL",
+      "actual": "FRA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "MAR",
+      "actual": [
+       "PAN"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "MESSI",
+      "actual": "Kane",
+      "correct": false
+     }
+    },
+    {
+     "id": "em2024",
+     "rank": 11,
+     "of": 20,
+     "points": 61,
+     "hits": {
+      "exact": 2,
+      "outcome": 15,
+      "miss": 19
+     },
+     "soloPicks": 4,
+     "style": {
+      "matches": 36,
+      "drawsPct": 6,
+      "goalsPerMatch": 2.17,
+      "homeWinsPct": 47,
+      "awayWinsPct": 47,
+      "favScorelines": [
+       {
+        "score": "2-0",
+        "count": 9
+       },
+       {
+        "score": "1-2",
+        "count": 8
+       },
+       {
+        "score": "0-2",
+        "count": 7
+       }
+      ]
+     },
+     "champion": {
+      "pick": "NED",
+      "actual": "ESP",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "AUT",
+      "actual": [
+       "CZE"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    }
+   ],
+   "current": {
+    "id": "mm2026",
+    "style": {
+     "matches": 72,
+     "drawsPct": 22,
+     "goalsPerMatch": 2.54,
+     "homeWinsPct": 49,
+     "awayWinsPct": 29,
+     "favScorelines": [
+      {
+       "score": "1-1",
+       "count": 15
+      },
+      {
+       "score": "2-0",
+       "count": 14
+      },
+      {
+       "score": "2-1",
+       "count": 12
+      }
+     ]
+    },
+    "champion": "FRA",
+    "final": [
+     "FRA",
+     "ENG"
+    ],
+    "semifinals": [
+     "GER",
+     "FRA",
+     "ESP",
+     "ENG"
+    ],
+    "sikajengi": "KSA",
+    "goalscorer": "Kane"
+   },
+   "medals": {
+    "gold": [],
+    "silver": [],
+    "bronze": [
+     "em2008"
+    ]
+   },
+   "tendencies": {
+    "championPicks": {
+     "BEL": 1,
+     "NED": 1,
+     "FRA": 1
+    },
+    "sikaPicks": {
+     "MAR": 1,
+     "AUT": 1,
+     "KSA": 1
+    },
+    "goalscorerPicks": {
+     "messi": 1,
+     "mbappe": 1,
+     "kane": 1
+    },
+    "avgRank": 13.5,
+    "bestRank": 11,
+    "worstRank": 16,
+    "participations": 3
+   }
+  }
+ }
+}
