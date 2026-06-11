@@ -80,6 +80,16 @@ ja osoita `DATA_URL` uuden turnauksen data-repoon.
 
 tolvanen.dev-infra: `C:\s\r\docs\servers\tolvanen-dev`.
 
+## EHDOTON SÄÄNTÖ: yksityisyys
+
+Veikkaajien **koko nimiä (etunimi + sukunimi) ei käytetä koskaan** missään, mikä
+päätyy julkiseksi: ei sivulle, analyyseihin, AI-digestteihin, commit-viesteihin
+eikä julkisiin repoihin (tämä repo ja data-repo ovat julkisia!). Käytä aina
+lyhytnimiä/lempinimiä (predictions.json-avaimet). Historialliset Excelit
+sisältävät koko nimiä sarakkeissa/tiedostonimissä → raakoja Exceleitä ei
+laiteta julkisiin repoihin; julkaistaviin muotoihin sovelletaan alias-karttaa,
+joka korvaa kaikki nimet lyhytnimillä.
+
 ## Sudenkuopat (lue ennen muokkausta)
 
 - **CLIENT on `String.raw`-templaatti `site.mjs`:ssä** (inlinoidaan HTML:ään): **ei
