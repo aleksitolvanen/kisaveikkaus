@@ -4267,6 +4267,56 @@
      }
     },
     {
+     "id": "em2021",
+     "rank": 12,
+     "of": 22,
+     "points": 57,
+     "hits": {
+      "exact": 2,
+      "outcome": 20,
+      "miss": 14
+     },
+     "soloPicks": 2,
+     "style": {
+      "matches": 36,
+      "drawsPct": 17,
+      "goalsPerMatch": 2.28,
+      "homeWinsPct": 44,
+      "awayWinsPct": 39,
+      "favScorelines": [
+       {
+        "score": "2-1",
+        "count": 6
+       },
+       {
+        "score": "2-0",
+        "count": 6
+       },
+       {
+        "score": "1-2",
+        "count": 5
+       }
+      ]
+     },
+     "champion": {
+      "pick": "BEL",
+      "actual": "ITA",
+      "correct": false
+     },
+     "sikajengi": {
+      "pick": "TUR",
+      "actual": [
+       "POL"
+      ],
+      "correct": false
+     },
+     "goalscorer": {
+      "pick": "Mbappe",
+      "actual": null,
+      "correct": false
+     }
+    },
+    {
      "id": "em2024",
      "rank": 11,
      "of": 20,
@@ -4363,24 +4413,25 @@
    },
    "tendencies": {
     "championPicks": {
-     "BEL": 1,
+     "BEL": 2,
      "NED": 1,
      "FRA": 1
     },
     "sikaPicks": {
      "MAR": 1,
+     "TUR": 1,
      "AUT": 1,
      "KSA": 1
     },
     "goalscorerPicks": {
      "messi": 1,
-     "mbappe": 1,
+     "mbappe": 2,
      "kane": 1
     },
-    "avgRank": 13.5,
+    "avgRank": 13,
     "bestRank": 11,
     "worstRank": 16,
-    "participations": 3
+    "participations": 4
    }
   }
  }
