@@ -16,6 +16,13 @@
   --muted:#9aa3b2;--accent:#3ea6ff;--gold:#ffd24a;--good:#46c46b;--mid:#e0b341;}
 *{box-sizing:border-box;margin:0;padding:0}
 button,.chip,.ftoggle,.blab{touch-action:manipulation}
+/* ohuet tummat scrollbarit + tilanvaraus, etteivät ne peitä sisältöä */
+*{scrollbar-width:thin;scrollbar-color:#3a4150 transparent}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#3a4150;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#4a5366}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-corner{background:transparent}
 html{-webkit-text-size-adjust:100%}
 html{height:100%}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -27,7 +34,8 @@ nav button{flex:1;padding:8px 6px;border:1px solid var(--line);background:var(--
 nav button.active{background:var(--accent);border-color:var(--accent);color:#04121f}
 main{flex:1 1 auto;min-height:0;padding:4px 12px;display:flex;flex-direction:column}
 .view{display:none;min-height:0}
-.view.active{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:auto}
+.view.active{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:auto;
+  scrollbar-gutter:stable;padding-right:2px}
 #view-predictions.active{overflow:hidden}
 #predictions{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
 /* filtteri (kokoontaitettava) */
