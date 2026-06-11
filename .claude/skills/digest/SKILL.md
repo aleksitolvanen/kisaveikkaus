@@ -69,6 +69,27 @@ lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän su
 -badget, väliaikakatsaus ("viikko takana"), tilastonosto, erikoispäivävariantti.
 Käyttäjä päättää otetaanko mukaan.
 
+## 3b. Roast-kuva (valinnainen)
+
+Tarjoa tekstien yhteydessä **valmis kuvaprompti** päivän parhaasta visuaalisesta
+kulmasta. Käyttäjä generoi kuvan ChatGPT:llä ja tallentaa `tmp/`-kansioon —
+jos hän ei jaksa, digest julkaistaan ilman kuvaa (image-kenttä on valinnainen).
+
+Promptin lukittu tyylirunko (vaihda vain kohtauskuvaus):
+
+```
+Editorial sports illustration, dark moody comic style. [KOHTAUS PÄIVÄN
+PARHAASTA ROAST-KULMASTA — liioitellut karikatyyri-ilmeet, satiirinen ote].
+Dramatic stadium floodlights, deep navy and gold color palette with vivid red
+accents, exaggerated caricature expressions, satirical tone, high detail,
+cinematic lighting, wide 3:2 landscape composition. No text or numbers
+anywhere in the image.
+```
+
+Kun kuva on `tmp/`-kansiossa: pakkaa se Playwright-canvasilla 1200 px leveäksi
+jpeg:ksi (laatu 0.82) → `site/digest/<futispäivä>.jpg`, ja lisää digestiin
+`"image": "digest/<futispäivä>.jpg"`. Kuva renderöityy roast-tekstin perään.
+
 ## 4. Hyväksyntä (PAKOLLINEN portti)
 
 Näytä molemmat tekstit (+ mahdolliset lisäehdotukset) käyttäjälle chatissa.
