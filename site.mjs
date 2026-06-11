@@ -183,6 +183,8 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .asec h3{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--accent);margin:0 2px 9px;font-weight:700}
 .cmpsel{display:flex;gap:8px;margin-bottom:10px}
 .cmpsel select{flex:1;padding:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:9px;font-size:14px}
+.daysel{margin-bottom:10px}
+.daysel select{width:auto;max-width:100%;padding:7px 10px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:9px;font-size:13px}
 .pos{color:var(--good);font-weight:700}.neg{color:#e2706e;font-weight:700}
 .elim{color:var(--muted);text-decoration:line-through}
 .chartbox{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 6px 4px}
@@ -955,7 +957,7 @@ function renderDigests(box){
       holder.appendChild(r);
     }
   }
-  var sr=el('div','cmpsel');
+  var sr=el('div','daysel');
   var sel=document.createElement('select');
   days.slice().reverse().forEach(function(day){
     var o=document.createElement('option'); o.value=day;
