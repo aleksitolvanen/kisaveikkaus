@@ -57,6 +57,9 @@ function buildBracket(knockout) {
 // Pelaajakortit (AI-syväanalyysit) jos generoitu — staattista sisältöä, upotetaan buildissa.
 let playercards = null;
 try { playercards = JSON.parse(readFileSync(path.join(dir, "playercards.json"), "utf-8")); } catch {}
+// Päivän katsaukset + roastit (AI-generoitu per pelipäivä)
+let digests = null;
+try { digests = JSON.parse(readFileSync(path.join(dir, "digests.json"), "utf-8")); } catch {}
 
 // Demo-buildi = paikallinen results.json sisältää dataa (tuotannossa tyhjä).
 // Demo ei pollaa (random-results-kokeilut eivät ylikirjoitu); tuotantobuildi
@@ -64,7 +67,7 @@ try { playercards = JSON.parse(readFileSync(path.join(dir, "playercards.json"), 
 const demo = Object.keys(results.matches || {}).length > 0;
 
 const KV = jsonBlob({ tournament, predictions, results, bracket: buildBracket(tournament.knockout),
-  bracketUrl: tournament.bracketUrl || null, playercards, demo });
+  bracketUrl: tournament.bracketUrl || null, playercards, digests, demo });
 
 const CSS = `
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
@@ -238,6 +241,9 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .legsw{width:12px;height:3px;border-radius:2px;display:inline-block}
 .aigen{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;font-size:11px;margin-left:8px}
 .pcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin-top:4px}
+.pcard.roastcard{margin-top:10px;border-color:#5a3038;
+  background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
+.pcard.roastcard .pchead{color:#e2706e}
 .pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
 .pctext{font-size:13.5px;line-height:1.55;white-space:pre-line}
 .wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
@@ -850,6 +856,7 @@ function renderAnalytics(){
   var phase = und.length ? 'lohkovaihe kesken' : (cupUnd.length ? 'cup-vaihe kesken' : 'cup ratkennut');
   box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
     phase+(sikaUnd?' · sikajengi auki':'')));
+  renderDigests(box);
   if(hasResults()) box.appendChild(renderTimeChart());
   var bk=renderBracket(); if(bk) box.appendChild(bk);
   if(!hasResults()){ renderAnalyticsPre(box); return; }
@@ -917,9 +924,52 @@ function renderWildest(box, hintText){
 // Ennen ensimmäisiä tuloksia: vain veikkauksista laskettava sisältö (villeimmät
 // veikkaukset); pistetaulukot ja vertailut ilmestyvät kun jotain on ratkennut.
 function renderAnalyticsPre(box){
+  renderDigests(box);
   renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset. Lisää analytiikkaa ilmestyy kun tuloksia alkaa kertyä.');
   renderPlayerCards(box);
   trackScroll($('#view-analytics'),'analytics');
+}
+// Päivän katsaus + roast: päivävalitsin, oletuksena uusin pelipäivä.
+function renderDigests(box){
+  var dg = KV.digests && KV.digests.days;
+  if(!dg) return;
+  var days = Object.keys(dg).sort();
+  if(!days.length) return;
+  if(!state.digestDay || days.indexOf(state.digestDay)<0) state.digestDay = days[days.length-1];
+  var s=el('div','asec');
+  var h=el('h3',null,'Päivän katsaus'); h.appendChild(el('span','aigen','AI-generoitu'));
+  s.appendChild(h);
+  var holder=el('div');
+  function draw(){
+    holder.innerHTML='';
+    var d=dg[state.digestDay];
+    if(!d) return;
+    var k=el('div','pcard');
+    k.appendChild(el('div','pchead','📋 Katsaus · '+(d.label||state.digestDay)));
+    k.appendChild(el('div','pctext',d.katsaus||''));
+    holder.appendChild(k);
+    if(d.roast){
+      var r=el('div','pcard roastcard');
+      r.appendChild(el('div','pchead','🔥 Päivän roast'));
+      r.appendChild(el('div','pctext',d.roast));
+      holder.appendChild(r);
+    }
+  }
+  if(days.length>1){
+    var sr=el('div','cmpsel');
+    var sel=document.createElement('select');
+    days.slice().reverse().forEach(function(day){
+      var o=document.createElement('option'); o.value=day;
+      o.textContent=(dg[day].label||day);
+      if(day===state.digestDay) o.selected=true;
+      sel.appendChild(o);
+    });
+    sel.onchange=function(){ state.digestDay=sel.value; draw(); };
+    sr.appendChild(sel); s.appendChild(sr);
+  }
+  s.appendChild(holder);
+  draw();
+  box.appendChild(s);
 }
 // Pelaajakortit: dropdownista valitaan veikkaaja, kortti sen alle.
 function renderPlayerCards(box){
