@@ -145,7 +145,11 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .matrix td.actual{color:var(--muted);font-size:11px;font-weight:400}
 .msub{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:14px 2px 5px}
 .mutwrap{flex:1 1 auto;min-height:0;overflow:auto}
-.mutrow{display:flex;justify-content:space-between;gap:10px;padding:7px 6px;border-bottom:1px solid var(--line)}
+.mutrow{display:grid;grid-template-columns:minmax(72px,1fr) 84px minmax(120px,1.3fr);gap:10px;
+  padding:7px 6px;border-bottom:1px solid var(--line);align-items:center}
+.mutrow span:nth-child(2){text-align:center}
+.mutrow span:nth-child(3){text-align:right}
+.muthead span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
 .mutrow .nm{font-weight:600}
 .mutrow .pk{font-weight:600;color:var(--muted)}
 .mutrow .pk.pos{color:var(--good)}.mutrow .pk.neg{color:#e2706e}
@@ -412,6 +416,7 @@ function renderSchedule(){
     seg.appendChild(b);
   });
   box.appendChild(seg);
+  box.appendChild(el('div','hint','Ottelua klikkaamalla näet kaikkien veikkaukset.'));
   var list=el('div'); box.appendChild(list);
   var df=state.dayFilter, now=new Date();
   var todayK=fiDayKey(now.toISOString()), tmrK=fiDayKey(new Date(Date.now()+86400000).toISOString());
@@ -535,22 +540,25 @@ function renderPredictions(){
   var w1=buildMatrix(players, null, rows); w1.style.flex='1 1 auto'; w1.style.minHeight='0';
   box.appendChild(w1); freezeOffsets(w1); trackScroll(w1,'pred:lohko');
 }
-// Muut: sikajengi + maalintekijä yksinkertaisena listana (pelaaja → veikkaus)
+// Muut: sikajengi + maalintekijä yhtenä listana (rivi per veikkaaja)
 function renderMuutInto(box, players){
   var wrap=el('div','mutwrap'), dirty=R.dirtiestTeams||[];
-  wrap.appendChild(el('div','msub','Sikajengi'+(dirty.length?' · oikein: '+dirty.map(teamName).join(' / '):'')));
+  wrap.appendChild(el('div','msub','Sikajengi & maalintekijä'+
+    (dirty.length?' · sikajengi: '+dirty.map(teamName).join(' / '):'')));
+  var hd=el('div','mutrow muthead');
+  hd.appendChild(el('span',null,''));
+  hd.appendChild(el('span',null,'Sikajengi'));
+  hd.appendChild(el('span',null,'Maalintekijä'));
+  wrap.appendChild(hd);
   players.forEach(function(n){
-    var pred=P[n].sikajengi, row=el('div','mutrow');
+    var row=el('div','mutrow');
     row.appendChild(el('span','nm',n));
-    var pk=el('span','pk',pred||'–'); if(pred) pk.title=teamName(pred);
-    if(dirty.length&&pred) pk.className='pk '+(dirty.indexOf(pred)>=0?'pos':'neg');
-    row.appendChild(pk); wrap.appendChild(row);
-  });
-  wrap.appendChild(el('div','msub','Maalintekijä'));
-  players.forEach(function(n){
-    var pred=P[n].goalscorer, goals=(R.goals||{})[pred], row=el('div','mutrow');
-    row.appendChild(el('span','nm',n));
-    row.appendChild(el('span','pk', pred ? (pred+(goals!=null?' ('+goals+' maalia)':'')) : '–'));
+    var sp=P[n].sikajengi;
+    var pk=el('span','pk',sp||'–'); if(sp) pk.title=teamName(sp);
+    if(dirty.length&&sp) pk.className='pk '+(dirty.indexOf(sp)>=0?'pos':'neg');
+    row.appendChild(pk);
+    var gp=P[n].goalscorer, goals=(R.goals||{})[gp];
+    row.appendChild(el('span','pk', gp ? (gp+(goals!=null?' ('+goals+')':'')) : '–'));
     wrap.appendChild(row);
   });
   box.appendChild(wrap); trackScroll(wrap,'pred:muut');

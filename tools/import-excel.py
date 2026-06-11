@@ -158,12 +158,19 @@ def participant_cols(ws):
 
 
 def read_cup(ws, ranges, col):
+    # Ohita placeholder-merkinnät (N/A, -) ja poista duplikaatit (ensimmäinen
+    # jää) — sama joukkue kahdesti ei saa tuplata pisteitä.
     out = {}
     for key in ROUND_ORDER:
         r0, r1 = ranges[key]
         picks = [cellval(ws, r, col) for r in range(r0, r1 + 1)]
-        picks = [norm(x) for x in picks if x]
-        out[key] = (picks[0] if picks else None) if key == "champion" else picks
+        picks = [norm(x) for x in picks if x and str(x).strip().upper() not in ("N/A", "NA", "-", "–")]
+        seen, uniq = set(), []
+        for x in picks:
+            if x not in seen:
+                seen.add(x)
+                uniq.append(x)
+        out[key] = (uniq[0] if uniq else None) if key == "champion" else uniq
     return out
 
 
