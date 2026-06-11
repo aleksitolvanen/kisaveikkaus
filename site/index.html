@@ -1111,7 +1111,7 @@ function refreshFromServer(){
 }
 if(typeof setInterval==='function' && !KV.demo){   // demo-buildi ei pollaa (paikalliset kokeilut)
   refreshFromServer();                          // heti latauksessa (baked-data voi olla vanhaa)
-  setInterval(refreshFromServer, 60000);
+  setInterval(refreshFromServer, 30000);
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) refreshFromServer(); });
 }
 
