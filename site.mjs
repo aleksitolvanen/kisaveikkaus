@@ -136,7 +136,9 @@ table.rank-t{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nu
 .match .res.islive::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
   background:var(--good);margin-right:5px;vertical-align:1px;animation:kvpulse 1.3s ease-in-out infinite}
 @keyframes kvpulse{50%{opacity:.25}}
-.matrix td.actual.islive{font-style:italic;color:var(--good)}
+.matrix td.actual.islive{font-style:italic;color:var(--good);font-weight:700}
+.matrix td.actual.islive::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--good);margin-right:4px;vertical-align:1px;animation:kvpulse 1.3s ease-in-out infinite}
 .fifalink{justify-self:center;font-size:11px;color:var(--accent);text-decoration:none;white-space:nowrap;font-weight:600}
 .fifalink:hover{text-decoration:underline}
 .mdetail{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:5px 12px;
