@@ -22,3 +22,5 @@ Thumbs.db
 # Historialliset raaka-Excelit: sisältävät koko nimiä -> EIVÄT kuulu julkiseen
 # repoon (ks. AGENTS.md yksityisyyssääntö). Julkaistaan vain alias-mapattu JSON.
 history/
+tmp/
+/*.xlsx

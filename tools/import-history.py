@@ -39,12 +39,14 @@ CONFIGS = {
         "name_row": 1, "name_col": 7, "name_step": 2,
         "match_col": 3, "result_col": 5, "group_rows": (3, 43),
         "sika_row": 44, "gs_row": 45, "ko_rows": (48, 79),
+        "standings": (3, 4, 3),
     },
     "mm2018": {
         "file": "MM2018_Kaikki.xlsx", "year": 2018, "name": "MM2018", "scheme": "ko-winners",
         "name_row": 1, "name_col": 7, "name_step": 2,
         "match_col": 3, "result_col": 5, "group_rows": (3, 57),
         "sika_row": 58, "gs_row": 59, "ko_rows": (62, 93),
+        "standings": (3, 4, 2),
     },
     "em2021": {
         "file": "EM2021_Kaikki.xlsx", "year": 2021, "name": "EM2021", "scheme": "qualifier-sets",
@@ -53,6 +55,7 @@ CONFIGS = {
         "sika_row": 45, "gs_row": 46,
         "cup_rows": {"r16": (49, 64), "qf": (66, 73), "sf": (75, 78),
                      "final": (80, 81), "champion": (83, 83)},
+        "standings": (1, 2, 2),
     },
     "em2024": {
         "file": "EM2024_Kaikki.xlsx", "year": 2024, "name": "EM2024", "scheme": "qualifier-sets",
@@ -61,6 +64,7 @@ CONFIGS = {
         "sika_row": 47, "gs_row": 87,
         "cup_rows": {"r16": (51, 66), "qf": (68, 75), "sf": (77, 80),
                      "final": (82, 83), "champion": (85, 85)},
+        "standings": (3, 4, 3),
     },
 }
 
@@ -168,6 +172,31 @@ def import_one(tid, cfg, aliases):
         out["koPicks"] = ko
         fin = next((k for k in ko if k["label"] and "FINAALI" in k["label"].upper()), None)
         out["champion"] = {"result": fin["result"], "picks": fin["picks"]} if fin else None
+
+    # lopulliset sijoitukset Pistetilanne-välilehdeltä (kaavojen lasketut arvot)
+    if cfg.get("standings"):
+        nr, pr, c0 = cfg["standings"]
+        wbv = openpyxl.load_workbook(os.path.join(HIST, cfg["file"]), read_only=True, data_only=True)
+        psheet = next((s for s in wbv.sheetnames if "piste" in s.lower()), None)
+        if psheet:
+            wsv = wbv[psheet]
+            rows = []
+            for c in range(c0, (wsv.max_column or 60) + 1):
+                n, p = cellval(wsv, nr, c), cellval(wsv, pr, c)
+                if not n or p is None or n not in amap:
+                    continue
+                try:
+                    rows.append({"name": amap[n], "points": float(p)})
+                except ValueError:
+                    continue
+            rows.sort(key=lambda x: -x["points"])
+            rank, prev = 0, None
+            for i, row in enumerate(rows):
+                if prev is None or row["points"] != prev:
+                    rank = i + 1
+                row["rank"] = rank
+                prev = row["points"]
+            out["finalStandings"] = rows
 
     path = os.path.join(HIST, f"{tid}.json")
     with open(path, "w", encoding="utf-8") as f:
