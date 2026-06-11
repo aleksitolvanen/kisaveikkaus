@@ -58,8 +58,13 @@ function buildBracket(knockout) {
 let playercards = null;
 try { playercards = JSON.parse(readFileSync(path.join(dir, "playercards.json"), "utf-8")); } catch {}
 
+// Demo-buildi = paikallinen results.json sisältää dataa (tuotannossa tyhjä).
+// Demo ei pollaa (random-results-kokeilut eivät ylikirjoitu); tuotantobuildi
+// pollaa myös file://-protokollasta avattuna.
+const demo = Object.keys(results.matches || {}).length > 0;
+
 const KV = jsonBlob({ tournament, predictions, results, bracket: buildBracket(tournament.knockout),
-  bracketUrl: tournament.bracketUrl || null, playercards });
+  bracketUrl: tournament.bracketUrl || null, playercards, demo });
 
 const CSS = `
 :root{--bg:#0f1115;--card:#181b22;--card2:#1f232c;--line:#2a2f3a;--fg:#e8eaed;
@@ -989,7 +994,7 @@ function refreshFromServer(){
     renderSchedule(); rerender();
   }).catch(function(){});
 }
-if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:'){
+if(typeof setInterval==='function' && !KV.demo){   // demo-buildi ei pollaa (paikalliset kokeilut)
   refreshFromServer();                          // heti latauksessa (baked-data voi olla vanhaa)
   setInterval(refreshFromServer, 60000);
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) refreshFromServer(); });
