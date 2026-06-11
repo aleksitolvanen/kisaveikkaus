@@ -96,8 +96,8 @@ tolvanen.dev-infra: `C:\s\r\docs\servers\tolvanen-dev`.
 - **App-shell**: `body` on kiinteäkorkuinen flex; Veikkaukset-näkymä ei skrollaa
   (vain matriisi skrollaa sisäisesti), muut näkymät skrollaavat itse.
 - **Tila säilyy**: UI-tila + skrolli `localStorage`-avaimessa `kv-ui`; pelaajafiltteri
-  URL:ssa (`?p=`) + `localStorage` `kv-players`. **Analytiikka-tabi piilossa kunnes
-  tuloksia on.**
+  URL:ssa (`?p=`) + `localStorage` `kv-players`. **Analytiikka-tabi on aina näkyvissä**;
+  ilman tuloksia näytetään vain kaavio + villeimmät veikkaukset (`renderAnalyticsPre`).
 - **Ajat**: `kickoff` tallennetaan **UTC**:nä, näytetään aina **Suomen aikaa**
   (`fiTime`/`fiDayKey`, `Europe/Helsinki`).
 - **Joukkuekoodit**: JSON-data käyttää aina **FIFA:n virallisia koodeja** (ESP, SUI,

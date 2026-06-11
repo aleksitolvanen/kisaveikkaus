@@ -776,8 +776,9 @@ function renderAnalytics(){
   var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
   box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
     (cupUnd.length?'cup-vaihe kesken':'cup ratkennut')+(sikaUnd?' · sikajengi auki':'')));
-  box.appendChild(renderTimeChart());
+  if(hasResults()) box.appendChild(renderTimeChart());
   var bk=renderBracket(); if(bk) box.appendChild(bk);
+  if(!hasResults()){ renderAnalyticsPre(box); return; }
 
   // 1) Max-pisteet / kuka voi vielä voittaa
   var mx=ALLROWS.map(function(r){ var rem=remainingMax(P[r.name],R,T); return { name:r.name, now:r.total, rem:rem, max:r.total+rem }; });
@@ -821,6 +822,10 @@ function renderAnalytics(){
   t2.appendChild(b2); s2.appendChild(t2); box.appendChild(s2);
 
   // 3) Villeimmät veikkaukset
+  renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset.');
+  trackScroll($('#view-analytics'),'analytics');
+}
+function renderWildest(box, hintText){
   var sw=el('div','asec'); sw.appendChild(el('h3',null,'Villeimmät veikkaukset'));
   wildestPredictions().forEach(function(w){
     var row=el('div','wildrow'), l=el('div','wleft'), line1=el('div');
@@ -830,8 +835,14 @@ function renderAnalytics(){
     row.appendChild(l); row.appendChild(el('span','wpred',w.pred));
     sw.appendChild(row);
   });
-  sw.appendChild(el('div','hint','Eniten muiden veikkauksista poikkeavat lohkoveikkaukset.'));
+  sw.appendChild(el('div','hint',hintText));
   box.appendChild(sw);
+}
+
+// Ennen ensimmäisiä tuloksia: vain veikkauksista laskettava sisältö (villeimmät
+// veikkaukset); pistetaulukot ja vertailut ilmestyvät kun jotain on ratkennut.
+function renderAnalyticsPre(box){
+  renderWildest(box, 'Eniten muiden veikkauksista poikkeavat lohkoveikkaukset. Lisää analytiikkaa ilmestyy kun tuloksia alkaa kertyä.');
   trackScroll($('#view-analytics'),'analytics');
 }
 
@@ -853,7 +864,7 @@ function show(v){
   saveUI();
 }
 document.querySelectorAll('nav button').forEach(function(b){ b.onclick=function(){ show(b.dataset.v); }; });
-// Analytiikka näkyy vasta kun jotain on ratkennut (muuten luvut eivät tarkoita mitään).
+// Onko mitään ratkennut? Ohjaa analytiikan sisältöä (tabi on aina näkyvissä).
 function hasResults(){
   var r=R||{};
   if(r.matches && Object.keys(r.matches).length) return true;
@@ -863,15 +874,8 @@ function hasResults(){
     if(k==='champion' ? v : (v&&v.length)) return true; } }
   return false;
 }
-function updateAnalyticsTab(){
-  var btn=document.querySelector('nav button[data-v="analytics"]');
-  if(btn) btn.style.display = hasResults() ? '' : 'none';
-  if(!hasResults() && state.view==='analytics') show('predictions');
-}
-if(state.view==='analytics' && !hasResults()) state.view='predictions';
 renderSchedule();
 show(state.view);
-updateAnalyticsTab();
 
 // Live-päivitys ilman reloadia: hae data jaetusta lähteestä ~60 s välein,
 // päivitä näkymä jos tulokset/otteluohjelma muuttuivat (UI-tila + skrolli säilyy).
@@ -883,7 +887,7 @@ function refreshFromServer(){
        && JSON.stringify(d.tournament.matches)===JSON.stringify(T.matches)
        && JSON.stringify(d.tournament.knockout||[])===JSON.stringify(T.knockout||[])) return;
     T=d.tournament; R=d.results; ALLROWS=scoreAll(P,R,T);
-    renderSchedule(); rerender(); updateAnalyticsTab();
+    renderSchedule(); rerender();
   }).catch(function(){});
 }
 if(typeof setInterval==='function' && typeof location!=='undefined' && location.protocol!=='file:') setInterval(refreshFromServer, 60000);
@@ -895,6 +899,12 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Kisaveikkaus · ${esc(tournament.name)}</title>
+<meta name="description" content="Ursarien ${esc(tournament.name)} kisaveikkaus">
+<meta property="og:title" content="Kisaveikkaus · ${esc(tournament.name)}">
+<meta property="og:description" content="Ursarien ${esc(tournament.name)} kisaveikkaus">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kisaveikkaus.tolvanen.dev/">
+<meta property="og:locale" content="fi_FI">
 <meta name="color-scheme" content="dark">
 <style>${CSS}</style>
 </head>
