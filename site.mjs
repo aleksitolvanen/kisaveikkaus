@@ -246,7 +246,15 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pcard.roastcard{margin-top:10px;border-color:#5a3038;
   background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
 .pcard.roastcard .pchead{color:#e2706e}
-.pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px}
+.pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px;cursor:zoom-in}
+.lightbox{position:fixed;inset:0;background:rgba(8,10,14,.96);z-index:100;display:flex;align-items:center;justify-content:center}
+.lightbox img{max-width:100vw;max-height:100vh;object-fit:contain;transition:transform .25s ease}
+.lightbox img.rot{transform:rotate(90deg);max-width:100vh;max-height:100vw}
+.lbbtn{position:fixed;top:12px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  background:var(--card);color:var(--fg);font-size:20px;line-height:1;z-index:101;
+  display:flex;align-items:center;justify-content:center;touch-action:manipulation;cursor:pointer}
+.lbbtn.close{right:12px}
+.lbbtn.rotate{right:64px}
 .pchead{font-weight:800;color:var(--gold);margin-bottom:7px}
 .pctext{font-size:13.5px;line-height:1.55;white-space:pre-line}
 .wildrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line)}
@@ -959,6 +967,7 @@ function renderDigests(box){
         var im=document.createElement('img');
         im.className='dimg'; im.src=d.image; im.loading='lazy';
         im.alt='Päivän roast-kuvitus (AI-generoitu)';
+        im.onclick=function(){ openLightbox(im.src, im.alt); };
         r.appendChild(im);
       }
       holder.appendChild(r);
@@ -977,6 +986,24 @@ function renderDigests(box){
   s.appendChild(holder);
   draw();
   box.appendChild(s);
+}
+// Kuvan koko ruudun katselu: tausta/×-nappi sulkee, ⟳ kääntää 90 astetta
+// (puhelimen kääntäminen vaakaan toimii myös suoraan — kuva sovittuu ruutuun).
+function openLightbox(src, alt){
+  var lb=el('div','lightbox');
+  var img=document.createElement('img');
+  img.src=src; img.alt=alt||'';
+  lb.appendChild(img);
+  var rot=el('button','lbbtn rotate','⟳'); rot.title='Käännä';
+  var cls=el('button','lbbtn close','×'); cls.title='Sulje';
+  lb.appendChild(rot); lb.appendChild(cls);
+  function close(){ lb.remove(); document.removeEventListener('keydown', onKey); }
+  function onKey(e){ if(e.key==='Escape') close(); }
+  rot.onclick=function(e){ e.stopPropagation(); img.classList.toggle('rot'); };
+  cls.onclick=function(e){ e.stopPropagation(); close(); };
+  lb.onclick=function(e){ if(e.target===lb||e.target===img) close(); };
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(lb);
 }
 // Pelaajakortit: dropdownista valitaan veikkaaja, kortti sen alle.
 function renderPlayerCards(box){
