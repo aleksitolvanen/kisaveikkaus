@@ -840,8 +840,9 @@ function renderBracket(){
 function renderAnalytics(){
   var box=$('#analytics'); box.innerHTML='';
   var und=undecidedMatches(), cupUnd=undecidedCup(), sikaUnd=!(R.dirtiestTeams&&R.dirtiestTeams.length);
+  var phase = und.length ? 'lohkovaihe kesken' : (cupUnd.length ? 'cup-vaihe kesken' : 'cup ratkennut');
   box.appendChild(el('div','hint', (T.matches.length-und.length)+'/'+T.matches.length+' ottelua pelattu · '+
-    (cupUnd.length?'cup-vaihe kesken':'cup ratkennut')+(sikaUnd?' · sikajengi auki':'')));
+    phase+(sikaUnd?' · sikajengi auki':'')));
   if(hasResults()) box.appendChild(renderTimeChart());
   var bk=renderBracket(); if(bk) box.appendChild(bk);
   if(!hasResults()){ renderAnalyticsPre(box); return; }
