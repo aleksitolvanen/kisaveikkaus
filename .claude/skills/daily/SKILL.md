@@ -7,7 +7,23 @@ description: Luo Päivän katsaus + Päivän roast kisaveikkaus-sivulle pelipäi
 
 Tuottaa kaksi tekstiä Analytiikka-sivun alkuun (`data/mm2026/digests.json`):
 **📋 Päivän katsaus** (asiallinen) ja **🔥 Päivän roast** (Comedy Central -henkinen).
-Prosessi on kolmivaiheinen: **faktat → luonnos käyttäjälle → julkaisu vasta hyväksynnän jälkeen.**
+
+## Prosessi (noudata TÄSSÄ järjestyksessä)
+
+1. **Faktapaketti + uutiset** (kohdat 1–2): aja `day-facts`, hae päivän uutiset,
+   tarkista päällekirjoitus-/ajoitussuoja.
+2. **Valitse 2–3 henkilökohtaisen roastin kohdetta** sääntöjen mukaan (kohde- ja
+   hahmokierrätys, konteksti-vinouman vältto, päivän faktat ratkaisevat — ks.
+   "Toiston välttäminen" kohdassa 3).
+3. **Kaiva valittujen kohteiden historia** sekä `factpacks.json`:sta ETTÄ suoraan
+   `history/<tid>.json`-tietokannasta (edelliset kisat) — ks. "Historiakaikut".
+4. **Kirjoita katsaus + roast-versio JOKAISELLA hahmolla** (Claude + kaikki
+   vierashahmot) ehdotettavaksi. Pidä versiot napakkoina.
+5. **Hyväksyntäportti (kohta 4):** näytä kaikki käyttäjälle. ÄLÄ tee gitiä mitään
+   ennen kuin käyttäjä on hyväksynyt **(a)** minkä hahmon teksti julkaistaan ja
+   **(b)** mahdolliset muokkaukset. Iteroi kunnes hyväksytty.
+6. **Vasta hyväksynnän jälkeen** viimeistele valittu, lisää digests.json:iin,
+   buildaa, committaa ja pushaa (kohta 5).
 
 ## Pelipäivän määritelmä (LUE ENSIN)
 
@@ -211,14 +227,15 @@ näytteitä sellaisenaan, mutta säilytä signature-fraasit lähes ennallaan ja 
 ne päivän aiheeseen. Tavoite: lukija tunnistaa äänen heti. (Pidä parodia
 hyväntahtoisena.)
 
-**Tee kolme roast-versiota valittavaksi, kukin ERI hahmon äänellä.** Esitä
-hyväksyntävaiheessa kolme vaihtoehtoa eri hahmoilta, joista käyttäjä valitsee
-yhden (tai pyytää yhdistelmää/muokkausta). Valitse hahmot jotka sopivat päivän
-aiheeseen ja ovat selvästi erottuvia toisistaan; vältä viime päivien hahmoja.
-Sama faktapohja ja samat kohteet, eri ääni. Merkitse jokaiseen vaihtoehtoon
-hahmon nimi. Kaikkia koskevat samat säännöt (toiston välttäminen, kohteiden
-kierrätys, historiakaikut, yksityisyys, vain faktapaketin luvut). Pidä versiot
-napakkoina luonnoksessa; viimeistele valittu vasta valinnan jälkeen.
+**Tee roast-versio JOKAISELLA hahmolla valittavaksi.** Kirjoita sama päivä
+kaikkien hahmojen äänellä (Claude + jokainen vierashahmo: Pasi, Virkkunen, Aki,
+Iltapäivälehden toimittaja, Sir David Atteporo, Pastori Gärderud) — sama
+faktapohja ja samat kohteet, eri ääni. Merkitse jokaiseen versioon hahmon nimi.
+Kaikkia koskevat samat säännöt (toiston välttäminen, kohteiden kierrätys,
+historiakaikut, yksityisyys, vain faktapaketin luvut). **Pidä versiot napakkoina
+luonnoksessa** (ne ovat vaihtoehtoja, ei lopullisia) — viimeistele vasta
+käyttäjän valitsema versio. Käyttäjä valitsee yhden hahmon (tai pyytää
+yhdistelmää/muokkausta).
 
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
 lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän Oma Maali
@@ -248,11 +265,14 @@ jpeg:ksi (laatu 0.82) → `site/digest/<futispäivä>.jpg`, ja lisää digestiin
 
 ## 4. Hyväksyntä (PAKOLLINEN portti)
 
-Näytä katsaus + **kolme roast-versiota eri hahmoilta** + mahdolliset
-lisäehdotukset käyttäjälle chatissa. Käyttäjä valitsee yhden roast-version (tai
-pyytää yhdistelmää/muokkausta). **ÄLÄ julkaise ennen eksplisiittistä
-hyväksyntää.** Iteroi kunnes hyväksytty; julkaise vain valittu roast ja sen
-hahmon nimi `author`-kenttään.
+Näytä käyttäjälle chatissa: katsaus + **roast-versio jokaisella hahmolla** +
+mahdolliset badge-/lisäehdotukset. **ÄLÄ tee gitiin tai julkaise mitään ennen
+kuin käyttäjä on eksplisiittisesti hyväksynyt molemmat:**
+- **(a)** minkä hahmon roast julkaistaan, ja
+- **(b)** tarvitaanko tekstiin muutoksia (katsaus tai valittu roast).
+
+Iteroi kunnes käyttäjä hyväksyy. Vasta sitten siirry kohtaan 5. Julkaistaan vain
+valittu roast, ja sen hahmon nimi `author`-kenttään.
 
 ## 5. Julkaisu
 
