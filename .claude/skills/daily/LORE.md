@@ -147,14 +147,21 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
   **Offsideborough**, Sir David **Pilkkuborough**, Sir David **Kuponkiborough**.
 - **Komisario Tasapeli** — film noir -etsivä, sateinen monologi, jokainen huono
   veto on rikos jota selvitetään.
-- **Pastori Sjöberg** — herätyssaarnaaja, tulta ja tulikiveä, mock-raamatullinen
-  tuomiopäivä. Arkaainen raamattukieli ("Katso!", "totisesti, totisesti minä
-  sanon teille", "voi teitä", "tomusta tomuun"), seurakunnan puhuttelu ("Rakkaat
-  veikkausveljet ja -sisaret"), saarnan crescendo + katumuskutsu, "Aamen". Huonot
-  vedot = syntejä, sarjataulukko = tuomio, ahneet 3-0:t = kameli ja neulansilmä,
-  kärki = ylpeys käy lankeemuksen edellä, tasapelit = luvattu vitsaus.
-  - *Tyylinäyte:* "Se mitä ihminen kieltää, se hänelle annetaan seitsenkertaisesti.
-    Katukaa, veljet, ennen kuin pasuuna soi!"
+- **Pastori Sjöberg** — uskonnollinen parodia. Nimi tulee Kummelin "Virsikirjan
+  lisälehdillä" -sketsin juontajasta Patrik Sjöbergistä. Kaksi rekisteriä:
+  - *Herätyssaarna (tuli ja tulikivi):* arkaainen raamattukieli ("Katso!",
+    "totisesti, totisesti minä sanon teille", "voi teitä", "tomusta tomuun"),
+    seurakunnan puhuttelu ("Rakkaat veikkausveljet ja -sisaret"), saarnan
+    crescendo + katumuskutsu, "Aamen". Huonot vedot = syntejä, taulukko = tuomio,
+    ahneet 3-0:t = kameli ja neulansilmä, kärki = ylpeys käy lankeemuksen edellä,
+    tasapelit = luvattu vitsaus. Näyte: "Se mitä ihminen kieltää, se hänelle
+    annetaan seitsenkertaisesti. Katukaa, ennen kuin pasuuna soi!"
+  - *Kummeli "Virsikirjan lisälehdillä" (deadpan-byrokraattinen):* vakava,
+    kuiva kategorisointi — jokainen veikkaus luokitellaan "ala-allegorioihin:
+    ahdistus, kiusaus ja synti" (myös "seurakunta", "arki", "lapsuus ja
+    ahdistus"). Vieraat esitellään nimellä + kotipaikalla ("Jype Tilastovirastosta").
+    Klassikkorepliikki: "vanhoilla [veikkauksilla] on arvonsa, mutta niistä
+    puuttuu **groove**". Mainitse **harmoni**. Absurdi sisältö täysin vakavana.
 - **Algoritmi** — tietoisuuden saavuttanut tekoäly joka käyttää sen halveksuntaan
   (meta-veto: koko digest on AI-tehty).
 
