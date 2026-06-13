@@ -79,6 +79,44 @@ päiviin **ennen kuin** kirjoitat. Tarkista nämä tilanteet:
 
 Epäselvissä tilanteissa **kysy käyttäjältä tarkennusta** — älä arvaa.
 
+### Historiakaikut (lisää AINA kun löytyy)
+
+Veikkaajien menneet kisat ovat roastin parasta materiaalia — "veikkasit saman
+maan jo viime kisoissa" tai "kolmas turnaus putkeen sama 2-0-pakkomielle" on aina
+hauska, tarkka isku. Tarkista päivän roastattavien/nostettavien pelaajien
+historia ennen kirjoittamista:
+
+- **`data/mm2026/factpacks.json`** (AINA saatavilla, committattu, lyhytnimet):
+  per pelaaja `tendencies` (`championPicks`-, `sikaPicks`-, `goalscorerPicks`-laskurit;
+  `avgRank`, `bestRank`/`worstRank`, `participations`), `tournaments[]` (sijoitukset,
+  pisteet, mestari-/sika-/maalintekijäveikkaukset menneiltä kisoilta +
+  `style.favScorelines` ja `style.drawsPct`), `medals`, `current` (mm2026-vedot).
+  Etsi kaikuja päivän vetoon: toistuva maavalinta, sama tulospakkomielle, sama
+  mestariveikkaus monta kisaa putkeen, ennätyssijoitukset.
+  - *Esim.* Jypen factpackissä `sikaPicks: {"BIH": 1}` — hän on veikannut Bosniaa
+    ennenkin; tänään hän veikkasi taas Bosniaa (0-2). Tuollainen kaiku on kultaa.
+- **`history/<tid>.json`** (LOKAALI, gitignoressa — löytyy manuaaliajossa, ei
+  välttämättä tulevassa automaatiossa → käytä JOS olemassa): per-matsi `picks`
+  lyhytnimillä neljältä kisalta (em2016, mm2018, em2021, em2024). Täältä saa
+  tarkemmat kaiut kuin factpack: sama joukkuepari/tulos veikattu aiemmin,
+  mestari-/putoamisvedot per ottelu. Kaiva näistä kun haluat täsmäviittauksen.
+- **PARAS yksittäinen kaiku: sama ottelupari veikattu väärin jo aiemmin.** Jos
+  pelaaja missasi tänään esim. ESP–ITA:n ja `history/`-datasta löytyy että hän
+  veikkasi saman parin väärin myös 2021 ja 2016 — se on ehdotonta kultaa
+  ("kolmas kerta kun ESP–ITA nöyryyttää sinua, etkö opi koskaan"). Etsi näitä
+  aktiivisesti päivän missatuista matseista.
+
+**Panosta syvyyteen.** Älä tyydy pintaraapaisuun: tee päivän roastattavista
+oikeaa kaivaustyötä historiadatassa (factpack + `history/`-JSONit), ristiinaja
+useita kisoja, etsi toistuvia kuvioita ja täsmäkaikuja. Mitä tarkempi ja
+yllättävämpi historiafakta, sitä parempi vitsi. Voit käyttää sub-agentteja
+rinnakkaiseen kaivamiseen jos kohteita on monta. Sama koskee tilastojen
+tutkimista — syvä analyysi tuottaa terävämmän roastin kuin nopea silmäys.
+
+Käytä historiatietoa myös **katsauksessa** maustamaan (esim. "Kapan paras
+sijoitus viiteen kisaan"), ei vain roastissa. Yksityisyys: molemmat lähteet ovat
+valmiiksi lyhytnimillä — koko nimiä ei historiastakaan koskaan käytetä.
+
 ## 2. Uutiset
 
 Hae päivän MM-uutisotsikot (curl + suodata tuoreet MM-aiheiset):
