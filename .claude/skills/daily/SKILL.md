@@ -17,16 +17,18 @@ MM2026:n matsit pelataan Amerikan illassa, mikä on Suomen iltaa ja yötä. Esim
 (Suomen aikaa varhain aamulla 14.6). **Kaikki nämä kuuluvat samaan digestiin,
 avaimella `2026-06-13`.**
 
-- **Aja `/daily` vasta kun yön ottelut on pelattu** — käytännössä seuraavana
-  aamuna Suomen aikaa (13.6:n digest ajetaan siis **14.6 aamulla**). Näin illan
-  ja yön matsit menevät yhteen ja samaan digestiin.
+- **Aja `/daily` vasta kun yön ottelut on pelattu** — eli seuraavana päivänä
+  Suomen aikaa, milloin tahansa sen päivän aikana (13.6:n digest ajetaan siis
+  **14.6 aikana**, aamulla, päivällä tai illalla — kunhan yön matsit on pelattu).
+  Voit myös ajaa **myöhässä** tai useamman päivän kerralla; pending-mode hoitaa
+  niputuksen (ks. alla).
 - **Avain ja label tulevat OTTELUIDEN päivästä, ei ajopäivästä.** `day-facts`
   laskee `day`-kentän käsiteltävien matsien futispäivästä (illan matsi
-  ankkurina), joten vaikka ajat digestin 14.6 aamulla, paketti palauttaa
+  ankkurina), joten vaikka ajat digestin 14.6, paketti palauttaa
   `day: "2026-06-13"`. Käytä tätä avaimena; kirjoita label muotoon `"pe 13.6."`
-  — EI ajopäivää 14.6.
+  — EI ajopäivää.
 - Pending-mode (alla) poimii automaattisesti kaikki ratkenneet käsittelemättömät
-  ottelut, joten illan + yön matsit niputtuvat oikein kun ajat aamulla.
+  ottelut, joten illan + yön matsit niputtuvat oikein kun ajat ne yön jälkeen.
 
 ## 1. Faktapaketti (deterministinen — AI ei keksi lukuja)
 
@@ -51,18 +53,29 @@ node tools/day-facts.mjs mm2026 2026-06-12     # tai tietty futispäivä
   maalintekijäosumat (2p/maali!) ja sikaveikkaukset kontekstiksi.
 - Korttipisteet sikajengiin: keltainen 1, toinen keltainen → punainen 2, suora punainen 3.
 
-### Päällekirjoitussuoja (TARKISTA ENNEN JULKAISUA)
+### Päällekirjoitus- ja ajoitussuoja (TARKISTA ENNEN JULKAISUA)
 
-Lue `digests.json` ja tarkista mitkä päivät on jo olemassa **ennen kuin** ajat
-faktapaketin ja ennen kuin kirjoitat:
-- **Jos paketin `day` on jo `digests.json`:ssa**, älä ylikirjoita sokeasti.
-  Yleensä se tarkoittaa että digest on jo tehty tälle pelipäivälle. Kysy
-  käyttäjältä: täydennetäänkö olemassa olevaa (esim. yön matsi joka jäi
-  puuttumaan) vai onko kyseessä erehdys.
-- **Jos paketin `covers` on tyhjä** (ei uusia ratkenneita otteluita), kerro
-  käyttäjälle ettei ole mitä koota — älä tee tyhjää digestiä.
-- **Jos `liveNow` ei ole tyhjä** (matsi kesken), mainitse se ja ehdota
-  odottamista tai matsin jättämistä seuraavaan digestiin.
+Lue `digests.json` ja vertaa faktapaketin `day`/`covers` olemassa oleviin
+päiviin **ennen kuin** kirjoitat. Tarkista nämä tilanteet:
+
+- **Päivä jo olemassa** (paketin `day` löytyy `digests.json`:sta): älä ylikirjoita
+  sokeasti. Yleensä digest on jo tehty. Kysy käyttäjältä: täydennetäänkö
+  olemassa olevaa (esim. yön matsi joka jäi puuttumaan) vai onko erehdys.
+- **Ei mitä koota** (`covers` tyhjä eikä `liveNow` ole tyhjä): kerro käyttäjälle
+  ettei uusia ratkenneita otteluita ole — älä tee tyhjää digestiä.
+- **Ajetaan liian aikaisin** (sen päivän matseja ei ole vielä pelattu — `covers`
+  tyhjä tai vajaa ja matseja on vasta tulossa): **kysy käyttäjältä**, halutaanko
+  odottaa vai koota vajaa digest jo pelatuista. Älä keksi tuloksia pelaamattomille.
+- **Matsi kesken** (`liveNow` ei tyhjä): mainitse se ja ehdota odottamista tai
+  ko. matsin jättämistä seuraavaan digestiin.
+- **Edellinen päivä puuttuu kokonaan / myöhässä ajo**: täysin sallittua — voit
+  koota puuttuvan päivän jälkikäteen. Mutta varo: jos pending-paketti kattaa
+  **useamman pelipäivän otteluita** (esim. sekä 13.6 että 14.6, koska 13.6 jäi
+  ajamatta), `day` osoittaa vain vanhimpaan päivään mutta `covers` sisältää
+  molemmat. **Tee tällöin yksi digest per päivä**: aja `day-facts mm2026
+  <vanhin-puuttuva-päivä>` (eksplisiittinen futispäivä) kullekin puuttuvalle
+  päivälle erikseen, vanhin ensin, niin kukin saa omat tekstinsä ja `covers`-listansa.
+  Jos epäselvää montako päivää on kesken, **kysy käyttäjältä** ennen ajamista.
 
 Epäselvissä tilanteissa **kysy käyttäjältä tarkennusta** — älä arvaa.
 
