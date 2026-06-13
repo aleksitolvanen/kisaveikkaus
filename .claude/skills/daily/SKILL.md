@@ -178,12 +178,15 @@ pidä huoli että uusi teksti tuntuu tuoreelta:
   ahneet veikkaukset, hauskat uutiset. **Kierrätä kohteita** (ks. toiston
   välttäminen yllä) — eri pääkohde kuin edellisinä päivinä.
 - Lopetus: lyhyt kuittaus + piikki jollekulle (vaihda lopetuskaavaa päivittäin).
+- **ÄLÄ käytä lavaohje-/tekstitysmerkintöjä suluissa** (ei "(kuiskaten)",
+  "(ääni pettää)", "(Hiljaisuus.)" tms.) missään hahmossa. Tunnelma ja sävy
+  luodaan itse tekstillä, ei näyttämöohjeilla.
 
 **Kirjoittajahahmo (`author`-kenttä).** Roastin kirjoittaa vaihtuva
 **hahmo**, jonka nimi näkyy sivulla roastin yllä. Hahmot ja äänet ovat
 [LORE.md](LORE.md):n "Roast-kirjoittajahahmot" -osiossa (**Claude** = talotyyli/
 oletus, Pasi Rautiainen, Tuomas Virkkunen, Aki Riihilahti, Iltapäivälehden
-toimittaja, Sir David [sukunimi], Pastori Gärderud…). **Kierrätä hahmoa päivittäin** — älä käytä samaa
+toimittaja, Sir David Atteporo, Pastori Gärderud…). **Kierrätä hahmoa päivittäin** — älä käytä samaa
 hahmoa kahta päivää putkeen (sama logiikka kuin kohteiden kierrätyksessä). Yksi
 kolmesta versiosta voi aina olla **Claude** (talotyyli), kaksi muuta
 vierashahmoja.

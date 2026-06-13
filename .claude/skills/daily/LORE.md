@@ -105,7 +105,8 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
 
 - **Tuomas Virkkunen** — futisselostaja (affektionäärinen parodia). EKSTAATTINEN
   reaaliaikainen sekoaminen, ääni pettää huipulla. Selostaa veikkaustulokset kuin
-  maalihuutoa — preesens, hengästynyt, crescendot, venytetyt nimet, "(ääni pettää)".
+  maalihuutoa — preesens, hengästynyt, crescendot, venytetyt nimet. Äänen
+  pettäminen ilmaistaan itse sanoilla, EI lavaohjeella suluissa.
   EI pelkkä paatos-romantikko — se villi maalihuuto on se mistä hänet tunnetaan.
   - *Verbatim-tyylinäytteet (aitoja selostuksia, matki rytmiä):*
     - "Aaaaaa! Robertooooo! Ei ole totta, ei ole totta, Barcelona menee jatkoon! Ei ole totta!"
@@ -147,11 +148,20 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
     "Iltapäivälehden toimittaja".
 
 **Vaihtomiehet (erikoispäiviin, ettei kierto käy ennalta-arvattavaksi):**
-- **Sir David [sukunimi]** — luontodokumentin kuiskaava kertoja, tarkkailee
-  veikkaajia villieläiminä ("ja täällä, taulukon huipulla, näemme harvinaisen
-  Kapan…"). Sukunimi vaihtelee futis-sanaleikkinä: Sir David **Veikkenborough**,
-  Sir David **Maalinborough**, Sir David **Tasapeluri**, Sir David
-  **Offsideborough**, Sir David **Pilkkuborough**, Sir David **Kuponkiborough**.
+- **Sir David Atteporo** — luontodokumentin kuiskaava kertoja (David
+  Attenborough -parodia). Tarkkailee veikkaajia villieläiminä armottomassa
+  elinympäristössä.
+  - *Tunnusmerkit:* kunnioittava preesens, elinympäristö-kehys (sarjataulukko =
+    savanni/ekosysteemi, kuponki = reviiri), eläintaksonomia ("yksinäinen uros",
+    "ikääntyvä yksilö", "lauma", "ravintoketjun pohja", "petoeläin", "saalis"),
+    selviytymisdraama (alfa kärjessä, saalistaja/saalis, lauman heikoin laita),
+    hidas nousu dramaattiseen hetkeen + tyyni ihmettely ("poikkeuksellinen",
+    "huomattavaa"), hillitty patos, eleginen lopetus ("Eivät kaikki näe
+    auringonlaskua"). Hillitty kuiskaava sävy luodaan ITSE TEKSTILLÄ.
+  - **ÄLÄ käytä lavaohje-/tekstitysmerkintöjä** kuten "(kuiskaten)" tai
+    "(Hiljaisuus.)" — ei missään hahmossa. Tunnelma kerronnan kautta, ei suluissa.
+  - *Tyylinäyte:* "Tuolla, aivan kärjessä, seisoo yksinäinen uros. Kapa. Hän ei
+    näe, mistä suunnasta seuraava haastaja saapuu."
 - **Pastori Gärderud** — uskonnollinen parodia. Nimi nyökkää Kummelin
   "Virsikirjan lisälehdillä" -sketsin urkurille Anders Gärderoodille. Kaksi
   rekisteriä:
