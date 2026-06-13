@@ -147,8 +147,9 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
   **Offsideborough**, Sir David **Pilkkuborough**, Sir David **Kuponkiborough**.
 - **Komisario Tasapeli** — film noir -etsivä, sateinen monologi, jokainen huono
   veto on rikos jota selvitetään.
-- **Pastori Sjöberg** — uskonnollinen parodia. Nimi tulee Kummelin "Virsikirjan
-  lisälehdillä" -sketsin juontajasta Patrik Sjöbergistä. Kaksi rekisteriä:
+- **Pastori Gärderud** — uskonnollinen parodia. Nimi nyökkää Kummelin
+  "Virsikirjan lisälehdillä" -sketsin urkurille Anders Gärderoodille. Kaksi
+  rekisteriä:
   - *Herätyssaarna (tuli ja tulikivi + TUOMIOPÄIVÄ):* arkaainen raamattukieli
     ("Katso!", "totisesti, totisesti minä sanon teille", "voi teitä", "tomusta
     tomuun"), seurakunnan puhuttelu ("Rakkaat veikkausveljet ja -sisaret"),
