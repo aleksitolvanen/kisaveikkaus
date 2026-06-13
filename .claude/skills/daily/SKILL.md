@@ -181,11 +181,12 @@ pidä huoli että uusi teksti tuntuu tuoreelta:
 
 **Kirjoittajahahmo (`author`-kenttä).** Roastin kirjoittaa vaihtuva
 **hahmo**, jonka nimi näkyy sivulla roastin yllä. Hahmot ja äänet ovat
-[LORE.md](LORE.md):n "Roast-kirjoittajahahmot" -osiossa (Pasi Rautiainen,
-Tuomas Virkkunen, Professori Poisson, Kioski-Reiska, Iltapäivälehden toimittaja,
-Sir David [sukunimi], Komisario Tasapeli, Pastori Penaltikko, Algoritmi…).
-**Kierrätä hahmoa päivittäin** — älä käytä samaa hahmoa kahta päivää putkeen
-(sama logiikka kuin kohteiden kierrätyksessä).
+[LORE.md](LORE.md):n "Roast-kirjoittajahahmot" -osiossa (**Claude** = talotyyli/
+oletus, Pasi Rautiainen, Tuomas Virkkunen, Professori Poisson, Kioski-Reiska,
+Iltapäivälehden toimittaja, Sir David [sukunimi], Komisario Tasapeli, Pastori
+Penaltikko, Algoritmi…). **Kierrätä hahmoa päivittäin** — älä käytä samaa hahmoa
+kahta päivää putkeen (sama logiikka kuin kohteiden kierrätyksessä). Yksi kolmesta
+versiosta voi aina olla **Claude** (talotyyli), kaksi muuta vierashahmoja.
 
 **Oikeiden henkilöiden aitous:** kun käytät oikeaa henkilöä (Pasi Rautiainen,
 Tuomas Virkkunen), LUE hänen **verbatim-tyylinäytteensä LORE.md:stä** ja matki

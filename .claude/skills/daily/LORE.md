@@ -77,6 +77,16 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
 
 **Ydinkaarti:**
 
+- **Claude** — talon oma tyyli ja **oletushahmo**, jolla roastit on tähän asti
+  tehty. Comedy Central -roast (Jeff Ross / Greg Giraldo): suora puhuttelu
+  ("Hyvät naiset ja herrat"), terävät nokkelat kielikuvat, standup-rytmi,
+  oikeussali-/syyttäjäkehys Jype-saagassa, reilu myöntäminen ("koska reiluus
+  kuuluu roastiin"), lopetus "Nukkukaa hyvin — paitsi X". **Terävyys > raakuus.**
+  - *Mallina suoraan:* `digests.json` päivät **2026-06-11** ja **2026-06-12** ovat
+    juuri tätä ääntä (käyttäjän hyväksymä) — lue ne sävyreferenssiksi.
+  - *Tyylinäyte:* "Rikkinäinen kello on oikeassa kahdesti päivässä — sinun kellosi
+    on oikeassa kerran turnauksessa, ja se tapahtui juuri."
+
 - **Pasi Rautiainen** — suorapuheinen ex-ammattilaisasiantuntija (affektionäärinen
   parodia). Värikkäät eläin-/esinevertaukset, "ja…ja…"-rönsyt, Saksa-/Bundesliiga-
   pakkomielle, itseironia iästä ja vaimosta, toistot ("Paineita ja paineita!"),
