@@ -51,6 +51,21 @@ node tools/day-facts.mjs mm2026 2026-06-12     # tai tietty futispäivä
   maalintekijäosumat (2p/maali!) ja sikaveikkaukset kontekstiksi.
 - Korttipisteet sikajengiin: keltainen 1, toinen keltainen → punainen 2, suora punainen 3.
 
+### Päällekirjoitussuoja (TARKISTA ENNEN JULKAISUA)
+
+Lue `digests.json` ja tarkista mitkä päivät on jo olemassa **ennen kuin** ajat
+faktapaketin ja ennen kuin kirjoitat:
+- **Jos paketin `day` on jo `digests.json`:ssa**, älä ylikirjoita sokeasti.
+  Yleensä se tarkoittaa että digest on jo tehty tälle pelipäivälle. Kysy
+  käyttäjältä: täydennetäänkö olemassa olevaa (esim. yön matsi joka jäi
+  puuttumaan) vai onko kyseessä erehdys.
+- **Jos paketin `covers` on tyhjä** (ei uusia ratkenneita otteluita), kerro
+  käyttäjälle ettei ole mitä koota — älä tee tyhjää digestiä.
+- **Jos `liveNow` ei ole tyhjä** (matsi kesken), mainitse se ja ehdota
+  odottamista tai matsin jättämistä seuraavaan digestiin.
+
+Epäselvissä tilanteissa **kysy käyttäjältä tarkennusta** — älä arvaa.
+
 ## 2. Uutiset
 
 Hae päivän MM-uutisotsikot (curl + suodata tuoreet MM-aiheiset):
@@ -68,6 +83,26 @@ oikeasti tapahtui — ei pakollista päivittäistä osiota.
 käyttäjän hyväksymä sävyreferenssi. Lue myös [LORE.md](LORE.md) (historia, saagat,
 tutkimusfaktat, hahmot).
 
+**Toiston välttäminen (PAKOLLINEN — lue ennen kirjoittamista):** lue läpi
+**vähintään 3–4 edellisen päivän** katsaukset JA roastit `digests.json`:sta ja
+pidä huoli että uusi teksti tuntuu tuoreelta:
+- **Älä roastaa samaa henkilöä pääkohteena monta päivää putkeen.** Jos esim.
+  Jype tai JukkaM oli edellisen päivän kärkikohde, anna heidän olla tällä kertaa
+  (paitsi jos faktat pakottavat — silloin täysin uudella kulmalla). Levitä
+  piikit eri veikkaajille; lähes kaikki saavat vuorollaan osansa turnauksen
+  aikana.
+- **Älä toista samoja vitsejä, kielikuvia tai rakenteita.** Jos eilen oli
+  "rikkinäinen kello" tai "vessajono lisäajalla", keksi tänään jotain muuta.
+  Tarkista ettei sama lopetuskaava ("Nukkukaa hyvin, paitsi X") toistu joka päivä.
+- **Running gagit saavat jatkua** (JukkaM:n lahjamaalit, Jype-saaga), mutta aina
+  *uudella käänteellä* — ei sama vitsi uudelleen kerrottuna.
+- **Uudet näkökulmat ovat plussaa:** keksi tuoreita kulmia — odottamaton
+  taulukkonousu, sikajengi/maalintekijä-tilanne, kahden veikkaajan vastakkainen
+  veto samaan matsiin, "hiljaisin" veikkaaja jota ei ole vielä mainittu, sarja
+  jossa joku on osunut/missannut putkeen, tilastollinen kuriositeetti jne.
+- Sama koskee **katsausta**: vaihtele kappaleiden kärkiä äläkä aloita joka päivä
+  samalla kaavalla.
+
 **Katsaus** (3 kappaletta, ~150–200 sanaa):
 - Mitä kentällä tapahtui (maalit, kortit, dramatiikka)
 - Mitä veikkauksissa tapahtui (osumat, taulukkomuutokset, sikajengi/maalintekijä-vaikutukset)
@@ -79,10 +114,9 @@ tutkimusfaktat, hahmot).
   käyttäjä testasi härskimmän version ja hylkäsi sen ("rikkinäinen kello on
   Sveitsin tarkkuusinstrumentti" voittaa alatyylin).
 - Kohteet: päivän huonoimmat veikkaukset, häviäjäjoukkueet, ylivarovaiset ja
-  ahneet veikkaukset, hauskat uutiset.
-- **Lue KAIKKI edelliset roastit digests.json:sta äläkä toista samoja vitsejä.**
-  Running gagit saavat jatkua (esim. JukkaM:n RSA-maali), mutta uudella kärjellä.
-- Lopetus: lyhyt kuittaus + piikki jollekulle.
+  ahneet veikkaukset, hauskat uutiset. **Kierrätä kohteita** (ks. toiston
+  välttäminen yllä) — eri pääkohde kuin edellisinä päivinä.
+- Lopetus: lyhyt kuittaus + piikki jollekulle (vaihda lopetuskaavaa päivittäin).
 
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
 lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän surkimus
