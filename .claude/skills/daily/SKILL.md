@@ -141,6 +141,20 @@ pidä huoli että uusi teksti tuntuu tuoreelta:
   välttäminen yllä) — eri pääkohde kuin edellisinä päivinä.
 - Lopetus: lyhyt kuittaus + piikki jollekulle (vaihda lopetuskaavaa päivittäin).
 
+**Tee kolme roast-versiota valittavaksi.** Esitä hyväksyntävaiheessa kolme
+vaihtoehtoa, joista käyttäjä valitsee yhden (tai pyytää yhdistelmää/muokkausta):
+- **A — talotyyli**: hyväksytty Comedy Central -rekisteri kuten avauspäivänä
+  (Jeff Ross / Greg Giraldo: terävät kielikuvat, standup-rytmi).
+- **B ja C — kaksi eri sävyä**: valitse päivän aiheeseen sopivat kaksi muuta
+  rekisteriä, esim. kuiva brittiläinen deadpan, urheiluselostaja-parodia,
+  mock-eeppinen/raamatullinen paatos, film noir -kertoja, tabloid-lööppi,
+  oikeussalidraama, luontodokumentti (Attenborough), hype-/battlerap. Sama
+  faktapohja ja samat kohteet, eri ääni. Pidä B ja C selvästi erottuvina A:sta
+  ja toisistaan.
+Kaikkia kolmea koskevat samat säännöt (toiston välttäminen, kohteiden kierrätys,
+yksityisyys, vain faktapaketin luvut). Pidä versiot napakkoina luonnoksessa;
+viimeistele valittu vasta valinnan jälkeen.
+
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
 lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän surkimus
 -badget, väliaikakatsaus ("viikko takana"), tilastonosto, erikoispäivävariantti.
@@ -169,9 +183,10 @@ jpeg:ksi (laatu 0.82) → `site/digest/<futispäivä>.jpg`, ja lisää digestiin
 
 ## 4. Hyväksyntä (PAKOLLINEN portti)
 
-Näytä molemmat tekstit (+ mahdolliset lisäehdotukset) käyttäjälle chatissa.
-**ÄLÄ julkaise ennen eksplisiittistä hyväksyntää.** Käyttäjä voi pyytää muokkauksia
-— iteroi kunnes hyväksytty.
+Näytä katsaus + **kolme roast-versiota (A/B/C)** + mahdolliset lisäehdotukset
+käyttäjälle chatissa. Käyttäjä valitsee yhden roast-version (tai pyytää
+yhdistelmää/muokkausta). **ÄLÄ julkaise ennen eksplisiittistä hyväksyntää.**
+Iteroi kunnes hyväksytty; julkaise vain valittu roast.
 
 ## 5. Julkaisu
 
