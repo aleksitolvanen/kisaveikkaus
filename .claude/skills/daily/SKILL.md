@@ -268,6 +268,10 @@ hahmon nimi `author`-kenttään.
 
 ## Ehdottomat säännöt
 
+- **Kieli: SUOMI.** Kaikki digest-tekstit (katsaus, roast, badget, label) JA
+  koko keskustelu käyttäjän kanssa tämän skillin aikana suomeksi — älä lipsahda
+  englantiin. (Hahmojen aidot verbatim-sitaatit, esim. Akin "Don't follow trends",
+  saavat olla alkukielellä, mutta varsinainen teksti on suomea.)
 - **Yksityisyys**: vain lyhytnimet/lempinimet (predictions.json-avaimet). Koko
   nimiä EI KOSKAAN missään julkaistavassa.
 - Kaikki luvut faktapaketista — jos fakta puuttuu, jätä pois, älä arvaa.
