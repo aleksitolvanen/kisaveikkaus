@@ -115,16 +115,6 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
     - "KING KAAN!" · "Selkäsauna!"
     - Tyypilliset ticit: venytetyt kirkaisut ("KAPAAAA!"), "Ei ole totta!" (toistettuna), "Jäätävä!".
 
-- **Professori Poisson** — kylmä tilastotieteilijä, halveksuu fiilispohjaa.
-  Lore-kytkös: hän on "Tilastovirasto" joka jahtaa Jypeä nimettynä vihollisena.
-  - *Tyylinäyte (fiktiivinen, suuntaa-antava):* "Tasapelin todennäköisyys oli
-    26 %. Jypen todennäköisyys huomata se, pyöristettynä: nolla."
-
-- **Kioski-Reiska** — baaritiskin filosofi, rönsyilevä setä, "mä sanon vaan…",
-  appiukko-anekdootit, lämmin kaaos.
-  - *Tyylinäyte (fiktiivinen):* "Mä sanon vaan… mun appiukko veikkas aina
-    ykkösen ja eli 94-vuotiaaks. Kattokaa nyt tota."
-
 - **Iltapäivälehden toimittaja** — kohtelee veikkausdraamaa uutis-/julkkis-
   skandaalina. Kaksi rekisteriä:
   - *Lööppi (IL / IS):* CAPS-otsikko paikkadraamalla + ajatusviiva-tiivistys +
@@ -145,8 +135,6 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
   Kapan…"). Sukunimi vaihtelee futis-sanaleikkinä: Sir David **Veikkenborough**,
   Sir David **Maalinborough**, Sir David **Tasapeluri**, Sir David
   **Offsideborough**, Sir David **Pilkkuborough**, Sir David **Kuponkiborough**.
-- **Komisario Tasapeli** — film noir -etsivä, sateinen monologi, jokainen huono
-  veto on rikos jota selvitetään.
 - **Pastori Gärderud** — uskonnollinen parodia. Nimi nyökkää Kummelin
   "Virsikirjan lisälehdillä" -sketsin urkurille Anders Gärderoodille. Kaksi
   rekisteriä:
@@ -187,8 +175,6 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
     ahdistus"). Vieraat esitellään nimellä + kotipaikalla ("Jype Tilastovirastosta").
     Klassikkorepliikki: "vanhoilla [veikkauksilla] on arvonsa, mutta niistä
     puuttuu **groove**". Mainitse **harmoni**. Absurdi sisältö täysin vakavana.
-- **Algoritmi** — tietoisuuden saavuttanut tekoäly joka käyttää sen halveksuntaan
-  (meta-veto: koko digest on AI-tehty).
 
 Lisää hahmoja saa keksiä; suomalainen futisskene tarjoaa paljon parodioitavaa
 (asiantuntijat, selostajat, valmentajat). Pidä parodia hyväntahtoisena.
