@@ -99,11 +99,21 @@ tutkimusfaktat, hahmot).
 **Toiston välttäminen (PAKOLLINEN — lue ennen kirjoittamista):** lue läpi
 **vähintään 3–4 edellisen päivän** katsaukset JA roastit `digests.json`:sta ja
 pidä huoli että uusi teksti tuntuu tuoreelta:
-- **Älä roastaa samaa henkilöä pääkohteena monta päivää putkeen.** Jos esim.
-  Jype tai JukkaM oli edellisen päivän kärkikohde, anna heidän olla tällä kertaa
-  (paitsi jos faktat pakottavat — silloin täysin uudella kulmalla). Levitä
-  piikit eri veikkaajille; lähes kaikki saavat vuorollaan osansa turnauksen
-  aikana.
+- **Listaa ensin ketkä on jo roastattu.** Käy edelliset 3–4 päivää läpi ja
+  poimi nimet, jotka ovat olleet **henkilökohtaisen roastin kohteena**. Jokainen
+  viime päivinä roastattu saa **selvästi pienemmän todennäköisyyden** päästä taas
+  uuteen henkilökohtaiseen roastiin. Mitä useampana päivänä putkeen joku on ollut
+  kohteena, sitä vahvemmin häntä vältetään.
+- **Varo konteksti-vinoumaa.** Joistakin veikkaajista on enemmän taustatietoa
+  (saagat, pelaajakortit, vastineet — esim. Jype), ja siksi heihin on houkutus
+  palata joka päivä. **Älä anna kontekstin määrän ohjata kohdevalintaa** — anna
+  PÄIVÄN FAKTOJEN ratkaista kuka roastataan. Jos eniten tunnettu hahmo ei tehnyt
+  päivän huonointa vetoa, hän ei ole päivän kohde.
+- **Poikkeus:** jos sama henkilö teki taas aidosti roastin arvoisen jutun (esim.
+  toistuva todella huono veikkaus), hänet saa ottaa — mutta vain **täysin
+  uudella kulmalla**, ei samaa vitsiä toiseen kertaan.
+- **Levitä piikit.** Tavoite on että turnauksen mittaan lähes kaikki 20 saavat
+  vuorollaan osansa. Etsi aktiivisesti vielä mainitsematta jääneitä veikkaajia.
 - **Älä toista samoja vitsejä, kielikuvia tai rakenteita.** Jos eilen oli
   "rikkinäinen kello" tai "vessajono lisäajalla", keksi tänään jotain muuta.
   Tarkista ettei sama lopetuskaava ("Nukkukaa hyvin, paitsi X") toistu joka päivä.
