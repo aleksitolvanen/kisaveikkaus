@@ -101,10 +101,15 @@ Näytä molemmat tekstit (+ mahdolliset lisäehdotukset) käyttäjälle chatissa
 1. Lisää päivä `data/mm2026/digests.json` → `days`-objektiin:
    ```json
    "2026-06-12": { "label": "pe 12.6.", "covers": ["A2", "B1"],
+                   "badges": [{ "emoji": "🔮", "title": "Päivän Nostradamus",
+                                "name": "Kapa", "why": "perustelu lyhyesti" }],
                    "katsaus": "...", "roast": "..." }
    ```
    **`covers` on pakollinen**: faktapaketin `covers`-lista sellaisenaan — sen
    varassa seuraava ajo tietää mitkä ottelut on jo käsitelty.
+   `badges` on valinnainen (renderöityy katsauskortin loppuun): vakiot
+   🔮 Päivän Nostradamus ja 🌧️ Päivän surkimus kun faktapaketista löytyy
+   selvä voittaja/häviäjä; muita saa keksiä tilanteen mukaan.
    Label-muoto: `"to 11.6. · avauspäivä"` (lisämääre vain erikoispäivinä).
    Kappalejaot `\n\n`:llä; ei markdownia (renderöidään pre-line-tekstinä).
 2. `node site.mjs mm2026`
