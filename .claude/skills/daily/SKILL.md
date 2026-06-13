@@ -17,8 +17,9 @@ Tuottaa kaksi tekstiä Analytiikka-sivun alkuun (`data/mm2026/digests.json`):
    "Toiston välttäminen" kohdassa 3).
 3. **Kaiva valittujen kohteiden historia** sekä `factpacks.json`:sta ETTÄ suoraan
    `history/<tid>.json`-tietokannasta (edelliset kisat) — ks. "Historiakaikut".
-4. **Kirjoita katsaus + roast-versio JOKAISELLA hahmolla** (Claude + kaikki
-   vierashahmot) ehdotettavaksi. Pidä versiot napakkoina.
+4. **Kirjoita katsaus kerran** (orkestroija itse), ja **roast-versio JOKAISELLA
+   hahmolla rinnakkain sub-agenteilla** (yksi sub-agentti per hahmo). Pidä
+   versiot napakkoina.
 5. **Hyväksyntäportti (kohta 4):** näytä kaikki käyttäjälle. ÄLÄ tee gitiä mitään
    ennen kuin käyttäjä on hyväksynyt **(a)** minkä hahmon teksti julkaistaan ja
    **(b)** mahdolliset muokkaukset. Iteroi kunnes hyväksytty.
@@ -227,14 +228,25 @@ näytteitä sellaisenaan, mutta säilytä signature-fraasit lähes ennallaan ja 
 ne päivän aiheeseen. Tavoite: lukija tunnistaa äänen heti. (Pidä parodia
 hyväntahtoisena.)
 
-**Tee roast-versio JOKAISELLA hahmolla valittavaksi.** Kirjoita sama päivä
-kaikkien hahmojen äänellä (Claude + jokainen vierashahmo: Pasi, Virkkunen, Aki,
-Iltapäivälehden toimittaja, Sir David Atteporo, Pastori Gärderud) — sama
-faktapohja ja samat kohteet, eri ääni. Merkitse jokaiseen versioon hahmon nimi.
-Kaikkia koskevat samat säännöt (toiston välttäminen, kohteiden kierrätys,
-historiakaikut, yksityisyys, vain faktapaketin luvut). **Pidä versiot napakkoina
-luonnoksessa** (ne ovat vaihtoehtoja, ei lopullisia) — viimeistele vasta
-käyttäjän valitsema versio. Käyttäjä valitsee yhden hahmon (tai pyytää
+**Tee roast-versio JOKAISELLA hahmolla valittavaksi — rinnakkain sub-agenteilla.**
+Kirjoita sama päivä kaikkien hahmojen äänellä (Claude + jokainen vierashahmo:
+Pasi, Virkkunen, Aki, Iltapäivälehden toimittaja, Sir David Atteporo, Pastori
+Gärderud) — sama faktapohja ja samat kohteet, eri ääni.
+
+**Hajauta: spawnaa yksi sub-agentti per hahmo** (samassa viestissä rinnakkain).
+Anna jokaiselle sub-agentille sama brief:
+- päivän faktapaketti (tulokset, täysosumat/nollat, taulukkomuutokset, badget),
+- valitut 2–3 kohdetta + niiden historiakaikut (factpack + `history/`),
+- ko. hahmon ääniprofiili LORE.md:stä (verbatim-näytteet + tyylimerkit) ja ohje
+  hakea netistä tuoreita suoria sitaatteja (oikeat henkilöt) ja käyttää
+  tunnistettavia sanontoja melko tarkasti,
+- säännöt: suomi, yksityisyys (vain lyhytnimet), vain faktapaketin luvut, ei
+  lavaohjeita suluissa, napakka luonnos.
+Sub-agentti palauttaa yhden napakan roast-luonnoksen ko. hahmon äänellä.
+
+Kerää kaikki luonnokset, merkitse jokaiseen hahmon nimi, ja esitä käyttäjälle.
+**Pidä versiot napakkoina** (vaihtoehtoja, ei lopullisia) — viimeistele vasta
+käyttäjän valitsema. Käyttäjä valitsee yhden hahmon (tai pyytää
 yhdistelmää/muokkausta).
 
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
