@@ -182,8 +182,8 @@ pidä huoli että uusi teksti tuntuu tuoreelta:
 **Kirjoittajahahmo (`author`-kenttä).** Roastin kirjoittaa vaihtuva
 **hahmo**, jonka nimi näkyy sivulla roastin yllä. Hahmot ja äänet ovat
 [LORE.md](LORE.md):n "Roast-kirjoittajahahmot" -osiossa (**Claude** = talotyyli/
-oletus, Pasi Rautiainen, Tuomas Virkkunen, Iltapäivälehden toimittaja, Sir David
-[sukunimi], Pastori Gärderud…). **Kierrätä hahmoa päivittäin** — älä käytä samaa
+oletus, Pasi Rautiainen, Tuomas Virkkunen, Aki Riihilahti, Iltapäivälehden
+toimittaja, Sir David [sukunimi], Pastori Gärderud…). **Kierrätä hahmoa päivittäin** — älä käytä samaa
 hahmoa kahta päivää putkeen (sama logiikka kuin kohteiden kierrätyksessä). Yksi
 kolmesta versiosta voi aina olla **Claude** (talotyyli), kaksi muuta
 vierashahmoja.
