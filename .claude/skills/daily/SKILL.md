@@ -179,19 +179,22 @@ pidä huoli että uusi teksti tuntuu tuoreelta:
   välttäminen yllä) — eri pääkohde kuin edellisinä päivinä.
 - Lopetus: lyhyt kuittaus + piikki jollekulle (vaihda lopetuskaavaa päivittäin).
 
-**Tee kolme roast-versiota valittavaksi.** Esitä hyväksyntävaiheessa kolme
-vaihtoehtoa, joista käyttäjä valitsee yhden (tai pyytää yhdistelmää/muokkausta):
-- **A — talotyyli**: hyväksytty Comedy Central -rekisteri kuten avauspäivänä
-  (Jeff Ross / Greg Giraldo: terävät kielikuvat, standup-rytmi).
-- **B ja C — kaksi eri sävyä**: valitse päivän aiheeseen sopivat kaksi muuta
-  rekisteriä, esim. kuiva brittiläinen deadpan, urheiluselostaja-parodia,
-  mock-eeppinen/raamatullinen paatos, film noir -kertoja, tabloid-lööppi,
-  oikeussalidraama, luontodokumentti (Attenborough), hype-/battlerap. Sama
-  faktapohja ja samat kohteet, eri ääni. Pidä B ja C selvästi erottuvina A:sta
-  ja toisistaan.
-Kaikkia kolmea koskevat samat säännöt (toiston välttäminen, kohteiden kierrätys,
-yksityisyys, vain faktapaketin luvut). Pidä versiot napakkoina luonnoksessa;
-viimeistele valittu vasta valinnan jälkeen.
+**Kirjoittajahahmo (`author`-kenttä).** Roastin kirjoittaa vaihtuva
+**hahmo**, jonka nimi näkyy sivulla roastin yllä. Hahmot ja äänet ovat
+[LORE.md](LORE.md):n "Roast-kirjoittajahahmot" -osiossa (Pasi Rautiainen,
+Professori Poisson, Kioski-Reiska, Seiska-toimittaja Merilä, Sir David
+[sukunimi], Komisario Tasapeli, Pastori Penaltikko, Algoritmi…). **Kierrätä
+hahmoa päivittäin** — älä käytä samaa hahmoa kahta päivää putkeen (sama logiikka
+kuin kohteiden kierrätyksessä).
+
+**Tee kolme roast-versiota valittavaksi, kukin ERI hahmon äänellä.** Esitä
+hyväksyntävaiheessa kolme vaihtoehtoa eri hahmoilta, joista käyttäjä valitsee
+yhden (tai pyytää yhdistelmää/muokkausta). Valitse hahmot jotka sopivat päivän
+aiheeseen ja ovat selvästi erottuvia toisistaan; vältä viime päivien hahmoja.
+Sama faktapohja ja samat kohteet, eri ääni. Merkitse jokaiseen vaihtoehtoon
+hahmon nimi. Kaikkia koskevat samat säännöt (toiston välttäminen, kohteiden
+kierrätys, historiakaikut, yksityisyys, vain faktapaketin luvut). Pidä versiot
+napakkoina luonnoksessa; viimeistele valittu vasta valinnan jälkeen.
 
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
 lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän surkimus
@@ -221,22 +224,25 @@ jpeg:ksi (laatu 0.82) → `site/digest/<futispäivä>.jpg`, ja lisää digestiin
 
 ## 4. Hyväksyntä (PAKOLLINEN portti)
 
-Näytä katsaus + **kolme roast-versiota (A/B/C)** + mahdolliset lisäehdotukset
-käyttäjälle chatissa. Käyttäjä valitsee yhden roast-version (tai pyytää
-yhdistelmää/muokkausta). **ÄLÄ julkaise ennen eksplisiittistä hyväksyntää.**
-Iteroi kunnes hyväksytty; julkaise vain valittu roast.
+Näytä katsaus + **kolme roast-versiota eri hahmoilta** + mahdolliset
+lisäehdotukset käyttäjälle chatissa. Käyttäjä valitsee yhden roast-version (tai
+pyytää yhdistelmää/muokkausta). **ÄLÄ julkaise ennen eksplisiittistä
+hyväksyntää.** Iteroi kunnes hyväksytty; julkaise vain valittu roast ja sen
+hahmon nimi `author`-kenttään.
 
 ## 5. Julkaisu
 
 1. Lisää päivä `data/mm2026/digests.json` → `days`-objektiin:
    ```json
    "2026-06-12": { "label": "pe 12.6.", "covers": ["A2", "B1"],
+                   "author": "Pasi Rautiainen",
                    "badges": [{ "emoji": "🔮", "title": "Päivän Nostradamus",
                                 "name": "Kapa", "why": "perustelu lyhyesti" }],
                    "katsaus": "...", "roast": "..." }
    ```
    **`covers` on pakollinen**: faktapaketin `covers`-lista sellaisenaan — sen
    varassa seuraava ajo tietää mitkä ottelut on jo käsitelty.
+   `author` on valittu kirjoittajahahmo (näkyy roastin yllä); kierrätä päivittäin.
    `badges` on valinnainen (renderöityy katsauskortin loppuun): vakiot
    🔮 Päivän Nostradamus ja 🌧️ Päivän surkimus kun faktapaketista löytyy
    selvä voittaja/häviäjä; muita saa keksiä tilanteen mukaan.

@@ -62,3 +62,37 @@ MM2026:ssa. Kaikki alla lempinimillä — koko nimiä ei käytetä koskaan.
   2/4/8/15/30 p · sikajengi 8 p (tasatilanne 4 p) · maalintekijä 2 p/maali.
 - Avauspäivä 11.6.: MEX–RSA 2-0, kolme punaista korttia, 12/20 täysosumaa,
   kärjessä 12 veikkaajan ruuhka 3 pisteessä.
+
+## Roast-kirjoittajahahmot (author-kenttä)
+
+Roastilla on **vaihtuva kirjoittajahahmo** joka näkyy sivulla (`author`-kenttä).
+Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella oma
+ääni — sama faktapohja, eri rekisteri. Käytä hahmon nimeä `author`-kentässä.
+
+**Ydinkaarti:**
+- **Pasi Rautiainen** — suorapuheinen ex-ammattilaisasiantuntija (affektionäärinen
+  parodia). Värikkäät eläinvertaukset, "ja…ja…"-rönsyt, Saksa-/Bundesliiga-
+  pakkomielle, itseironia iästä ja vaimosta, toistot ("Paineita ja paineita!"),
+  perkele/jumalauta-huudahdukset, kuittaava lopetus ("Täysi vitsi"). Lämmin mutta
+  tuhoisa — ei aitoja loukkauksia, energia ja bluntti ovat juju.
+- **Professori Poisson** — kylmä tilastotieteilijä, halveksuu fiilispohjaa.
+  Lore-kytkös: hän on "Tilastovirasto" joka jahtaa Jypeä nimettynä vihollisena.
+- **Kioski-Reiska** — baaritiskin filosofi, rönsyilevä setä, "mä sanon vaan…",
+  appiukko-anekdootit, lämmin kaaos.
+- **Seiska-toimittaja Merilä** — juorulehden toimittaja: skandaalit, "läheinen
+  lähde kertoo", paljastukset, HUUTAVAT lööpit, melodraama.
+
+**Vaihtomiehet (erikoispäiviin, ettei kierto käy ennalta-arvattavaksi):**
+- **Sir David [sukunimi]** — luontodokumentin kuiskaava kertoja, tarkkailee
+  veikkaajia villieläiminä ("ja täällä, taulukon huipulla, näemme harvinaisen
+  Kapan…"). Sukunimi vaihtelee futis-sanaleikkinä: Sir David **Veikkenborough**,
+  Sir David **Maalinborough**, Sir David **Tasapeluri**, Sir David
+  **Offsideborough**, Sir David **Pilkkuborough**, Sir David **Kuponkiborough**.
+- **Komisario Tasapeli** — film noir -etsivä, sateinen monologi, jokainen huono
+  veto on rikos jota selvitetään.
+- **Pastori Penaltikko** — tulta ja tulikiveä, mock-raamatullinen tuomiopäivä.
+- **Algoritmi** — tietoisuuden saavuttanut tekoäly joka käyttää sen halveksuntaan
+  (meta-veto: koko digest on AI-tehty).
+
+Lisää hahmoja saa keksiä; suomalainen futisskene tarjoaa paljon parodioitavaa
+(asiantuntijat, selostajat, valmentajat). Pidä parodia hyväntahtoisena.

@@ -246,6 +246,7 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
 .pcard.roastcard{margin-top:10px;border-color:#5a3038;
   background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
 .pcard.roastcard .pchead{color:#e2706e}
+.rauthor{font-size:12.5px;font-style:italic;color:var(--muted);margin:-2px 0 9px;font-weight:600}
 .pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px;cursor:zoom-in}
 .badges{margin-top:12px;display:flex;flex-direction:column;gap:8px}
 .badge{display:flex;gap:10px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);
@@ -982,6 +983,7 @@ function renderDigests(box){
     if(d.roast){
       var r=el('div','pcard roastcard');
       r.appendChild(el('div','pchead','🔥 Päivän roast'));
+      if(d.author) r.appendChild(el('div','rauthor','✍️ '+d.author));
       r.appendChild(el('div','pctext',d.roast));
       if(d.image){
         var im=document.createElement('img');
