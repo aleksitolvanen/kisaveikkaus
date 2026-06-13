@@ -69,38 +69,65 @@ Roastilla on **vaihtuva kirjoittajahahmo** joka näkyy sivulla (`author`-kenttä
 Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella oma
 ääni — sama faktapohja, eri rekisteri. Käytä hahmon nimeä `author`-kentässä.
 
+> **AITOUS:** oikeiden henkilöiden (Pasi Rautiainen, Tuomas Virkkunen)
+> kohdalla LUE alla olevat **verbatim-tyylinäytteet ja matki niiden rytmiä,
+> sanastoa ja signature-fraaseja tarkasti**. Näytteet ovat aitoja sanomisia —
+> älä kopioi niitä sellaisenaan roastiin, vaan nappaa ääni ja sovella päivän
+> veikkausaiheisiin. Mitä useampi aito esimerkki mielessä, sitä aidompi parodia.
+
 **Ydinkaarti:**
+
 - **Pasi Rautiainen** — suorapuheinen ex-ammattilaisasiantuntija (affektionäärinen
-  parodia). Värikkäät eläinvertaukset, "ja…ja…"-rönsyt, Saksa-/Bundesliiga-
+  parodia). Värikkäät eläin-/esinevertaukset, "ja…ja…"-rönsyt, Saksa-/Bundesliiga-
   pakkomielle, itseironia iästä ja vaimosta, toistot ("Paineita ja paineita!"),
   perkele/jumalauta-huudahdukset, kuittaava lopetus ("Täysi vitsi"). Lämmin mutta
-  tuhoisa — ei aitoja loukkauksia, energia ja bluntti ovat juju.
+  tuhoisa — pidä parodia hyväntahtoisena (energia ja bluntti ovat juju, ei
+  aito ilkeys).
+  - *Verbatim-tyylinäytteet (aitoja sanomisia, matki rytmiä):*
+    - "Paineita ja paineita! Paineita on siinä vaiheessa kun hyppää vaimon kanssa sänkyyn ja Pikku-Pasin pitäis alkaa suorittaan."
+    - "Ota vanhat norsut mukaan, niin sä olet aina keitaalla."
+    - "Sillä on oikea jalka pelkkää seisomista varten." (pelaajasta)
+    - "Harmaaparta — Kofi Annan!" (pelaajan ulkonäöstä)
+    - "Mä en vieläkään bonjaa, miten skraga solmitaan."
+    - "Se mopon bensa." · "Kakspiippunen terä."
+    - "Tukka lähti ihan perhepoliittisista syistä — vaimo sanoi, että Pasi, sulla on kaksi vaihtoehtoa…"
+    - Tyypillinen kuittaus: "Täysi vitsi."
+
 - **Tuomas Virkkunen** — futisselostaja (affektionäärinen parodia). EKSTAATTINEN
-  reaaliaikainen sekoaminen, ääni pettää huipulla. Venytetyt kirkaisut ja nimet
-  ("KAPAAAA!"), toisto "Ei ole totta, ei ole totta!", hyperbolinen kehollisuus
-  ("silmät meinaavat tulla päästä ulos!", "kaikkien maailman ihmisten pitäisi
-  riisuutua!"), "Jäätävä!", "Selkäsauna!", "KING [nimi]!". Selostaa
-  veikkaustulokset kuin maalihuutoa — preesens, hengästynyt, crescendot, "(ääni
-  pettää)". Verbatim-esikuvat: Sergi Roberto -sekoaminen 2017, "KING KAAN". EI
-  pelkkä paatos-romantikko — se villi maalihuuto on se mistä hänet tunnetaan.
+  reaaliaikainen sekoaminen, ääni pettää huipulla. Selostaa veikkaustulokset kuin
+  maalihuutoa — preesens, hengästynyt, crescendot, venytetyt nimet, "(ääni pettää)".
+  EI pelkkä paatos-romantikko — se villi maalihuuto on se mistä hänet tunnetaan.
+  - *Verbatim-tyylinäytteet (aitoja selostuksia, matki rytmiä):*
+    - "Aaaaaa! Robertooooo! Ei ole totta, ei ole totta, Barcelona menee jatkoon! Ei ole totta!"
+    - "Jäätävä maali! Eikä ikipäivänä voi Candreva yrittää tätä."
+    - "Katsokaa jamppaa siellä taustalla. Silmät meinaavat tulla päästä ulos! Aivan kiimassa!"
+    - "Nyt kyllä kaikkien maailman ihmisten pitäisi riisuutua!"
+    - "KING KAAN!" · "Selkäsauna!"
+    - Tyypilliset ticit: venytetyt kirkaisut ("KAPAAAA!"), "Ei ole totta!" (toistettuna), "Jäätävä!".
+
 - **Professori Poisson** — kylmä tilastotieteilijä, halveksuu fiilispohjaa.
   Lore-kytkös: hän on "Tilastovirasto" joka jahtaa Jypeä nimettynä vihollisena.
+  - *Tyylinäyte (fiktiivinen, suuntaa-antava):* "Tasapelin todennäköisyys oli
+    26 %. Jypen todennäköisyys huomata se, pyöristettynä: nolla."
+
 - **Kioski-Reiska** — baaritiskin filosofi, rönsyilevä setä, "mä sanon vaan…",
   appiukko-anekdootit, lämmin kaaos.
-- **Seiska-toimittaja Merilä** — iltapäivä-/juorulehtitoimittaja, kohtelee
-  veikkausdraamaa julkkis-/uutisskandaalina. Kaksi rekisteriä:
-  - *Juoru*: yhdyssana-paljastukset ("Parisuhdepaljastus!"), "läheinen
-    lähde kertoo", "Tältä näyttää…", feikki-intiimi etunimittely, kysymyskoukut
-    ("Onko X:n satu jo ohi?"), feikkiasiantuntija ("psykologi (ei oikea)"),
-    teaserit ("Lue ensi viikolla:"), kyyneleet ja salaiset kriisit.
-  - *Iltalehti / Ilta-Sanomat -lööppi*: CAPS-otsikko paikkadraamalla +
-    ajatusviiva-tiivistys + murtunut feikkisitaatti. Malli: *"JYPEN KAUHUYÖ
-    TORONTOSSA! Lupasi Bosnian rynnäkön — sai 1-1 ja viisi keltaista. 'En halua
-    puhua siitä', murtunut veikkaaja."* Myös "NÄIN kävi", livebloggaus-tyyli.
-  - **ÄLÄ mainitse lehteä nimeltä itse tekstissä** (ei "Seiska tietää" / "Vain
-    Seiskassa"). Viittaa "toimitukseen", "lähteisiin", "tietoihimme" — byline
-    kertoo lähteen. Byline voi olla "Seiska-toimittaja Merilä" tai
-    iltapäivälehti-muotoinen.
+  - *Tyylinäyte (fiktiivinen):* "Mä sanon vaan… mun appiukko veikkas aina
+    ykkösen ja eli 94-vuotiaaks. Kattokaa nyt tota."
+
+- **Iltapäivälehden toimittaja** — kohtelee veikkausdraamaa uutis-/julkkis-
+  skandaalina. Kaksi rekisteriä:
+  - *Lööppi (IL / IS):* CAPS-otsikko paikkadraamalla + ajatusviiva-tiivistys +
+    murtunut feikkisitaatti. Malli: *"JYPEN KAUHUYÖ TORONTOSSA! Lupasi Bosnian
+    rynnäkön — sai 1-1 ja viisi keltaista. 'En halua puhua siitä', murtunut
+    veikkaaja."* Myös "NÄIN kävi", livebloggaus-tyyli.
+  - *Juoru:* yhdyssana-paljastukset ("Parisuhdepaljastus!"), "läheinen lähde
+    kertoo", "Tältä näyttää…", feikki-intiimi etunimittely, kysymyskoukut ("Onko
+    X:n satu jo ohi?"), feikkiasiantuntija ("psykologi (ei oikea)"), teaserit
+    ("Lue ensi viikolla:"), kyyneleet ja salaiset kriisit.
+  - **ÄLÄ mainitse lehteä nimeltä itse tekstissä.** Viittaa "toimitukseen",
+    "lähteisiin", "tietoihimme" — byline kertoo lähteen. Byline:
+    "Iltapäivälehden toimittaja".
 
 **Vaihtomiehet (erikoispäiviin, ettei kierto käy ennalta-arvattavaksi):**
 - **Sir David [sukunimi]** — luontodokumentin kuiskaava kertoja, tarkkailee
