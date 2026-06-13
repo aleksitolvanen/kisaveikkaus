@@ -247,6 +247,12 @@ table.matrix{border-collapse:separate;border-spacing:0;font-size:12px;font-varia
   background:linear-gradient(180deg,rgba(226,112,110,.07),rgba(226,112,110,0) 55%),var(--card)}
 .pcard.roastcard .pchead{color:#e2706e}
 .pcard .dimg{display:block;width:100%;height:auto;border-radius:8px;margin-top:12px;cursor:zoom-in}
+.badges{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.badge{display:flex;gap:10px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);
+  border-radius:9px;padding:8px 11px}
+.bemoji{font-size:20px;line-height:1.2}
+.btitle{font-weight:800;font-size:13px;color:var(--gold)}
+.bwhy{font-size:12px;color:var(--muted);margin-top:1px}
 .lightbox{position:fixed;inset:0;background:rgba(8,10,14,.96);z-index:100;display:flex;align-items:center;justify-content:center;
   touch-action:none;overscroll-behavior:contain}
 .lightbox img{max-width:100vw;max-height:100vh;object-fit:contain;will-change:transform}
@@ -959,6 +965,19 @@ function renderDigests(box){
     var k=el('div','pcard');
     k.appendChild(el('div','pchead','📋 Katsaus · '+(d.label||state.digestDay)));
     k.appendChild(el('div','pctext',d.katsaus||''));
+    if(d.badges && d.badges.length){
+      var bl=el('div','badges');
+      d.badges.forEach(function(b){
+        var row=el('div','badge');
+        row.appendChild(el('span','bemoji',b.emoji||'🏅'));
+        var bt=el('div','btxt');
+        bt.appendChild(el('div','btitle',(b.title||'')+': '+(b.name||'')));
+        if(b.why) bt.appendChild(el('div','bwhy',b.why));
+        row.appendChild(bt);
+        bl.appendChild(row);
+      });
+      k.appendChild(bl);
+    }
     holder.appendChild(k);
     if(d.roast){
       var r=el('div','pcard roastcard');
