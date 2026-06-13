@@ -207,7 +207,7 @@ kierrätys, historiakaikut, yksityisyys, vain faktapaketin luvut). Pidä versiot
 napakkoina luonnoksessa; viimeistele valittu vasta valinnan jälkeen.
 
 **Lisäjutut**: jos faktapaketista nousee jotain erityistä, EHDOTA käyttäjälle
-lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän surkimus
+lisäosioita luonnoksen yhteydessä — esim. Päivän Nostradamus / Päivän Oma Maali
 -badget, väliaikakatsaus ("viikko takana"), tilastonosto, erikoispäivävariantti.
 Käyttäjä päättää otetaanko mukaan.
 
@@ -254,7 +254,7 @@ hahmon nimi `author`-kenttään.
    varassa seuraava ajo tietää mitkä ottelut on jo käsitelty.
    `author` on valittu kirjoittajahahmo (näkyy roastin yllä); kierrätä päivittäin.
    `badges` on valinnainen (renderöityy katsauskortin loppuun): vakiot
-   🔮 Päivän Nostradamus ja 🌧️ Päivän surkimus kun faktapaketista löytyy
+   🔮 Päivän Nostradamus ja 🥅 Päivän Oma Maali kun faktapaketista löytyy
    selvä voittaja/häviäjä; muita saa keksiä tilanteen mukaan.
    Label-muoto: `"to 11.6. · avauspäivä"` (lisämääre vain erikoispäivinä).
    Kappalejaot `\n\n`:llä; ei markdownia (renderöidään pre-line-tekstinä).
