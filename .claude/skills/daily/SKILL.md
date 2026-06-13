@@ -1,5 +1,5 @@
 ---
-name: digest
+name: daily
 description: Luo Päivän katsaus + Päivän roast kisaveikkaus-sivulle pelipäivän päätyttyä. Laskee faktapaketin, hakee uutiset, kirjoittaa tekstit hyväksytyllä tyylillä, näyttää ne käyttäjälle hyväksyttäväksi ja julkaisee vasta hyväksynnän jälkeen.
 ---
 
