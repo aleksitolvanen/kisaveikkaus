@@ -106,12 +106,20 @@ historia ennen kirjoittamista:
   ("kolmas kerta kun ESP–ITA nöyryyttää sinua, etkö opi koskaan"). Etsi näitä
   aktiivisesti päivän missatuista matseista.
 
-**Panosta syvyyteen.** Älä tyydy pintaraapaisuun: tee päivän roastattavista
-oikeaa kaivaustyötä historiadatassa (factpack + `history/`-JSONit), ristiinaja
-useita kisoja, etsi toistuvia kuvioita ja täsmäkaikuja. Mitä tarkempi ja
-yllättävämpi historiafakta, sitä parempi vitsi. Voit käyttää sub-agentteja
-rinnakkaiseen kaivamiseen jos kohteita on monta. Sama koskee tilastojen
-tutkimista — syvä analyysi tuottaa terävämmän roastin kuin nopea silmäys.
+**Älä pysähdy factpackiin.** Factpack on vain TIIVISTELMÄ. Heti kun olet
+valinnut päivän roast-kohteet, **kaiva NIIDEN pelaajien oikeat vanhat veikkaukset
+suoraan `history/<tid>.json`-tietokannasta** (per-matsi `picks`) — sieltä löytyy
+täsmägold jota factpack ei näytä: sama joukkuepari veikattu väärin aiemmin, sama
+maa toistuvasti, sama tulospakkomielle, putoamis-/mestarivedot per ottelu.
+Esim.: kohde löytyi (Jype, 0-2 Bosnia) → grepaa `history/`-tiedostot Jypen
+Bosnia-/tasuri-/0-2-vedoista kaikilta kisoilta, älä tyydy factpackin laskureihin.
+
+**Panosta syvyyteen.** Tee päivän roastattavista oikeaa kaivaustyötä (factpack
+JA `history/`-JSONit), ristiinaja useita kisoja, etsi toistuvia kuvioita ja
+täsmäkaikuja. Mitä tarkempi ja yllättävämpi historiafakta, sitä parempi vitsi.
+Voit käyttää sub-agentteja rinnakkaiseen kaivamiseen jos kohteita on monta. Sama
+koskee tilastojen tutkimista — syvä analyysi tuottaa terävämmän roastin kuin
+nopea silmäys.
 
 Käytä historiatietoa myös **katsauksessa** maustamaan (esim. "Kapan paras
 sijoitus viiteen kisaan"), ei vain roastissa. Yksityisyys: molemmat lähteet ovat
@@ -192,10 +200,16 @@ kolmesta versiosta voi aina olla **Claude** (talotyyli), kaksi muuta
 vierashahmoja.
 
 **Oikeiden henkilöiden aitous:** kun käytät oikeaa henkilöä (Pasi Rautiainen,
-Tuomas Virkkunen), LUE hänen **verbatim-tyylinäytteensä LORE.md:stä** ja matki
-rytmiä, sanastoa ja signature-fraaseja tarkasti. Tavoite on että lukija
-tunnistaa äänen heti. Älä kopioi näytteitä sellaisenaan — nappaa ääni ja sovella
-päivän aiheisiin. (Pidä parodia hyväntahtoisena.)
+Tuomas Virkkunen, Aki Riihilahti), LUE hänen **verbatim-tyylinäytteensä
+LORE.md:stä** JA **hae joka kerta netistä tuoreita suoria sitaatteja**
+(WebSearch/WebFetch — esim. "Pasi Rautiainen sutkautukset", "Tuomas Virkkunen
+selostus") päivittääksesi ja varmistaaksesi äänen. **Käytä hahmon tunnistettavia
+sanontoja melko tarkasti** — ne ovat hahmon identiteetti ja juuri se mistä
+lukija tunnistaa hänet (esim. Pasin "Riittääkö taso?", Virkkusen "Ei ole totta!",
+Akin "Respect, aki" / recommend–do-not-recommend-lista). Älä kopioi kokonaisia
+näytteitä sellaisenaan, mutta säilytä signature-fraasit lähes ennallaan ja sovita
+ne päivän aiheeseen. Tavoite: lukija tunnistaa äänen heti. (Pidä parodia
+hyväntahtoisena.)
 
 **Tee kolme roast-versiota valittavaksi, kukin ERI hahmon äänellä.** Esitä
 hyväksyntävaiheessa kolme vaihtoehtoa eri hahmoilta, joista käyttäjä valitsee
