@@ -6,6 +6,11 @@
   "scripts": {
     "test": "node --test",
     "build": "node site.mjs",
-    "results": "node tools/random-results.mjs"
+    "results": "node tools/random-results.mjs",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.100.0"
   }
 }
