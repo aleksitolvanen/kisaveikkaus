@@ -9,6 +9,25 @@ Tuottaa kaksi tekstiä Analytiikka-sivun alkuun (`data/mm2026/digests.json`):
 **📋 Päivän katsaus** (asiallinen) ja **🔥 Päivän roast** (Comedy Central -henkinen).
 Prosessi on kolmivaiheinen: **faktat → luonnos käyttäjälle → julkaisu vasta hyväksynnän jälkeen.**
 
+## Pelipäivän määritelmä (LUE ENSIN)
+
+**Yksi "pelipäivä" = sen päivän ILLAN ottelu + sitä seuraavan YÖN ottelut.**
+MM2026:n matsit pelataan Amerikan illassa, mikä on Suomen iltaa ja yötä. Esim.
+13.6:n ohjelma on yksi 13.6 illan matsi (Suomen aikaa) + ~3 matsia samana yönä
+(Suomen aikaa varhain aamulla 14.6). **Kaikki nämä kuuluvat samaan digestiin,
+avaimella `2026-06-13`.**
+
+- **Aja `/daily` vasta kun yön ottelut on pelattu** — käytännössä seuraavana
+  aamuna Suomen aikaa (13.6:n digest ajetaan siis **14.6 aamulla**). Näin illan
+  ja yön matsit menevät yhteen ja samaan digestiin.
+- **Avain ja label tulevat OTTELUIDEN päivästä, ei ajopäivästä.** `day-facts`
+  laskee `day`-kentän käsiteltävien matsien futispäivästä (illan matsi
+  ankkurina), joten vaikka ajat digestin 14.6 aamulla, paketti palauttaa
+  `day: "2026-06-13"`. Käytä tätä avaimena; kirjoita label muotoon `"pe 13.6."`
+  — EI ajopäivää 14.6.
+- Pending-mode (alla) poimii automaattisesti kaikki ratkenneet käsittelemättömät
+  ottelut, joten illan + yön matsit niputtuvat oikein kun ajat aamulla.
+
 ## 1. Faktapaketti (deterministinen — AI ei keksi lukuja)
 
 ```bash
@@ -20,9 +39,10 @@ node tools/day-facts.mjs mm2026 2026-06-12     # tai tietty futispäivä
 
 - **Käytä pending-modea**: se lukee aiempien digestien `covers`-listat
   digests.json:sta ja palauttaa vain käsittelemättömät ratkenneet ottelut.
-  Näin ei haittaa, ajetaanko digest heti illan matsin jälkeen vai vasta
-  seuraavana päivänä — yön matsit tulevat automaattisesti seuraavaan ajoon.
-  Paketin `covers`-kenttä kopioidaan julkaisussa digestin `covers`-kenttään.
+  Aja se kerran per pelipäivä yön matsien jälkeen → illan + yön ottelut tulevat
+  yhteen pakettiin. Jos jokin matsi jäi vahingossa edellisestä digestistä, se
+  tulee automaattisesti mukaan seuraavaan. Paketin `day` ja `covers` kopioidaan
+  julkaisussa digestin vastaaviin kenttiin.
 - Jos `liveNow` ei ole tyhjä, jokin matsi on kesken — mainitse käyttäjälle ja
   ehdota odottamista tai matsin jättämistä seuraavaan digestiin.
 - Paketti sisältää: ottelut tuloksineen, täysosumat/suunnat/nollat per matsi,

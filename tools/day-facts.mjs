@@ -57,7 +57,7 @@ for (const m of dayGroup) {
   const res = (R.matches || {})[m.id] || null;
   const live = (R.live || {})[m.id] || null;
   const entry = { id: m.id, pair: m.home + "-" + m.away, names: tn(m.home) + " – " + tn(m.away),
-    result: res, liveNow: live, stadium: m.stadium, city: m.city };
+    kickoff: m.kickoff, result: res, liveNow: live, stadium: m.stadium, city: m.city };
   if (res) {
     const rows = names.map((n) => {
       const pick = (P[n].matches || {})[m.id] || null;
@@ -87,7 +87,7 @@ for (const m of dayGroup) {
   matches.push(entry);
 }
 for (const m of dayKo) {
-  matches.push({ id: m.id, pair: m.home + "-" + m.away, round: m.roundLabel,
+  matches.push({ id: m.id, pair: m.home + "-" + m.away, round: m.roundLabel, kickoff: m.kickoff,
     result: m.score || null, liveNow: m.liveScore || null, knockout: true });
 }
 
@@ -117,9 +117,16 @@ for (const n of names) {
 const sikaPicks = {};
 for (const n of names) { const s = P[n].sikajengi; if (s) (sikaPicks[s] = sikaPicks[s] || []).push(n); }
 
+// Label-päivä johdetaan KÄSITELTÄVISTÄ otteluista, EI ajohetkestä: ankkurina
+// aikaisin ratkennut ottelu (illan matsi), jolloin illan + sitä seuraavan yön
+// matsit saavat saman päivän vaikka digest ajetaan vasta seuraavana aamuna
+// Suomen aikaa (esim. 13.6:n ohjelma -> "2026-06-13" vaikka ajettu 14.6 aamulla).
+const decided = matches.filter((m) => m.result && m.kickoff).sort((a, b) => (a.kickoff < b.kickoff ? -1 : 1));
+const labelDay = day || (decided.length ? fDay(decided[0].kickoff) : fDay(new Date().toISOString()));
+
 console.log(JSON.stringify({
   mode: day ? "day" : "pending",
-  day: day || fDay(new Date().toISOString()),
+  day: labelDay,
   covers: matches.filter((m) => m.result).map((m) => m.id),   // -> digestin covers-kenttään
   liveNow: Object.keys(R.live || {}),
   matches, standings, goalscorerHits: gsHits, sikaPicks,
