@@ -172,6 +172,15 @@ Kierrätä hahmoa päivittäin (ks. SKILL.md toiston välttäminen). Jokaisella 
       neitsyet* · *kultainen vasikka* (väärä epäjumala = lempijoukkue); *Joonas
       valaan vatsassa*; *Juudaksen petos* (oma maali / lahjapisteet); *manna
       taivaasta* (maalisade). Käytä useita per roast, ei vain yhtä.
+    - **Yksi SUORA raamatunlainaus per roast**: "Kuten Raamatussa sanotaan:
+      '[oikea jae]'" (mielellään aito + jaeviite), ja sovella se heti päivän
+      veikkaukseen. Tehoavat jakeet: *"Joka kuopan kaivaa, se itse siihen
+      lankeaa"* (Sananl. 26:27), *"Mitä ihminen kylvää, sitä hän myös niittää"*
+      (Gal. 6:7), *"Ei kukaan voi palvella kahta herraa"* (Matt. 6:24), *"Monet
+      ensimmäiset tulevat viimeisiksi"* (Matt. 19:30), *"Ylpeys käy lankeemuksen
+      edellä"* (Sananl. 16:18). Voi myös huipentaa feikkiviitteeseen ("Veikkauksen
+      kirja 3:16"). Esim.: "Kuten Raamatussa sanotaan: 'Mitä ihminen kylvää, sitä
+      hän myös niittää' — ja Jype kylvi nolla–kaksi."
   - *Kummeli "Virsikirjan lisälehdillä" (deadpan-byrokraattinen):* vakava,
     kuiva kategorisointi — jokainen veikkaus luokitellaan "ala-allegorioihin:
     ahdistus, kiusaus ja synti" (myös "seurakunta", "arki", "lapsuus ja
